@@ -1,15 +1,15 @@
 #include<stdio.h>
 
-////C99 ±ê×¼ÖÐÒýÓÃÒ»¸ö¸ÅÄî£º±ä³¤Êý×é£¨Ö§³ÖÊý×é´´½¨µÄÊ±ºò£¬ÓÃ±äÁ¿Ö¸¶¨´óÐ¡µÄ£¬µ«ÊÇÕâ¸öÊý×é²»ÄÜ³õÊ¼»¯£©¡£
-////VS2019 ²»Ö§³ÖC99ÖÐµÄ±ä³¤Êý×é£¬ÈçÏÂ´úÂë¡£
+////C99 æ ‡å‡†ä¸­å¼•ç”¨ä¸€ä¸ªæ¦‚å¿µï¼šå˜é•¿æ•°ç»„ï¼ˆæ”¯æŒæ•°ç»„åˆ›å»ºçš„æ—¶å€™ï¼Œç”¨å˜é‡æŒ‡å®šå¤§å°çš„ï¼Œä½†æ˜¯è¿™ä¸ªæ•°ç»„ä¸èƒ½åˆå§‹åŒ–ï¼‰ã€‚
+////VS2019 ä¸æ”¯æŒC99ä¸­çš„å˜é•¿æ•°ç»„ï¼Œå¦‚ä¸‹ä»£ç ã€‚
 //int main()
 //{
 //	int n = 10;
-//	int arr[n] = { 0 };//ÌáÊ¾¡°n¡±ÐèÒªÎª³£Á¿Öµ¡£
+//	int arr[n] = { 0 };//æç¤ºâ€œnâ€éœ€è¦ä¸ºå¸¸é‡å€¼ã€‚
 //	return 0;
 //}
 
-////Ð´Ò»¸öº¯Êý£¬Êä³ö½Ï´óÖµ¡£
+////å†™ä¸€ä¸ªå‡½æ•°ï¼Œè¾“å‡ºè¾ƒå¤§å€¼ã€‚
 //int Max(int x, int y)
 //{
 //	if (x>y)
@@ -26,11 +26,11 @@
 //	int a = 0, b = 0;
 //	scanf_s("%d %d", &a,&b);
 //	int m = Max(a, b);
-//	printf("½Ï´óÖµÎª£º%d¡£",	m);
+//	printf("è¾ƒå¤§å€¼ä¸ºï¼š%dã€‚",	m);
 //	return 0;
 //}
 
-////Ì½¾¿static¡£
+////æŽ¢ç©¶staticã€‚
 //int Sum(int a)
 //{
 //	int c = 0;
@@ -49,56 +49,56 @@
 //}
 
 /*
-CÓïÑÔÊÇ½á¹¹»¯µÄ³ÌÐòÉè¼ÆÓïÑÔ£ºË³Ðò½á¹¹£¨¼´´ÓÍ·×ßµ½Î²£©¡¢Ñ¡Ôñ½á¹¹¡¢Ñ­»·½á¹¹¡£
-CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
-±¾ÏîÄ¿ÖØµã½éÉÜ¿ØÖÆÓï¾ä¡£
+Cè¯­è¨€æ˜¯ç»“æž„åŒ–çš„ç¨‹åºè®¾è®¡è¯­è¨€ï¼šé¡ºåºç»“æž„ï¼ˆå³ä»Žå¤´èµ°åˆ°å°¾ï¼‰ã€é€‰æ‹©ç»“æž„ã€å¾ªçŽ¯ç»“æž„ã€‚
+Cè¯­è¨€è¯­å¥å¯åˆ†ä¸ºä»¥ä¸‹äº”ç±»ï¼šè¡¨è¾¾å¼è¯­å¥ã€å‡½æ•°è°ƒç”¨è¯­å¥ã€æŽ§åˆ¶è¯­å¥ã€å¤åˆè¯­å¥ã€ç©ºè¯­å¥ã€‚
+æœ¬é¡¹ç›®é‡ç‚¹ä»‹ç»æŽ§åˆ¶è¯­å¥ã€‚
 */
 
 /*
-¿ØÖÆÓï¾äÓÃÓÚ¿ØÖÆ³ÌÐòµÄÖ´ÐÐÁ÷³Ì£¬ÒÔÊµÏÖ³ÌÐòµÄ¸÷ÖÖ½á¹¹·½Ê½£¬ËüÃÇÓÉÌØ¶¨µÄÓï¾ä¶¨Òå·û×é³É£¬CÓïÑÔÓÐÈçÏÂÈýÀà¹²¾ÅÖÖ¿ØÖÆÓï¾ä¡£
-1. Ìõ¼þÅÐ¶ÏÓï¾ä£¨·ÖÖ§Óï¾ä£©£ºifÓï¾ä¡¢switchÓï¾ä¡£
-2. Ñ­»·Ö´ÐÐÓï¾ä£ºdo whileÓï¾ä¡¢whileÓï¾ä¡¢forÓï¾ä¡£
-3. ×ªÏòÓï¾ä£ºbreakÓï¾ä¡¢gotoÓï¾ä¡¢continueÓï¾ä¡¢returnÓï¾ä¡£
+æŽ§åˆ¶è¯­å¥ç”¨äºŽæŽ§åˆ¶ç¨‹åºçš„æ‰§è¡Œæµç¨‹ï¼Œä»¥å®žçŽ°ç¨‹åºçš„å„ç§ç»“æž„æ–¹å¼ï¼Œå®ƒä»¬ç”±ç‰¹å®šçš„è¯­å¥å®šä¹‰ç¬¦ç»„æˆï¼ŒCè¯­è¨€æœ‰å¦‚ä¸‹ä¸‰ç±»å…±ä¹ç§æŽ§åˆ¶è¯­å¥ã€‚
+1. æ¡ä»¶åˆ¤æ–­è¯­å¥ï¼ˆåˆ†æ”¯è¯­å¥ï¼‰ï¼šifè¯­å¥ã€switchè¯­å¥ã€‚
+2. å¾ªçŽ¯æ‰§è¡Œè¯­å¥ï¼šdo whileè¯­å¥ã€whileè¯­å¥ã€forè¯­å¥ã€‚
+3. è½¬å‘è¯­å¥ï¼šbreakè¯­å¥ã€gotoè¯­å¥ã€continueè¯­å¥ã€returnè¯­å¥ã€‚
 */
 
-////ifÓï¾ä£ºÖÐÀÏÄêÅÐ¶ÏÆ÷
+////ifè¯­å¥ï¼šä¸­è€å¹´åˆ¤æ–­å™¨
 //int main()
 //{
 //	int age = 0;
 //	scanf_s("%d", &age);
 //
-//	//Èç¹û±í´ïÊ½µÄ½á¹ûÎªÕæ£¬ÔòÓï¾äÖ´ÐÐ¡£
-//	//±í´ïÊ½²»¿ÉÐ´³É¡°1<age<3¡±µÄÐÎÊ½£¬ÒòÎª»áÏÈÅÐ¶Ï¡°1<age¡±£¬Èôage=20£¬Ç°°ë¶ÎÅÐ¶Ï½á¹ûÎª¡°1£¨Õæ£©¡±£¬´úÈëµ½ºó°ë¶Î¡°1<3¡±±í´ïÊ½³ÉÁ¢£¬ÏÔÈ»²»ÕýÈ·¡££¨ÕýÈ·Ð´·¨¼û´úÂë£©
-//	//ÔÚCÓïÑÔÖÐ0±íÊ¾Îª¼Ù£¬·Ç0±íÊ¾ÎªÕæ(Èç-1±íÊ¾ÎªÕæ)¡£
+//	//å¦‚æžœè¡¨è¾¾å¼çš„ç»“æžœä¸ºçœŸï¼Œåˆ™è¯­å¥æ‰§è¡Œã€‚
+//	//è¡¨è¾¾å¼ä¸å¯å†™æˆâ€œ1<age<3â€çš„å½¢å¼ï¼Œå› ä¸ºä¼šå…ˆåˆ¤æ–­â€œ1<ageâ€ï¼Œè‹¥age=20ï¼Œå‰åŠæ®µåˆ¤æ–­ç»“æžœä¸ºâ€œ1ï¼ˆçœŸï¼‰â€ï¼Œä»£å…¥åˆ°åŽåŠæ®µâ€œ1<3â€è¡¨è¾¾å¼æˆç«‹ï¼Œæ˜¾ç„¶ä¸æ­£ç¡®ã€‚ï¼ˆæ­£ç¡®å†™æ³•è§ä»£ç ï¼‰
+//	//åœ¨Cè¯­è¨€ä¸­0è¡¨ç¤ºä¸ºå‡ï¼Œéž0è¡¨ç¤ºä¸ºçœŸ(å¦‚-1è¡¨ç¤ºä¸ºçœŸ)ã€‚
 //
-//	if (18 >= age)//À¨ºÅÄÚ¼´Îª±í´ïÊ½¡£
+//	if (18 >= age)//æ‹¬å·å†…å³ä¸ºè¡¨è¾¾å¼ã€‚
 //	{
-//		printf("ÉÙÄê\n");
+//		printf("å°‘å¹´\n");
 //	}
-//	else if (age > 18 && age <= 26)//else if£ºÈç¹ûÉÏÌõifÓï¾ä±í´ïÊ½ÅÐ¶ÏÎª0£¬ÔòÖ´ÐÐ´ËÌõifÓï¾ä¡£
+//	else if (age > 18 && age <= 26)//else ifï¼šå¦‚æžœä¸Šæ¡ifè¯­å¥è¡¨è¾¾å¼åˆ¤æ–­ä¸º0ï¼Œåˆ™æ‰§è¡Œæ­¤æ¡ifè¯­å¥ã€‚
 //	{
-//		printf("ÇàÉÙÄê\n");
+//		printf("é’å°‘å¹´\n");
 //	}
-//	else if (age > 26 && age <= 40)//elseµÄÆ¥Åä£ºelseÊÇºÍËüÀëµÄ×î½üµÄifÆ¥ÅäµÄ¡£
+//	else if (age > 26 && age <= 40)//elseçš„åŒ¹é…ï¼šelseæ˜¯å’Œå®ƒç¦»çš„æœ€è¿‘çš„ifåŒ¹é…çš„ã€‚
 //	{
-//		printf("ÖÐÄê\n");
+//		printf("ä¸­å¹´\n");
 //	}	
 //	else if (age > 40 && age <= 60)
 //	{
-//		printf("×³Äê\n");
+//		printf("å£®å¹´\n");
 //	}
 //	else if (age > 60 && age <= 100)
 //	{
-//		printf("ÀÏÄê\n");
+//		printf("è€å¹´\n");
 //	}
 //	else
 //	{
-//		printf("ÉñÏÉ\n");
+//		printf("ç¥žä»™\n");
 //	}
 //
-//	//´úÂëÊéÐ´·ç¸ñ£º²éÔÄ¸ßÖÊÁ¿C±à³ÌÖ¸ÄÏ»òGoogle±à³Ì¹æ·¶¡£
+//	//ä»£ç ä¹¦å†™é£Žæ ¼ï¼šæŸ¥é˜…é«˜è´¨é‡Cç¼–ç¨‹æŒ‡å—æˆ–Googleç¼–ç¨‹è§„èŒƒã€‚
 //	int num = 0;
-//	if (5==num)//¸ßÖÊÁ¿Ð´·¨£¬±ÜÃâ³ö´í£¨·ÀÖ¹ÉÙÐ´Ò»¸öµÈºÅ£©¡£
+//	if (5==num)//é«˜è´¨é‡å†™æ³•ï¼Œé¿å…å‡ºé”™ï¼ˆé˜²æ­¢å°‘å†™ä¸€ä¸ªç­‰å·ï¼‰ã€‚
 //	{
 //		return 0;
 //	}
@@ -106,7 +106,7 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	return 0;
 //}
 
-////ÅÐ¶ÏÒ»¸öÊýÊÇ·ñÎªÆæÊý
+////åˆ¤æ–­ä¸€ä¸ªæ•°æ˜¯å¦ä¸ºå¥‡æ•°
 //int main()
 //{
 //	int a = 0;
@@ -114,17 +114,17 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	
 //	if (a % 2 == 1)
 //	{
-//		printf("Õâ¸öÊýÊÇÆæÊý");
+//		printf("è¿™ä¸ªæ•°æ˜¯å¥‡æ•°");
 //	}
 //	else
 //	{
-//		printf("Õâ¸öÊý²»ÊÇÆæÊý");
+//		printf("è¿™ä¸ªæ•°ä¸æ˜¯å¥‡æ•°");
 //	}
 //
 //	return 0;
 //}
 
-////´òÓ¡1-100µÄÆæÊý
+////æ‰“å°1-100çš„å¥‡æ•°
 //int main()
 //{
 //	for (int i = 1; i < 100; i+=2)
@@ -134,39 +134,39 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	return 0;
 //}
 
-////switchÓï¾ä£º³£ÓÃÓÚ¶à·ÖÖ§Çé¿ö£»switchÔÊÐíÇ¶Ì×Ê¹ÓÃ¡£
+////switchè¯­å¥ï¼šå¸¸ç”¨äºŽå¤šåˆ†æ”¯æƒ…å†µï¼›switchå…è®¸åµŒå¥—ä½¿ç”¨ã€‚
 //int main()
 //{
 //	int day = 0;
 //	scanf("%d", &day);
 //	switch (day)
 //	{
-//	case 1://ÒªÇóÎªÕûÐÍ³£Á¿±í´ïÊ½¡£
-//		printf("ÐÇÆÚ1\n");
-//		break;//Ìø³ö¡£
+//	case 1://è¦æ±‚ä¸ºæ•´åž‹å¸¸é‡è¡¨è¾¾å¼ã€‚
+//		printf("æ˜ŸæœŸ1\n");
+//		break;//è·³å‡ºã€‚
 //	case 2:
-//		printf("ÐÇÆÚ2\n");
+//		printf("æ˜ŸæœŸ2\n");
 //		break;
 //	case 3:
-//		printf("ÐÇÆÚ3\n");
+//		printf("æ˜ŸæœŸ3\n");
 //		break;
 //	case 4:
-//		printf("ÐÇÆÚ4\n");
+//		printf("æ˜ŸæœŸ4\n");
 //		break;
 //	case 5:
-//		printf("ÐÇÆÚ5\n");
+//		printf("æ˜ŸæœŸ5\n");
 //		break;
 //	case 6:
-//		printf("ÐÇÆÚ6\n");
+//		printf("æ˜ŸæœŸ6\n");
 //		break;
 //	case 7:
-//		printf("ÐÇÆÚÌì\n");
+//		printf("æ˜ŸæœŸå¤©\n");
 //		break;
 //	}
 //	return 0;
 //}
 //
-//ÔÚ×îºóÒ»¸öcaseÓï¾äµÄºóÃæ¼ÓÉÏÒ»ÌõbreakÓï¾ä£¨Ö®ËùÒÔÕâÃ´Ð´ÊÇ¿ÉÒÔ±ÜÃâ³öÏÖÔÚÒÔÇ°µÄ×îºóÒ»¸öcaseÓï¾äºóÃæÍüÁËÌí¼ÓbreakÓï¾ä£©¡£
+//åœ¨æœ€åŽä¸€ä¸ªcaseè¯­å¥çš„åŽé¢åŠ ä¸Šä¸€æ¡breakè¯­å¥ï¼ˆä¹‹æ‰€ä»¥è¿™ä¹ˆå†™æ˜¯å¯ä»¥é¿å…å‡ºçŽ°åœ¨ä»¥å‰çš„æœ€åŽä¸€ä¸ªcaseè¯­å¥åŽé¢å¿˜äº†æ·»åŠ breakè¯­å¥ï¼‰ã€‚
 //
 //int main()
 //{
@@ -179,23 +179,23 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	case 3:
 //	case 4:
 //	case 5:
-//		printf("¹¤×÷ÈÕ\n");
+//		printf("å·¥ä½œæ—¥\n");
 //		break;
 //	case 6:
 //	case 7:
-//		printf("ÐÝÏ¢ÈÕ\n");
+//		printf("ä¼‘æ¯æ—¥\n");
 //		break;
-//	default://µ±switch±í´ïÊ½µÄÖµ²¢²»Æ¥ÅäËùÓÐcase±êÇ©µÄÖµÊ±£¬Õâ¸ödefault×Ó¾äºóÃæµÄÓï¾ä¾Í»áÖ´ÐÐ£»Î»ÖÃÎÞËùÎ½¡£
-//		printf("ÊäÈë´íÎó\n");
+//	default://å½“switchè¡¨è¾¾å¼çš„å€¼å¹¶ä¸åŒ¹é…æ‰€æœ‰caseæ ‡ç­¾çš„å€¼æ—¶ï¼Œè¿™ä¸ªdefaultå­å¥åŽé¢çš„è¯­å¥å°±ä¼šæ‰§è¡Œï¼›ä½ç½®æ— æ‰€è°“ã€‚
+//		printf("è¾“å…¥é”™è¯¯\n");
 //		break;
 //	}
 //	return 0;
 //}
 //
-//ÔÚÃ¿¸öswitchÓï¾äÖÐ¶¼·ÅÒ»Ìõdefault×Ó¾äÊÇ¸öºÃÏ°¹ß£¬ÉõÖÁ¿ÉÒÔÔÚºó±ßÔÙ¼ÓÒ»¸öbreak¡£
+//åœ¨æ¯ä¸ªswitchè¯­å¥ä¸­éƒ½æ”¾ä¸€æ¡defaultå­å¥æ˜¯ä¸ªå¥½ä¹ æƒ¯ï¼Œç”šè‡³å¯ä»¥åœ¨åŽè¾¹å†åŠ ä¸€ä¸ªbreakã€‚
 //
 
-////whileÓï¾ä
+////whileè¯­å¥
 //int main()
 //{
 //	int i = 1;
@@ -203,8 +203,8 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	{
 //		if (i==5)
 //		{
-//			continue;//Ìø¹ý±¾´ÎÑ­»·continueºó±ßµÄ´úÂë£¨Ö±½ÓÈ¥ÅÐ¶Ï²¿·Ö£¬¿´ÊÇ·ñ½øÐÐÏÂÒ»´ÎÑ­»·£©£ºÕâÊ±ºòiÒ»Ö±µÈÓÚ5ÁË¡£
-//			break;//ÓÀ¾ÃÖÕÖ¹Ñ­»·¡£
+//			continue;//è·³è¿‡æœ¬æ¬¡å¾ªçŽ¯continueåŽè¾¹çš„ä»£ç ï¼ˆç›´æŽ¥åŽ»åˆ¤æ–­éƒ¨åˆ†ï¼Œçœ‹æ˜¯å¦è¿›è¡Œä¸‹ä¸€æ¬¡å¾ªçŽ¯ï¼‰ï¼šè¿™æ—¶å€™iä¸€ç›´ç­‰äºŽ5äº†ã€‚
+//			break;//æ°¸ä¹…ç»ˆæ­¢å¾ªçŽ¯ã€‚
 //		}
 //		printf("%d ", i);
 //		i++;
@@ -212,13 +212,13 @@ CÓïÑÔÓï¾ä¿É·ÖÎªÒÔÏÂÎåÀà£º±í´ïÊ½Óï¾ä¡¢º¯Êýµ÷ÓÃÓï¾ä¡¢¿ØÖÆÓï¾ä¡¢¸´ºÏÓï¾ä¡¢¿ÕÓï¾ä¡£
 //	return 0;
 //}
 
-////getchar£º´Ó»º³åÇø¶ÁÈ¡×Ö·û£¬¼üÅÌÊäÈë×Ö·ûµ½»º³åÇø£¬Êµ¼ÊÉÏ¼üÅÌÊäÈë¡±A\n¡°£¬µÚÒ»´ÎgetcharÄÃµ½A£¬µÚ¶þ´ÎÄÃµ½\n¡£
+////getcharï¼šä»Žç¼“å†²åŒºè¯»å–å­—ç¬¦ï¼Œé”®ç›˜è¾“å…¥å­—ç¬¦åˆ°ç¼“å†²åŒºï¼Œå®žé™…ä¸Šé”®ç›˜è¾“å…¥â€A\nâ€œï¼Œç¬¬ä¸€æ¬¡getcharæ‹¿åˆ°Aï¼Œç¬¬äºŒæ¬¡æ‹¿åˆ°\nã€‚
 //int main()
 //{
 //	int ch = 0;
-//	while ((ch = getchar()) != EOF)//getchar£º´Ó¼üÅÌ»ñÈ¡Ò»¸ö×Ö·û£¨ascillÂëÖµ£©£¬ËùÒÔ´æ´¢ÎªÕûÐÍ£»EOF£º¶Áµ½´íÎó»òÎÄ¼þ½áÊø±êÖ¾£¬ÓÒ¼ü×ªµ½¶¨Òå·¢ÏÖÊÇ¡°-1¡±¡£
+//	while ((ch = getchar()) != EOF)//getcharï¼šä»Žé”®ç›˜èŽ·å–ä¸€ä¸ªå­—ç¬¦ï¼ˆascillç å€¼ï¼‰ï¼Œæ‰€ä»¥å­˜å‚¨ä¸ºæ•´åž‹ï¼›EOFï¼šè¯»åˆ°é”™è¯¯æˆ–æ–‡ä»¶ç»“æŸæ ‡å¿—ï¼Œå³é”®è½¬åˆ°å®šä¹‰å‘çŽ°æ˜¯â€œ-1â€ã€‚
 //	{
-//		putchar(ch);//putchar£ºÊä³öÒ»¸ö×Ö·û¡£
+//		putchar(ch);//putcharï¼šè¾“å‡ºä¸€ä¸ªå­—ç¬¦ã€‚
 //	}
 //	return 0;
 //}

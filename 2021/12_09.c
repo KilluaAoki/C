@@ -62,7 +62,7 @@
 //{
 //	if (*arr != '\0')
 //	{
-//		return 1 + my_strlen(arr + 1);
+//		return 1 + my_strlen(arr + 1);//不建议使用++。
 //	}
 //	else
 //	{

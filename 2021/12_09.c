@@ -26,21 +26,21 @@
 //}
 
 ////接收一个无符号整型值，按照输入顺序打印它的每一位。
-	//void print(unsigned int num)
-	//{
-	//	if (num > 9)
-	//	{
-	//		print(num / 10);//使用递归。
-	//	}
-	//	printf("%u ", num % 10);
-	//}
-	//int main()
-	//{
-	//	unsigned int num = 0;//定义一个无符号整型值。
-	//	scanf_s("%u", &num);//%u：无符号的10进制整数。
-	//	print(num);//调用自定义print函数。
-	//	return 0;
-	//}
+//void print(unsigned int num)
+//{
+//	if (num > 9)
+//	{
+//		print(num / 10);//使用递归。
+//	}
+//	printf("%u ", num % 10);
+//}
+//int main()
+//{
+//	unsigned int num = 0;//定义一个无符号整型值。
+//	scanf_s("%u", &num);//%u：无符号的10进制整数。
+//	print(num);//调用自定义print函数。
+//	return 0;
+//}
 
 ////满足递归的两个条件，但分配空间过大导致栈溢出（Stack overflow）。
 //void test(int a)

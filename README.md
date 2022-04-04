@@ -1,10 +1,10 @@
 # C语言代码存放库
-1.2022-Tic_Tac_Toe:
+1.Project-Tic_Tac_Toe:
 
     a.未加入难度调节。
     b.未加入算法"Minimax"&"Alpha Beta"。
     
-2.2022-Minesweeper:
+2.Project-Minesweeper:
 
     a.未加入难度调节。
     b.未实现自动展开。

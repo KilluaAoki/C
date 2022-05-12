@@ -1,4 +1,7 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <Windows.h>
 
 /*
 	字符指针
@@ -187,4 +190,588 @@
 //	int(*arrpaarr2[1])[3][5] = { paarr2 };
 //
 //	return 0;
+//}
+
+/*
+	函数指针：用于存放函数的地址，指向的是函数。
+		1.使用"&"操作符取出函数的地址等价于函数名表示函数的地址(不同于数组)。
+		2.函数指针变量名等价于函数名，通过函数名调用函数也等价于通过函数指针变量名调用函数。
+*/
+
+////创建函数指针并通过函数指针调用函数示例
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//void Test(char* str)
+//{
+//	;
+//}
+//int main()
+//{
+//	//创建函数指针示例
+//	int (*pAdd)(int, int) = &Add;//"pAdd"：指向返回值类型为"int"，并且参数类型为"(int, int)"的函数的指针；"&Add"等价于"Add"；
+//	void (*pTest)(char*) = &Test;//"pTest"：指向返回值类型为"void"，并且参数类型为"(char*)"的函数的指针；"&Test"等价于"Test"；
+//	
+//	//通过函数指针调用函数示例(如下代码等价)
+//	printf("%d\n", Add(2, 3));//通过函数名调用函数"Add"。
+//	printf("%d\n", (*pAdd)(2, 3));//通过函数指针调用函数：对指针"pAdd"进行解引用，找到函数并传递参数，获取返回值再打印出来。
+//	printf("%d\n", pAdd(2, 3));//通过函数指针调用函数：因"&Add"等价于"Add"，故"Add"等价于"pAdd"，故通过函数名调用函数"Add(2, 3)"等价于"pAdd(2, 3)"。
+//	
+//	return 0;
+//}
+
+////两段有趣的代码
+//int main()
+//{
+//	//第一段
+//	(*(void (*)())0)();
+//	//将"0"强制类型转换为函数指针类型，其中返回值为"void"、接收参数为"()"，此时"0"被解释为一个函数地址。
+//	//通过"*(void (*)())0"对"0"地址进行解引用操作。
+//	//通过"(*(void(*)())0)()"对"0"地址处的函数进行调用。
+//
+//	//第二段
+//	void (*signal(int, void(*)(int)))(int);
+//	//"signal"先与后面的括号进行结合，说明"signal"是函数
+//	//"signal"函数的参数类型为"(int, void(*)(int))"，说明参数类型一个为整型一个为函数指针，其中参数类型中的函数指针的返回值类型为"void"，参数类型为整型。
+//	//去除"signal(int, void(*)(int))"即为"signal"函数的返回值类型。
+//	//"signal"函数的返回值类型为函数指针，其中函数指针的返回值类型为"void"，参数类型为"int"。
+//
+//	//第二段Plus版
+//	typedef void(*pfun_t)(int);//对"void(*)(int)"的函数指针类型重命名为"pfun_t"。
+//	pfun_t signal(int, pfun_t);
+//
+//	return 0;
+//}
+
+/*
+	函数指针数组：本质上是数组，用于存放函数指针，也就是存放函数的地址。
+*/
+
+////创建函数指针数组示例
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//int main()
+//{
+//	int (*pAdd)(int, int) = &Add;
+//	int (*pSub)(int, int) = &Sub;
+//	int (*parr[2])(int, int) = { pAdd,pSub };//将"parr[2]"去掉即是数组存放的元素类型，故此数组存放的是函数指针。
+//	return 0;
+//}
+
+////计算器
+//void Menu()
+//{
+//	printf("**************************************\n");
+//	printf("**********   1.Add  2.Sub   **********\n");
+//	printf("**********   3.Mul  4.Div   **********\n");
+//	printf("**********      0.Exit      **********\n");
+//	printf("**************************************\n");
+//}
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+//int main()
+//{
+//	int input = 0, x = 0, y = 0;
+//	do
+//	{
+//		Menu();
+//		printf("Please Enter>>");
+//		scanf_s("%d", &input);
+//		switch (input)
+//		{
+//		case 1:
+//			printf("请输入两个正整数>>");
+//			scanf_s("%d %d", &x, &y);
+//			printf("%d\n", Add(x, y));
+//			break;
+//		case 2:
+//			printf("请输入两个正整数>>");
+//			scanf_s("%d %d", &x, &y);
+//			printf("%d\n", Sub(x, y));
+//			break;
+//		case 3:
+//			printf("请输入两个正整数>>");
+//			scanf_s("%d %d", &x, &y);
+//			printf("%d\n", Mul(x, y));
+//			break;
+//		case 4:
+//			printf("请输入两个正整数>>");
+//			scanf_s("%d %d", &x, &y);
+//			printf("%d\n", Div(x, y));
+//			break;
+//		case 0:
+//			printf("Exit!");
+//			break;
+//		default:
+//			printf("Input Error,Please Enter Again!\n");
+//			break;
+//		}
+//		if (input)
+//		{
+//			system("pause");
+//			system("cls");
+//		}
+//	} while (input);
+//	return 0;
+//}
+
+////计算器(利用函数指针数组实现)
+//void Menu()
+//{
+//	printf("**************************************\n");
+//	printf("**********   1.Add  2.Sub   **********\n");
+//	printf("**********   3.Mul  4.Div   **********\n");
+//	printf("**********      0.Exit      **********\n");
+//	printf("**************************************\n");
+//}
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+//int main()
+//{
+//	int input = 0, x = 0, y = 0;
+//	int (*arrptr[5])(int, int) = { NULL,Add,Sub,Mul,Div };
+//	do
+//	{
+//		Menu();
+//		printf("Please Enter>>");
+//		scanf_s("%d", &input);
+//		if (input >= 1 && input <= 4)
+//		{
+//			printf("请输入两个正整数>>");
+//			scanf_s("%d %d", &x, &y);
+//			printf("%d\n", arrptr[input](x, y));
+//			system("pause");
+//			system("cls");
+//		}
+//		else if (input == 0)
+//		{
+//			printf("Exit!");
+//		}
+//		else
+//		{
+//			printf("Input Error,Please Enter Again!\n");
+//			system("pause");
+//			system("cls");
+//		}
+//	} while (input);
+//	return 0;
+//}
+
+////指向函数指针数组的指针示例
+//void test(int x, int y)
+//{
+//	;
+//}
+//int main()
+//{
+//	void (*p)(int, int) = test;
+//	void (*arrp[1])(int, int) = { p };
+//	void(*(*parrp)[1])(int, int) = { &arrp };
+//	return 0;
+//}
+
+/*
+	回调函数：通过函数指针调用的函数。
+		1.将函数的指针(地址)作为参数传递给另一个函数，当这个指针被用来调用其所指向的函数时，我们就说这是回调函数。
+		2.回调函数不是由该函数的实现方直接调用，而是在特定的事件或条件发生时由另外一方进行调用，用于对该事件或条件进行响应。
+*/
+
+////计算器(利用回调函数实现)
+//void Menu()
+//{
+//	printf("**************************************\n");
+//	printf("**********   1.Add  2.Sub   **********\n");
+//	printf("**********   3.Mul  4.Div   **********\n");
+//	printf("**********      0.Exit      **********\n");
+//	printf("**************************************\n");
+//}
+//int Add(int x, int y)
+//{
+//	return x + y;
+//}
+//int Sub(int x, int y)
+//{
+//	return x - y;
+//}
+//int Mul(int x, int y)
+//{
+//	return x * y;
+//}
+//int Div(int x, int y)
+//{
+//	return x / y;
+//}
+//int Calc(int(*ptr)(int, int))
+//{
+//	int x = 0, y = 0;
+//	printf("请输入两个正整数>>");
+//	scanf_s("%d %d", &x, &y);
+//	return ptr(x, y);
+//}
+//int main()
+//{
+//	int input = 0;
+//	do
+//	{
+//		Menu();
+//		printf("Please Enter>>");
+//		scanf_s("%d", &input);
+//		switch (input)
+//		{
+//		case 1:
+//			printf("%d\n", Calc(Add));
+//			break;
+//		case 2:
+//			printf("%d\n", Calc(Sub));
+//			break;
+//		case 3:
+//			printf("%d\n", Calc(Mul));
+//			break;
+//		case 4:
+//			printf("%d\n", Calc(Div));
+//			break;
+//		case 0:
+//			printf("Exit!");
+//			break;
+//		default:
+//			printf("Input Error,Please Enter Again!\n");
+//			break;
+//		}
+//		if (input) 
+//		{
+//			system("pause");
+//			system("cls");
+//		}
+//	} while (input);
+//	return 0;
+//}
+
+////使用冒泡排序，将整型数组排列为升序。
+//void Bubble_Sort(int arr[], int size)
+//{
+//	for (int i = 0; i < size - 1; i++)
+//	{
+//		for (int j = 0; j < size - 1 - i; j++)
+//		{
+//			if (arr[j] > arr[j + 1])
+//			{
+//				int tmp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[j + 1] = tmp;
+//			}
+//		}
+//	}
+//}
+//void print(int arr[], int size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//int main()
+//{
+//	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	print(arr, size);
+//	Bubble_Sort(arr,size);
+//	print(arr, size);
+//	return 0;
+//}
+
+/*
+	"qsort"函数：对数组元素进行排序。
+		1.头文件为"stdlib.h"。
+		1.函数声明：void qsort(void* base, size_t num, size_t size, int (*compar)(const void*,const void*));。
+			a.函数头"void"表示此函数无返回值。
+			b.函数参数"void* base"：无类型指针，可接收任意类型的指针变量，类似垃圾桶；在此函数中表示指向要排序的数组的第一个对象的指针，并转换为"void*"类型。
+			c.函数参数"size_t num"：无符号整数类型；在此函数中表示数组中由"base"指向的元素个数。
+			d.函数参数"size_t size"：无符号整数类型；在此函数中表示数组中每个元素的大小(以字节为单位)。
+			e.函数参数"int (*compar)(const void*,const void*)"：整型函数指针；此函数指针用于指向比较两个元素的函数，这个函数被"qsort"调用，故为回调函数。
+		2."qsort"函数参数中"compar"函数指针指向的函数声明：int compar(const void* p1, const void* p2);。
+			a.函数头"int"表示此函数返回值类型为整型。
+			b.函数参数"const void* p1"&"const void* p2"：将两个指针作为参数，并转换为由"const"修饰的"void*"类型(const void*)。
+		3."compar"函数指针指向的函数的返回值设计：该函数通过返回(以稳定和传递的方式)定义元素的顺序。(函数参数变量名声明见上)
+			a.若返回值"<0"，则表明"p1"指向的元素在"p2"指向的元素之前。
+			d.若返回值"=0"，则表明"p1"指向的元素等价于"p2"指向的元素。
+			c.若返回值">0"，则表明"p1"指向的元素在"p2"指向的元素之后。
+*/
+
+////使用"qsort"函数，将整型数组排列为升序。
+//void print(int arr[], int size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//int compar(const void* p1, const void* p2)
+//{
+//	return *(int*)p1 - *(int*)p2;
+//}
+//int main()
+//{
+//	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	print(arr, size);
+//	qsort(arr, size, sizeof(arr[0]), compar);
+//	print(arr, size);
+//	return 0;
+//}
+
+////使用"qsort"函数，将结构体数据进行排序。(调试观察)
+//struct Student
+//{
+//	char name[20];
+//	int age;
+//};
+//int compar_name(const void* p1, const void* p2)
+//{
+//	return strcmp(((struct Student*)p1)->name, ((struct Student*)p2)->name);
+//}
+//int compar_age(const void* p1, const void* p2)
+//{
+//	return ((struct Student*)p1)->age - ((struct Student*)p2)->age;
+//}
+//int main()
+//{
+//	struct Student arr[6] = { {"A",19},{"X",21},{"B",20},{"Y",19},{"C",18},{"Z",20} };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	qsort(arr, size, sizeof(arr[0]), compar_name);//按照名字进行排序。
+//	qsort(arr, size, sizeof(arr[0]), compar_age);//按照年龄进行排序。
+//	return 0;
+//}
+
+////模仿"qsort"函数改造冒泡排序，并实现将整型数组排列为升序。
+//void Print(int arr[], int size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//void Swap(char* p1, char* p2, size_t size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		char tmp = *p1;
+//		*p1 = *p2;
+//		*p2 = tmp;
+//		p1++, p2++;
+//	}
+//}
+//int Compar_Int(const void* p1, const void* p2)
+//{
+//	return *(int*)p1 - *(int*)p2;
+//}
+//void Bubble_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
+//{
+//	for (int i = 0; i < num - 1; i++)
+//	{
+//		for (int j = 0; j < num - 1 - i; j++)
+//		{
+//			if (compar((char*)base + j * size, (char*)base + (j + 1) * size) > 0)
+//			{
+//				Swap((char*)base + j * size, (char*)base + (j + 1) * size, size);
+//			}
+//		}
+//	}
+//}
+//void Int_Arr_Sort()
+//{
+//	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	Print(arr, size);
+//	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Int);
+//	Print(arr, size);
+//}
+//int main()
+//{
+//	Int_Arr_Sort();
+//	return 0;
+//}
+
+////模仿"qsort"函数改造冒泡排序，并实现将结构体数据进行排序。(调试观察)
+//struct Student
+//{
+//	char name[20];
+//	int age;
+//};
+//void Swap(char* p1, char* p2, size_t size)
+//{
+//	for (int i = 0; i < size; i++)
+//	{
+//		char tmp = *p1;
+//		*p1 = *p2;
+//		*p2 = tmp;
+//		p1++, p2++;
+//	}
+//}
+//int Compar_Name(const void* p1, const void* p2)
+//{
+//	return strcmp(((struct Student*)p1)->name, ((struct Student*)p2)->name);
+//}
+//int Compar_Age(const void* p1, const void* p2)
+//{
+//	return ((struct Student*)p1)->age - ((struct Student*)p2)->age;
+//}
+//void Bubble_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
+//{
+//	for (int i = 0; i < num - 1; i++)
+//	{
+//		for (int j = 0; j < num - 1 - i; j++)
+//		{
+//			if (compar((char*)base + j * size, (char*)base + (j + 1) * size) > 0)
+//			{
+//				Swap((char*)base + j * size, (char*)base + (j + 1) * size, size);
+//			}
+//		}
+//	}
+//}
+//void Structure_Name_Sort(struct Student arr[],int size)
+//{
+//	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Name);
+//}
+//void Structure_Age_Sort(struct Student arr[],int size)
+//{
+//	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Age);
+//}
+//int main()
+//{
+//	struct Student arr[] = { {"Acb",19},{"Xxx",21},{"Bbb",20},{"Yyy",19},{"Ccc",18},{"Zzz",20},{"Abc",22} };
+//	int size = sizeof(arr) / sizeof(arr[0]);
+//	Structure_Name_Sort(arr, size);
+//	Structure_Age_Sort(arr, size);
+//	return 0;
+//}
+
+/*
+	"sizeof"和"strlen"相关习题
+		a.使用"sizeof"计算数组大小中的数组名表示的是整个数组，计算的是数组中所有元素的大小总和，单位是字节。
+		b.使用"&"操作符取出数组名的地址，取出的是整个数组的地址，其地址指向的位置依然是数组的首元素，但自增操作代表的是越过整个数组。
+*/
+
+////"sizeof"和"strlen"相关习题
+//int main()
+//{
+//	////整型数组
+//	//int a[] = { 1,2,3,4 };
+//	//printf("%zd\n", sizeof(a));//16
+//	//printf("%zd\n", sizeof(a + 0));//4/8
+//	//printf("%zd\n", sizeof(*a));//4
+//	//printf("%zd\n", sizeof(a + 1));//4/8
+//	//printf("%zd\n", sizeof(a[1]));//4
+//	//printf("%zd\n", sizeof(&a));//4/8
+//	//printf("%zd\n", sizeof(*&a));//16
+//	//printf("%zd\n", sizeof(&a + 1));//4/8
+//	//printf("%zd\n", sizeof(&a[0]));//4/8
+//	//printf("%zd\n", sizeof(&a[0] + 1));//4/8
+//	//printf("\n");
+//	
+//	////字符数组
+//	//char arr1[] = { 'a','b','c','d','e','f' };
+//	//printf("%zd\n", sizeof(arr1));//6
+//	//printf("%zd\n", sizeof(arr1 + 0));//4/8
+//	//printf("%zd\n", sizeof(*arr1));//1
+//	//printf("%zd\n", sizeof(arr1[1]));//1
+//	//printf("%zd\n", sizeof(&arr1));//4/8
+//	//printf("%zd\n", sizeof(&arr1 + 1));//4/8
+//	//printf("%zd\n", sizeof(&arr1[0] + 1));//4/8
+//	//printf("%zd\n", strlen(arr1));//随机值
+//	//printf("%zd\n", strlen(arr1 + 0));//随机值
+//	////printf("%zd\n", strlen(*arr1));//err
+//	////printf("%zd\n", strlen(arr1[1]));//err
+//	//printf("%zd\n", strlen(&arr1));//随机值
+//	//printf("%zd\n", strlen(&arr1 + 1));//随机值-6
+//	//printf("%zd\n", strlen(&arr1[0] + 1));//随机值-1
+//	//printf("\n");
+//
+//	////字符串数组
+//	//char arr2[] = "abcdef";
+//	//printf("%zd\n", sizeof(arr2));//7
+//	//printf("%zd\n", sizeof(arr2 + 0));//4/8
+//	//printf("%zd\n", sizeof(*arr2));//1
+//	//printf("%zd\n", sizeof(arr2[1]));//1
+//	//printf("%zd\n", sizeof(&arr2));//4/8
+//	//printf("%zd\n", sizeof(&arr2 + 1));//4/8
+//	//printf("%zd\n", sizeof(&arr2[0] + 1));//4/8
+//	//printf("%zd\n", strlen(arr2));//6
+//	//printf("%zd\n", strlen(arr2 + 0));//6
+//	////printf("%zd\n", strlen(*arr2));//err
+//	////printf("%zd\n", strlen(arr2[1]));//err
+//	//printf("%zd\n", strlen(&arr2));//6
+//	//printf("%zd\n", strlen(&arr2 + 1));//随机值
+//	//printf("%zd\n", strlen(&arr2[0] + 1));//5
+//	//printf("\n");
+//	
+//	////字符指针
+//	//char* p = "abcdef";
+//	//printf("%zd\n", sizeof(p));//4/8
+//	//printf("%zd\n", sizeof(p + 1));//4/8
+//	//printf("%zd\n", sizeof(*p));//1
+//	//printf("%zd\n", sizeof(p[0]));//1
+//	//printf("%zd\n", sizeof(&p));//4/8
+//	//printf("%zd\n", sizeof(&p + 1));//4/8
+//	//printf("%zd\n", sizeof(&p[0] + 1));//4/8
+//	//printf("%zd\n", strlen(p));//6
+//	//printf("%zd\n", strlen(p + 1));//5
+//	////printf("%zd\n", strlen(*p));//err
+//	////printf("%zd\n", strlen(p[0]));//err
+//	//printf("%zd\n", strlen(&p));//6
+//	//printf("%zd\n", strlen(&p + 1));//随机值
+//	//printf("%zd\n", strlen(&p[0] + 1));//5
+//	//printf("\n");
+//
+//	////二维数组
+//	//int a[3][4] = { 0 };
+//	//printf("%zd\n", sizeof(a));//48
+//	//printf("%zd\n", sizeof(a[0][0]));//4
+//	//printf("%zd\n", sizeof(a[0]));//16
+//	//printf("%zd\n", sizeof(a[0] + 1));//4/8
+//	//printf("%zd\n", sizeof(*(a[0] + 1)));//4
+//	//printf("%zd\n", sizeof(a + 1));//4/8
+//	//printf("%zd\n", sizeof(*(a + 1)));//16
+//	//printf("%zd\n", sizeof(&a[0] + 1));//4/8
+//	//printf("%zd\n", sizeof(*(&a[0] + 1)));//16
+//	//printf("%zd\n", sizeof(*a));//16
+//	//printf("%zd\n", sizeof(a[3]));//16
+//	//printf("\n");
 //}

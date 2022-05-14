@@ -775,3 +775,96 @@
 //	//printf("%zd\n", sizeof(a[3]));//16
 //	//printf("\n");
 //}
+
+/*
+	指针笔试例题：以下例题请使用32位解决方案平台下运行。
+*/
+
+////指针笔试题例一：程序输出的结果是什么？
+//int main()
+//{
+//	int a[5] = { 1, 2, 3, 4, 5 };
+//	int* ptr = (int*)(&a + 1);
+//	printf("%d\n", *(a + 1));//2
+//	printf("%d\n", *(ptr - 1));//5
+//	return 0;
+//}
+
+////指针笔试题例二：在32位平台下，已知结构体"Test"类型的变量大小是20个字节，假设"p"的值为"0x100000"，程序输出的结果是什么？
+//struct Test
+//{
+//	int Num;
+//	char* pcName;
+//	short sDate;
+//	char cha[2];
+//	short sBa[4];
+//}*p;
+//int main()
+//{
+//	printf("%p\n", p + 0x1);//0x100014
+//	printf("%p\n", (unsigned long)p + 0x1);//0x100001
+//	printf("%p\n", (unsigned int*)p + 0x1);//0x100004
+//	return 0;
+//}
+
+////指针笔试题例三：在32位平台下并且是小端存储模式时，程序输出的结果是什么？
+//int main()
+//{
+//	int a[4] = { 1, 2, 3, 4 };
+//	int* ptr1 = (int*)(&a + 1);
+//	int* ptr2 = (int*)((int)a + 1);
+//	printf("%#x,%#x", ptr1[-1], *ptr2);//"%#x"："%x"意为以十六进制的形式进行打印，"#"意为添加上"0x"；4,2000000。
+//	return 0;
+//}
+
+////指针笔试题例四：程序输出的结果是什么？
+//int main()
+//{
+//	int a[3][2] = { (0, 1), (2, 3), (4, 5) };
+//	int* p = a[0];
+//	printf("%d", p[0]);//1
+//	return 0;
+//}
+
+////指针笔试题例五：在32位平台下，程序输出的结果是什么？
+//int main()
+//{
+//	int a[5][5];
+//	int(*p)[4];
+//	p = a;
+//	printf("%p,%d\n", &p[4][2] - &a[4][2], &p[4][2] - &a[4][2]);//FFFFFFFC,-4
+//	return 0;
+//}
+
+////指针笔试题例六：程序输出的结果是什么？
+//int main()
+//{
+//	int aa[2][5] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+//	int* ptr1 = (int*)(&aa + 1);
+//	int* ptr2 = (int*)(*(aa + 1));
+//	printf("%d,%d", *(ptr1 - 1), *(ptr2 - 1));//10,5
+//	return 0;
+//}
+
+////指针笔试题例七：程序输出的结果是什么？
+//int main()
+//{
+//	char* a[] = { "work","at","alibaba"};
+//	char** pa = a;
+//	pa++;
+//	printf("%s\n", *pa);//at
+//	return 0;
+//}
+
+////指针笔试题例八：程序输出的结果是什么？
+//int main()
+//{
+//	char* c[] = { "ENTER","NEW","POINT","FIRST" };
+//	char** cp[] = { c + 3,c + 2,c + 1,c };
+//	char*** cpp = cp;
+//	printf("%s\n", **++cpp);//POINT
+//	printf("%s\n", *-- * ++cpp + 3);//ER
+//	printf("%s\n", *cpp[-2] + 3);//ST
+//	printf("%s\n", cpp[-1][-1] + 1);//EW
+//	return 0;
+//}

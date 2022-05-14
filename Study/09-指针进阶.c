@@ -517,7 +517,7 @@
 
 /*
 	"qsort"函数：对数组元素进行排序。
-		1.头文件为："stdlib.h"。
+		1.头文件："stdlib.h"。
 		1.函数声明：void qsort(void* base, size_t num, size_t size, int (*compar)(const void*,const void*));。
 			a.函数头"void"表示此函数无返回值。
 			b.函数参数"void* base"：无类型指针，可接收任意类型的指针变量，类似垃圾桶；在此函数中表示指向要排序的数组的第一个对象的指针，并转换为"void*"类型。

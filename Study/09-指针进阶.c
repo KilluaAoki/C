@@ -518,16 +518,16 @@
 /*
 	"qsort"函数：对数组元素进行排序。
 		1.头文件："stdlib.h"。
-		1.函数声明：void qsort(void* base, size_t num, size_t size, int (*compar)(const void*,const void*));。
+		2.函数声明：void qsort(void* base, size_t num, size_t size, int (*compar)(const void*,const void*));。
 			a.函数头"void"表示此函数无返回值。
 			b.函数参数"void* base"：无类型指针，可接收任意类型的指针变量，类似垃圾桶；在此函数中表示指向要排序的数组的第一个对象的指针，并转换为"void*"类型。
 			c.函数参数"size_t num"：无符号整数类型；在此函数中表示数组中由"base"指向的元素个数。
 			d.函数参数"size_t size"：无符号整数类型；在此函数中表示数组中每个元素的大小(以字节为单位)。
 			e.函数参数"int (*compar)(const void*,const void*)"：整型函数指针；此函数指针用于指向比较两个元素的函数，这个函数被"qsort"调用，故为回调函数。
-		2."qsort"函数参数中"compar"函数指针指向的函数声明：int compar(const void* p1, const void* p2);。
+		3."qsort"函数参数中"compar"函数指针指向的函数声明：int compar(const void* p1, const void* p2);。
 			a.函数头"int"表示此函数返回值类型为整型。
 			b.函数参数"const void* p1"&"const void* p2"：将两个指针作为参数，并转换为由"const"修饰的"void*"类型(const void*)。
-		3."compar"函数指针指向的函数的返回值设计：该函数通过返回(以稳定和传递的方式)定义元素的顺序。(函数参数变量名声明见上)
+		4."compar"函数指针指向的函数的返回值设计：该函数通过返回(以稳定和传递的方式)定义元素的顺序。(函数参数变量名声明见上)
 			a.若返回值"<0"，则表明"p1"指向的元素在"p2"指向的元素之前。
 			d.若返回值"=0"，则表明"p1"指向的元素等价于"p2"指向的元素。
 			c.若返回值">0"，则表明"p1"指向的元素在"p2"指向的元素之后。

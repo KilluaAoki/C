@@ -430,20 +430,20 @@
 */
 
 ////结构体示例
-//struct Privacy//声明一个类型“Privacy”。
+//struct Privacy//声明一个类型“struct Privacy”。
 //{
 //	char Sexual_orientation[5];//性取向。
 //	char Phone_number[20];//手机号。
 //};
 //
-//struct Student//声明一个类型“Student”。
+//struct Student//声明一个类型“struct Student”。
 //{
 //	//以下为成员变量的声明。
 //	char name[10];//名称。
 //	int age;//年龄。
 //	char id[20];//学号。
-//	struct Privacy A;//隐私；包含了结构体类型“Privacy”。
-//}A1, A2;//创建结构体对象的第一种方式：使用“Student”类型创建“A1”和“A2”对象，这两个变量为全局变量。
+//	struct Privacy A;//隐私；包含了结构体类型“struct Privacy”。
+//}A1, A2;//创建结构体对象的第一种方式：使用“struct Student”类型创建“A1”和“A2”对象，这两个变量为全局变量。
 //
 //void print(struct Student B1_A, struct Student* B1_B)
 //{
@@ -453,10 +453,10 @@
 //
 //int main()
 //{
-//	//如下为创建结构体对象的第二种方式：使用“Student”类型创建“B1”对象并进行初始化，此变量为局部变量。
+//	//如下为创建结构体对象的第二种方式：使用“struct Student”类型创建“B1”对象并进行初始化，此变量为局部变量。
 //	struct Student B1 = { "Aoki",19,"2020412505XX",{"保密","186XXXXXXXX"} };
 //	
-//	//如下是将“B1”的地址存放到结构体类型为“Student”的指针变量“pa”中。
+//	//如下是将“B1”的地址存放到结构体类型为“struct Student”的指针变量“pa”中。
 //	struct Student* pa = &B1;
 //	
 //	//结构体成员访问(使用“.”操作符)

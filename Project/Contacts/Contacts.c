@@ -151,11 +151,28 @@ int Compar_Age(const void* p1, const void* p2)
 {
 	return ((Contacts*)p1)->people->age - ((Contacts*)p2)->people->age;
 }
+void Sort(Contacts* contacts, int (*ptr)(const void*, const void*))
+{
+	system("cls");
+	printf("排序前>");
+	Point_Contacts(contacts);
+	qsort(contacts->people, contacts->number, sizeof(contacts->people[0]), ptr);
+	printf("排序后>");
+	Point_Contacts(contacts);
+	system("pause");
+}
 void Sort_Contacts(Contacts* contacts)
 {
 	if (contacts->number == 0)
 	{
 		printf("联系人为空！请添加联系人！\n");
+		Clear();
+		return;
+	}
+	else if (contacts->number == 1)
+	{
+		printf("通讯录中仅有一位联系人！无需排序！\n");
+		Clear();
 		return;
 	}
 	int input = 0;
@@ -165,31 +182,22 @@ void Sort_Contacts(Contacts* contacts)
 		Sort_Menu();
 		printf("Please enter>>");
 		scanf_s("%d", &input);
-		if (input == 1)
+		switch (input)
 		{
-			system("cls");
-			printf("排序前>\n");
-			Point_Contacts(contacts);
-			qsort(contacts->people, contacts->number, sizeof(contacts->people[0]), Compar_Name);
-			printf("\n排序后>\n");
-			Point_Contacts(contacts);
-			printf("\n");
-			system("pause");
-		}
-		else if (input == 2)
-		{
-			system("cls");
-			printf("排序前>\n");
-			Point_Contacts(contacts);
-			qsort(contacts->people, contacts->number, sizeof(contacts->people[0]), Compar_Age);
-			printf("\n排序后>\n");
-			Point_Contacts(contacts);
-			printf("\n");
-			system("pause");
-		}
-		else if (input)
-		{
+		case 1:
+			Sort(contacts, Compar_Name);
+			break;
+		case 2:
+			Sort(contacts, Compar_Age);
+			break;
+		case 0:
+			printf("\nExit Sort!\n\n");
+			Clear();
+			break;
+		default:
 			printf("\nError!Please try again.\n\n");
+			Clear();
+			break;
 		}
 	} while (input);
 }
@@ -202,7 +210,7 @@ void Point_Contacts(Contacts* contacts)
 		printf("联系人为空！请添加联系人！\n");
 		return;
 	}
-	printf("%-s\t%-10s\t%-5s\t%-5s\t%-20s\t%-30s\n", "序号", "姓名", "年龄", "性别", "电话", "地址");
+	printf("\n%-s\t%-10s\t%-5s\t%-5s\t%-20s\t%-30s\n", "序号", "姓名", "年龄", "性别", "电话", "地址");
 	for (int i = 0; i < contacts->number; i++)
 	{
 		printf("%-d\t%-10s\t%-5d\t%-5s\t%-20s\t%-30s\n",
@@ -214,4 +222,5 @@ void Point_Contacts(Contacts* contacts)
 			contacts->people[i].address
 		);
 	}
+	printf("\n");
 }

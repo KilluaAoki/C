@@ -30,7 +30,6 @@ int main()
 			break;
 		case SORT:
 			Sort_Contacts(&contacts);
-			system("cls");
 			break;
 		case PRINT:
 			Point_Contacts(&contacts);

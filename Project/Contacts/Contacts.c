@@ -18,21 +18,52 @@ void Clear()
 	system("cls");
 }
 
-//初始化通讯录(静态)
+////初始化通讯录(静态)
+//void Init_Contacts(Contacts* contacts)
+//{
+//	memset(contacts->people, 0, sizeof(contacts->people));
+//	contacts->number = 0;
+//}
+
+//初始化通讯录(动态)
 void Init_Contacts(Contacts* contacts)
 {
-	memset(contacts->people, 0, sizeof(contacts->people));
-	contacts->number = 0;
-}
-
-//添加联系人的信息(静态)
-void Add_Contacts(Contacts* contacts)
-{
-	if (contacts->number == MAX)
+	contacts->people = (Information*)malloc(DEFAULT_SIZE * sizeof(Information));
+	if (contacts->people == NULL)
 	{
-		printf("联系人已满！添加失败！\n");
+		perror("Init_Contacts");
 		return;
 	}
+	contacts->number = 0;
+	contacts->capacity = DEFAULT_SIZE;
+}
+
+////添加联系人的信息(静态)
+//void Add_Contacts(Contacts* contacts)
+//{
+//	if (contacts->number == MAX)
+//	{
+//		printf("联系人已满！添加失败！\n");
+//		return;
+//	}
+//	printf("请输入姓名>>");
+//	scanf_s("%s", contacts->people[contacts->number].name, MAX_NAME);
+//	printf("请输入年龄>>");
+//	scanf_s("%d", &(contacts->people[contacts->number].age));
+//	printf("请输入性别>>");
+//	scanf_s("%s", contacts->people[contacts->number].sex, MAX_SEX);
+//	printf("请输入电话>>");
+//	scanf_s("%s", contacts->people[contacts->number].phone, MAX_PHONE);
+//	printf("请输入地址>>");
+//	scanf_s("%s", contacts->people[contacts->number].address, MAX_ADDRESS);
+//	contacts->number++;
+//	printf("添加成功！\n");
+//}
+
+//添加联系人的信息(动态)
+void Add_Contacts(Contacts* contacts)
+{
+	Check_Capacity(contacts);
 	printf("请输入姓名>>");
 	scanf_s("%s", contacts->people[contacts->number].name, MAX_NAME);
 	printf("请输入年龄>>");
@@ -145,18 +176,18 @@ void Sort_Menu()
 }
 int Compar_Name(const void* p1, const void* p2)
 {
-	return strcmp(((Contacts*)p1)->people->name, ((Contacts*)p2)->people->name);
+	return strcmp(((Information*)p1)->name, ((Information*)p2)->name);
 }
 int Compar_Age(const void* p1, const void* p2)
 {
-	return ((Contacts*)p1)->people->age - ((Contacts*)p2)->people->age;
+	return ((Information*)p1)->age - ((Information*)p2)->age;
 }
 void Sort(Contacts* contacts, int (*ptr)(const void*, const void*))
 {
 	system("cls");
 	printf("排序前>");
 	Point_Contacts(contacts);
-	qsort(contacts->people, contacts->number, sizeof(contacts->people[0]), ptr);
+	qsort(contacts->people, contacts->number, sizeof(Information), ptr);
 	printf("排序后>");
 	Point_Contacts(contacts);
 	system("pause");
@@ -223,4 +254,32 @@ void Point_Contacts(Contacts* contacts)
 		);
 	}
 	printf("\n");
+}
+
+//检查容量
+void Check_Capacity(Contacts* contacts)
+{
+	if (contacts->number == contacts->capacity)
+	{
+		Information* tmp = (Information*)realloc(contacts->people, (EXPAND_SIZE + contacts->capacity) * sizeof(Information));
+		if (tmp != NULL)
+		{
+			contacts->people = tmp;
+			contacts->capacity += EXPAND_SIZE;
+		}
+		else
+		{
+			perror("Add_Contacts");
+			return;
+		}
+	}
+}
+
+//清除通讯录
+void Remove_Contacts(Contacts* contacts)
+{
+	free(contacts->people);
+	contacts->people = NULL;
+	contacts->number = 0;
+	contacts->capacity = 0;
 }

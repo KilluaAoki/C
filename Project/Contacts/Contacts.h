@@ -12,6 +12,8 @@
 #define MAX_NAME 20
 #define MAX_PHONE 20
 #define MAX_ADDRESS 50
+#define EXPAND_SIZE 5
+#define DEFAULT_SIZE 2
 
 //定义枚举类型(选项)
 enum Option
@@ -35,11 +37,19 @@ typedef struct Information
 	int age;
 }Information;
 
-//定义结构体类型(通讯录)(静态)
+////定义结构体类型(通讯录)(静态)
+//typedef struct Contacts
+//{
+//	Information people[MAX];
+//	int number;
+//}Contacts;
+
+//定义结构体类型(通讯录)(动态)
 typedef struct Contacts
 {
-	Information people[MAX];
+	Information* people;
 	int number;
+	int capacity;
 }Contacts;
 
 //菜单
@@ -68,3 +78,9 @@ void Sort_Contacts(Contacts* contacts);
 
 //打印联系人的信息
 void Point_Contacts(Contacts* contacts);
+
+//检查容量
+void Check_Capacity(Contacts* contacts);
+
+//清除通讯录
+void Remove_Contacts(Contacts* contacts);

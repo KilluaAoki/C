@@ -169,9 +169,9 @@
 /*
 	"strcmp"函数：以字典序比较二个字符串的字符，此函数从两个字符串的第一个字符开始比较，如果它们彼此相等，则继续向后比较，直到两字符的字符不同或到达终止空字符。
 		1.头文件："string.h"。
-		2.函数声明：int strcmp(const char *str1, const char *str2);。
+		2.函数声明：int strcmp(const char* str1, const char* str2);。
 			a.函数头"int"表示此函数的返回值是整型类型。
-			b.函数参数"const char *str1"和"const char *str2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的字符串的指针(字符串都需包含"\0")。
+			b.函数参数"const char* str1"和"const char* str2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的字符串的指针(字符串都需包含"\0")。
 		3."strcmp"函数的返回值设计
 			a.若第一个不匹配的字符在"str1"中的值小于在"str2"中的值(在字典序中)，则返回"<0"(负值)。
 			b.若两个字符串的内容相等(在字典序中)，则返回"=0"(0)。
@@ -253,7 +253,7 @@
 /*
 	"strncpy"函数：从字符串中复制字符，并可指定复制的字符个数。
 		1.头文件："string.h"。
-		2.函数声明：char *strncpy(char *destination, const char *source, size_t count);。
+		2.函数声明：char *strncpy(char* destination, const char* source, size_t count);。
 			a.函数头"char*"表示此函数的返回值是字符指针类型，在此函数中表示返回"destination"指针所指向的字符串的起始地址。
 			b.函数参数"char* destination"：将字符指针作为参数；在此函数中意为指向要复制内容的目标数组首元素的指针(数组名)。
 			c.函数参数"const char* source"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向作为复制来源的字符串的指针(此字符串需包含"\0")。
@@ -296,7 +296,7 @@
 /*
 	"strncat"函数：从字符串追加字符，并可指定追加的字符个数。
 		1.头文件："string.h"。
-		2.函数声明：char *strncat(char *destination, const char *source, size_t count);。
+		2.函数声明：char *strncat(char* destination, const char* source, size_t count);。
 			a.函数头"char*"表示此函数的返回值是字符指针类型，在此函数中表示返回"destination"指针所指向的字符串的起始地址。
 			b.函数参数"char* destination"：将字符指针作为参数；在此函数中意为指向要追加到的以"\0"字符结尾的字符串的指针。
 			c.函数参数"const char* source"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向作为追加来源的字符串的指针(此字符串需包含"\0")。
@@ -351,9 +351,9 @@
 /*
 	"strncmp"函数：以字典序比较二个字符串的字符，并可指定比较的字符个数。
 		1.头文件："string.h"。
-		2.函数声明：int strncmp(const char *str1, const char *str2, size_t count);。
+		2.函数声明：int strncmp(const char* str1, const char* str2, size_t count);。
 			a.函数头"int"表示此函数的返回值是整型类型。
-			b.函数参数"const char *str1"和"const char *str2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的字符串的指针(两个字符串可能需包含"\0")。
+			b.函数参数"const char* str1"和"const char* str2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的字符串的指针(两个字符串可能需包含"\0")。
 			c.函数参数"size_t count"：将无符号整型类型作为参数；在此函数中意为要比较的最大字符数。
 		3.函数说明
 			a.将字符串"str1"的最多"count"个字符与字符串"str2"的字符进行比较(按字典序进行比较)，不比较空字符后的字符。
@@ -443,8 +443,8 @@
         1.头文件："string.h"。
 		2.函数声明：char *strstr(const char* str, const char* substr);。
 			a.函数头"char*"表示此函数的返回值是字符指针类型；在此函数中表示返回指向"substr"中指定的整个字符序列中第一次出现在"str"中的指针；如果该序列不存在于"str"中，则返回空指针；若"substr"指向空字符串，则返回"str"。
-			b.函数参数"const char *str"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向要检验的空终止字节字符串的指针(此字符串需包含"\0")。
-			c.函数参数"const char *substr"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向要查找的空终止字节字符串的指针(此字符串需包含"\0")。
+			b.函数参数"const char* str"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向要检验的空终止字节字符串的指针(此字符串需包含"\0")。
+			c.函数参数"const char* substr"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向要查找的空终止字节字符串的指针(此字符串需包含"\0")。
 		3.函数说明
 			a.查找"substr"所指的空终止字节字符串在"str"所指的空终止字节字符串中的首次出现。
 			b.匹配过程不包括终止的空字符，但它会停在那里。
@@ -497,8 +497,8 @@
 		1.头文件："string.h"。
 		2.函数声明：char* strtok(char* str, const char* delimiters);。
 			a.函数头"char*"表示此函数的返回值是字符指针类型；在此函数中意为返回指向下个记号起始的指针，以及当无更多记号时返回空指针。
-			b.函数参数"char *str"：将字符指针作为参数；在此函数中意为指向要记号化的字符串的指针(此字符串需包含"\0")。
-			c.函数参数"const char *delimiters"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向标识分隔符的字符串的指针(此字符串需包含"\0")。
+			b.函数参数"char* str"：将字符指针作为参数；在此函数中意为指向要记号化的字符串的指针(此字符串需包含"\0")。
+			c.函数参数"const char* delimiters"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向标识分隔符的字符串的指针(此字符串需包含"\0")。
 		3.函数说明：由"delimiters"所指向的字符串鉴别分隔字符，寻找"str"所指向的字符串中的下个记号，此函数被设计为调用多次以从同一字符串获得相继的记号。
 		4.函数的返回值设计
 			a.若"str"不是空指针，则调用被当做"strtok"对此特定字符串的首次调用，函数搜索首个不含于"delimiters"的字符。
@@ -778,7 +778,7 @@
 		1.头文件："string.h"。
 		2.函数声明：int memcmp(const void* ptr1, const void* ptr2, size_t num);。
 			a.函数头"int"表示此函数的返回值是整型类型。
-			b.函数参数"const char *ptr1"和"const char *ptr2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的内存块的指针。
+			b.函数参数"const char* ptr1"和"const char* ptr2"：将字符指针作为参数，并转换为由"const"修饰的"char*"类型(const char*)；在此函数中意为指向两个要比较的内存块的指针。
 			c.函数参数"size_t num"：将无符号整型类型作为参数；在此函数中意为要比较的字节数。
 		3.函数说明
 			a.将"ptr1"指向的内存块的前"num"字节与"ptr2"指向的前"num"字节进行比较(按字典序进行比较)。

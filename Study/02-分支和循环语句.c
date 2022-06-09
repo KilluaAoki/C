@@ -332,7 +332,7 @@
 //		{
 //			Right = Middle - 1;
 //		}
-//		else if (arr[Middle]=num)
+//		else if (arr[Middle]==num)
 //		{
 //			printf("\n您找的数字的下标是：%d\n", Middle);
 //			break;

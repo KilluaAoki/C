@@ -36,6 +36,7 @@ int main()
 			Clear();
 			break;
 		case EXIT:
+			Save_Contacts(&contacts);
 			Remove_Contacts(&contacts);
 			printf("\nExit!\n");
 			break;

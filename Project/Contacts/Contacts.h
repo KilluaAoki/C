@@ -84,3 +84,9 @@ void Check_Capacity(Contacts* contacts);
 
 //清除通讯录
 void Remove_Contacts(Contacts* contacts);
+
+//从文件中读取通讯录信息
+void Read_Contacts(Contacts* contacts);
+
+//保存通讯录至文件
+void Save_Contacts(Contacts* contacts);

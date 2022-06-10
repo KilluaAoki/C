@@ -36,6 +36,7 @@ void Init_Contacts(Contacts* contacts)
 	}
 	contacts->number = 0;
 	contacts->capacity = DEFAULT_SIZE;
+	Read_Contacts(contacts);
 }
 
 ////添加联系人的信息(静态)
@@ -182,12 +183,32 @@ int Compar_Age(const void* p1, const void* p2)
 {
 	return ((Information*)p1)->age - ((Information*)p2)->age;
 }
+void Swap(char* p1, char* p2, size_t size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		char tmp = *p1;
+		*p1 = *p2;
+		*p2 = tmp;
+		p1++, p2++;
+	}
+}
+void Insert_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
+{
+	for (int i = 1; i < num; i++)
+	{
+		for (int j = i - 1; j >= 0 && compar((char*)base + j * size, (char*)base + (j + 1) * size) > 0; j--)
+		{
+			Swap((char*)base + j * size, (char*)base + (j + 1) * size, size);
+		}
+	}
+}
 void Sort(Contacts* contacts, int (*ptr)(const void*, const void*))
 {
 	system("cls");
 	printf("排序前>");
 	Point_Contacts(contacts);
-	qsort(contacts->people, contacts->number, sizeof(Information), ptr);
+	Insert_Sort(contacts->people, contacts->number, sizeof(Information), ptr);
 	printf("排序后>");
 	Point_Contacts(contacts);
 	system("pause");
@@ -282,4 +303,43 @@ void Remove_Contacts(Contacts* contacts)
 	contacts->people = NULL;
 	contacts->number = 0;
 	contacts->capacity = 0;
+}
+
+//从文件中读取通讯录信息
+void Read_Contacts(Contacts* contacts)
+{
+	FILE* ptr;
+	fopen_s(&ptr, "Contacts.dat", "r+");
+	if (ptr == NULL)
+	{
+		perror("Read_Contacts");
+		return;
+	}
+	Information tmp;
+	while (fread(&tmp, sizeof(Information), 1, ptr))
+	{
+		Check_Capacity(contacts);
+		contacts->people[contacts->number] = tmp;
+		contacts->number++;
+	}
+	fclose(ptr);
+	ptr = NULL;
+}
+
+//保存通讯录至文件
+void Save_Contacts(Contacts* contacts)
+{
+	FILE* ptr;
+	fopen_s(&ptr, "Contacts.dat", "w+");
+	if (ptr == NULL)
+	{
+		perror("Save_Contacts");
+		return;
+	}
+	for (int i = 0; i < contacts->number; i++)
+	{
+		fwrite(contacts->people + i, sizeof(Information), 1, ptr);
+	}
+	fclose(ptr);
+	ptr = NULL;
 }

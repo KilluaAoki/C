@@ -1,28 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS 1   //屏蔽“scanf”不安全警告。
+#define _CRT_SECURE_NO_WARNINGS//于"VS2022"中禁止使用不安全函数，如"scanf"函数，若要使用不安全函数屏蔽警告需使用"_CRT_SECURE_NO_WARNINGS"。
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-
-////关机程序
-//int main()
-//{
-//	char input[20] = { 0 };
-//	system("shutdown -s -t 60"); //system可执行系统命令；引用头文件“stdlib.h”。
-//	//goto语句：只能在一个函数范围内跳转，不能跨函数；常见的用法为终止程序在某些深度嵌套的结构的处理过程，其余情况不推荐使用，本代码只做展示。
-//again:
-//	printf("\n请注意！您的系统即将在一分钟后关机！\n请输入“Aoki”，终止关机操作。\n>>");
-//	scanf_s("%s", input,20);
-//	if (strcmp(input, "Aoki") == 0)//两个字符串比较不能使用”==“，应使用“strcmp”；引用头文件“string.h”。
-//	{
-//		system("shutdown -a");
-//	}
-//	else
-//	{
-//		goto again;
-//	}
-//	return 0;
-//}
 
 //函数：库函数以及自定义函数。
 //	1.库函数

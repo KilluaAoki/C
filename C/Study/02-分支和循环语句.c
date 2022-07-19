@@ -1,7 +1,9 @@
+#include <math.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <Windows.h>
 
 /*
@@ -667,6 +669,45 @@
 //			Sleep(5000);
 //			system("cls");
 //		}
+//	}
+//	return 0;
+//}
+
+/*
+	布尔类型(拓展)
+		1.布尔类型由C99标准引入，使用时需要引用头文件："stdbool.h"。
+		2.布尔类型有且只有两个取值，即"true"和"false"，并且"bool"类型的大小为"1"字节。
+		3.布尔类型也是可以创建数组的，但并不常用。
+*/
+
+////布尔类型示例：判断一个数是不是素数。
+//bool JudgmentPrime(int num)
+//{
+//	if (num < 2)
+//	{
+//		return false;
+//	}
+//	for (int i = 2; i <= sqrt(num); i++)//"sqrt"函数：计算平方根，使用时需引用头文件"math.h"。
+//	{
+//		if (num % i == 0)
+//		{
+//			return false;
+//		}
+//	}
+//	return true;
+//}
+//
+//int main()
+//{
+//	int num = 0;
+//	scanf_s("%d", &num);
+//	if (JudgmentPrime(num))
+//	{
+//		printf("Yes!\n");
+//	}
+//	else
+//	{
+//		printf("No!\n");
 //	}
 //	return 0;
 //}

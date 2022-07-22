@@ -334,25 +334,41 @@
 */
 
 ////函数的声明和定义示例
-//int MyIntPow(int num, int exponent);//"MyIntPow"函数的声明。
+//double MyIntPow(int num, int exponent);//"MyIntPow"函数的声明。
 //
 //int main()
 //{
 //	int num = 0;
 //	int exponent = 0;
 //	scanf_s("%d%d", &num, &exponent);
-//	printf("pow(%d,%d) = %d\n", num, exponent, MyIntPow(num, exponent));//因程序是由上至下执行，若没有声明"MyIntPow"函数，则"main"函数在调用"MyIntPow"函数时会认为未定义函数。
+//	printf("pow(%d,%d) = %lf\n", num, exponent, MyIntPow(num, exponent));//因程序是由上至下执行，若没有声明"MyIntPow"函数，则"main"函数在调用"MyIntPow"函数时会认为未定义函数。
 //	return 0;
 //}
 //
-//int MyIntPow(int num, int exponent)//"MyIntPow"函数的定义及声明(多次声明)位于"main"函数的下方。
+//double MyIntPow(int num, int exponent)//"MyIntPow"函数的定义及声明(多次声明)位于"main"函数的下方。
 //{
-//	int tmp = num;
-//	for (int i = 0; i < exponent - 1; i++)
+//	if (exponent < 0)
 //	{
-//		num = tmp * num;
+//		int x = num;
+//		for (int i = 0; i < (-exponent) - 1; i++)
+//		{
+//			num = x * num;
+//		}
+//		return 1.0 / num;
 //	}
-//	return num;
+//	else if (exponent == 0)
+//	{
+//		return 1;
+//	}
+//	else
+//	{
+//		int x = num;
+//		for (int i = 0; i < exponent - 1; i++)
+//		{
+//			num = x * num;
+//		}
+//		return num;
+//	}
 //}
 
 /*

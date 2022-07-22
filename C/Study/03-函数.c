@@ -288,14 +288,30 @@
 */
 
 ////函数的嵌套调用和链式访问使用示例
-//int MyIntPow(int num, int exponent)
+//double MyIntPow(int num, int exponent)
 //{
-//	int tmp = num;
-//	for (int i = 0; i < exponent - 1; i++)
+//	if (exponent < 0)
 //	{
-//		num = tmp * num;
+//		int x = num;
+//		for (int i = 0; i < (-exponent) - 1; i++)
+//		{
+//			num = x * num;
+//		}
+//		return 1.0 / num;
 //	}
-//	return num;
+//	else if (exponent == 0)
+//	{
+//		return 1;
+//	}
+//	else
+//	{
+//		int x = num;
+//		for (int i = 0; i < exponent - 1; i++)
+//		{
+//			num = x * num;
+//		}
+//		return num;
+//	}
 //}
 //
 //int main()
@@ -303,7 +319,7 @@
 //	int num = 0;
 //	int exponent = 0;
 //	scanf_s("%d%d", &num, &exponent);
-//	printf("pow(%d,%d) = %d\n", num, exponent, MyIntPow(num, exponent));
+//	printf("pow(%d,%d) = %lf\n", num, exponent, MyIntPow(num, exponent));//将"MyIntPow"函数的返回值当做"printf"函数的参数，即嵌套调用和链式访问。
 //	return 0;
 //}
 

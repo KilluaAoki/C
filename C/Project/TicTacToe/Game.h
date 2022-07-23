@@ -4,16 +4,30 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <Windows.h>
+#include <windows.h>
 
-//定义标识符
+//定义行数(ROW)、列数(COL)、连几子获胜(WIN)
 #define ROW 3
 #define COL 3
+#define WIN 3
 
-//声明函数
+//菜单
 void Menu();
-void Init_Board(char board[ROW][COL], int row, int col);
-void Print_Board(char board[ROW][COL], int row, int col);
-void Player_Move(char board[ROW][COL], int row, int col);
-void Computer_Move(char board[ROW][COL], int row, int col);
-char Winner(char board[ROW][COL], int row, int col);
+
+//游戏主框架
+void Game();
+
+//初始化棋盘
+void InitBoard(char board[ROW][COL], int row, int col);
+
+//打印棋盘
+void PrintBoard(char board[ROW][COL], int row, int col);
+
+//玩家移动
+char PlayerMove(char board[ROW][COL], int row, int col);
+
+//电脑移动
+char ComputerMove(char board[ROW][COL], int row, int col);
+
+//判断输赢
+char JudgmentWinner(char board[ROW][COL], int x, int y);

@@ -3,7 +3,6 @@
 
     a.未加入难度调节。
     b.未加入算法"Minimax"&"Alpha Beta"。
-    c.Bug:胜利判断方法存在Bug，当三行三列设置为其他行数和列数时，胜利判断的方式仍为三行三列。
 
 2.C-Project-Minesweeper:
 

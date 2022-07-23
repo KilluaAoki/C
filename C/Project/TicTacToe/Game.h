@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <windows.h>
 
-//定义行数(ROW)、列数(COL)、连几子获胜(WIN)
-#define ROW 3
-#define COL 3
-#define WIN 3
+//定义标识符
+#define ROW 3 //行数(ROW)
+#define COL 3 //列数(COL)
+#define WIN 3 //获胜连棋数(WIN)
 
 //菜单
 void Menu();

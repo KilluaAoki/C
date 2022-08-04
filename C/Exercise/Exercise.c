@@ -1800,4 +1800,27 @@
 //	return 0;
 //}
 
-//杨辉三角：在屏幕上打印杨辉三角。
+////杨辉三角：https://www.nowcoder.com/practice/e671c6a913d448318a49be87850adbcc。
+//int main()
+//{
+//	int n = 0;
+//	scanf_s("%d", &n);
+//	int arr[n][n];
+//	for (int i = 0; i < n; ++i)
+//	{
+//		for (int j = 0; j < i + 1; ++j)
+//		{
+//			if (i == j || j == 0)
+//			{
+//				arr[i][j] = 1;
+//			}
+//			else
+//			{
+//				arr[i][j] = arr[i - 1][j - 1] + arr[i - 1][j];
+//			}
+//			printf("%5d", arr[i][j]);
+//		}
+//		printf("\n");
+//	}
+//	return 0;
+//}

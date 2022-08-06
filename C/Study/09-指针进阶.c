@@ -67,7 +67,7 @@
 	指针数组：用于存放指针的数组。
 */
 
-////使用指针数组模拟二维数组示例：不同于二维数组，二维数组内的元素在内存中是连续存放的，但这种形式是一个数组内的元素是连续存放的，不同数组的地址不连续。
+////指针数组示例：模拟二维数组，但不同于二维数组，二维数组内的元素在内存中是连续存放的，但这种形式是一个数组内的元素是连续存放的，不同数组的地址不连续。
 //int main()
 //{
 //	int arr1[5] = { 0,1,2,3,4 };
@@ -98,43 +98,44 @@
 /**
 	数组指针：能够指向数组的指针。
 		1.创建数组指针需注意数组指针变量名需先与"*"结合，若与"[]"先结合则表明是数组而不是指针，因为"[]"的优先级比"*"高，所以需加上"()"确保"*"先与变量名称结合。
-		2.数组名一般表示的是数组首元素的地址，但存在两个例外：
-			a.使用"sizeof"计算数组大小中的数组名表示的是整个数组，计算的是数组中所有元素的大小总和，单位是字节。
-			b.使用"&"操作符取出数组名的地址，取出的是整个数组的地址，其地址指向的位置依然是数组的首元素，但自增操作代表的是越过整个数组。
+		2.数组名不同情况下的差异
+			a."sizeof(arr_name)"：意为计算整个数组的大小，此时的"arr_name"(数组名)表示整个数组。
+			b."&arr_name"：意为取出整个数组的地址，此时的"arr_name"(数组名)表示整个数组。
+			c.除"sizeof(arr_name)"和"&arr_name"两种情况，其余的数组名都表示为数组的首元素的地址。
+			d.当数组名表示为整个数组的情况时，其地址依旧是首元素的地址，但是类型与数组名表示为首元素的地址的情况并不相同。
 		3.数组指针多应用于二维数组，应用于一维数组过于麻烦。
 		4.数组传参
-			a.当一维数组以数组名进行传参，形参为数组，实参可以是数组也可以是指针。
-				1.当形参为一级指针数组时，以数组名传参，实参可以是一级指针数组。
-				2.当形参为一级指针数组时，以数组名传参，若要以指针接收，必须是二级指针，因为数组名是首元素的地址，指针数组的首元素是一级指针，一级指针的地址就是二级指针，所以要用二级指针接收。(其他级指针数组同理)
-			b.当二维数组以数组名进行传参，形参为数组，实参可以是二维数组也可以是数组指针。
-				1.当实参为数组时，行可以省略，列不能省略；因为对于一个二维数组来说，可以不知道有多少行，但是必须知道一行有多少元素。
-				2.当实参为指针时，不能是一级指针或二级指针，因为二维数组的数组名相当于首行的一维数组，需要指向一维数组的数组指针接收。
-		5.指针传参：明确形参的类型，再以同样类型的实参接收。
+			a.当一维数组以数组名进行传参，实参为数组，形参可以是数组也可以是指针。
+				1.当实参为一级指针数组的数组名时，以数组名传参，实参可以是一级指针数组。
+				2.当实参为一级指针数组的数组名时，以数组名传参，若要以指针接收，必须是二级指针，因为数组名是首元素的地址，指针数组的首元素是一级指针，一级指针的地址为二级指针，故需要二级指针接收。(其他级指针数组同理)
+			b.当二维数组以数组名进行传参，实参为数组，形参可以是二维数组也可以是数组指针。
+				1.当实参为二维数组的数组名时，以数组名传参，当形参为二维数组时，行可以省略，列不能省略，因为对于一个二维数组来说，可以不知道有多少行，但是必须知道每一行有多少元素。
+				2.当实参为二维数组的数组名时，以数组名传参，当形参为指针时，不能是一级指针或二级指针，因为二维数组的数组名的首元素相当于首行的一维数组，需要指向一维数组的数组指针接收。
+		5.指针传参：明确实参的类型，再以同样类型的形参接收。
 */
 
 ////创建数组指针示例
 //int main()
 //{
 //	int arr[10] = { 0,1,2,3,4,5,6,7,8,9 };
-//	int(*parr)[10] = &arr;//注意需添加括号，否则"parr"先与"[]"结合变成数组；"*parr"说明"parr"是指针，"[10]"说明指针指向数组并且数组存放了"10"个元素，每个元素的类型是"int"，故"parr"是整型数组指针。
+//	int(*parr)[10] = &arr;//注意需添加括号，否则"parr"先与"[]"符号结合表示为数组；"*parr"说明"parr"是指针，"[10]"说明指针指向数组并且数组存放了"10"个元素，每个元素的类型是"int"，故"parr"是整型数组指针。
 //	return 0;
 //}
 
 ////数组名示例
 //int main()
 //{
-//	int arr[10] = {0};//整型数组，里面共有10个整型元素。
-//
+//	int arr[10] = {0};//整型数组，里面共有"10"个整型元素。
 //	int* p1 = arr;//整型指针，将数组"arr"首元素的地址存放在一个整型指针变量中。
 //	int (*p2)[10] = &arr;//数组指针，使用取地址操作符将整个数组"arr"的地址存放在一个整形数组指针变量中，其指向的是整个数组"arr"的地址。
 //
-//	//以下两行打印的结果相同，只能说明两个指针指向的都是同一个位置。
-//	printf("%p\n", p1);
-//	printf("%p\n", p2);
+//	//以下两行打印的结果相同，只能说明两个指针指向的都是同一个位置，也就是值是相同的，但类型是不一样的。
+//	printf("p1 = %p\n", p1);
+//	printf("p2 = %p\n", p2);
 //	
-//	//以下两行打印的结果不相同，也就代表每个指针"+1"的步长不同，说明其两个指针类型不相同。
-//	printf("%p\n", p1+1);//相比于"p1"移动了4个字节。
-//	printf("%p\n", p2+1);//相比于"p2"移动了40个字节。
+//	//以下两行打印的结果不相同，也就代表每个指针的步长不同，说明其两个指针类型不相同。
+//	printf("p1 + 0 = %p\tp1 + 1 = %p\n", p1 + 0, p1 + 1);//"p1 + 1"相比于"p1 + 0"移动了"4"个字节。
+//	printf("p2 + 0 = %p\tp2 + 1 = %p\n", p2 + 0, p2 + 1);//"p2 + 1"相比于"p2 + 0"移动了"40"个字节。
 //
 //	return 0;
 //}
@@ -146,13 +147,13 @@
 //	int(*parr)[10] = &arr;
 //	for (int i = 0; i < 10; i++)
 //	{
-//		printf("%d ", *((*parr) + i));//"(*parr)"是对数组指针指向的整个数组进行解引用操作就相当于数组名，也就是数组首元素的地址。
+//		printf("%d ", *((*parr) + i));//"(*parr)"是对数组指针指向的整个数组进行解引用操作就相当于数组名，也就是数组首元素的地址，但这种形式过于麻烦。
 //	}
 //	return 0;
 //}
 
 ////数组指针应用于二维数组示例
-//void print(int(*ptr)[5], int r, int c)
+//void print(int(*ptr)[5], int r, int c)//形参使用数组指针接收。
 //{
 //	for (int i = 0; i < r; i++)
 //	{
@@ -163,10 +164,11 @@
 //		printf("\n");
 //	}
 //}
+//
 //int main()
 //{
 //	int arr[3][5] = { {1,2,3,4,5},{2,3,4,5,6},{3,4,5,6,7} };
-//	print(arr, 3, 5);//数组名作为传参参数，表示的是数组首元素的地址，而二维数组的首元素就是二维数组的第一行，也就是整个一维数组。
+//	print(arr, 3, 5);//数组名作为实参，表示的是数组首元素的地址，而二维数组的数组名的首元素相当于首行的一维数组，故二维数组首元素的地址也就是首行的一维数组的地址。
 //	return 0;
 //}
 
@@ -200,7 +202,7 @@
 //	//使用数组存放整型数组指针：即整型数组指针数组。
 //	int (*arrparr1[1])[10] = { parr1 };
 //
-//	//使用数组存放整型数组：即创建整型二维数组。
+//	//使用数组存放整型数组：即创建整型二维数组。(此处不必深究概念)
 //	int aarr[3][5] = { { 1,2,3,4,5 },{ 2,3,4,5,6 },{ 3,4,5,6,7 } };
 //
 //	//使用指针指向整型二维数组：即二维整型数组指针。
@@ -227,10 +229,12 @@
 //{
 //	return x + y;
 //}
+//
 //void Test(char* str)
 //{
 //	;
 //}
+//
 //int main()
 //{
 //	//创建函数指针示例
@@ -262,7 +266,7 @@
 //	//"signal"函数的返回值类型为函数指针，其中函数指针的返回值类型为"void"，参数类型为"int"。
 //
 //	//第二段Plus版
-//	typedef void(*pfun_t)(int);//对"void(*)(int)"的函数指针类型重命名为"pfun_t"。
+//	typedef void(*pfun_t)(int);//对"void(*)(int)"的函数指针类型重命名为"pfun_t"类型。
 //	pfun_t signal(int, pfun_t);
 //
 //	return 0;
@@ -277,10 +281,12 @@
 //{
 //	return x + y;
 //}
+//
 //int Sub(int x, int y)
 //{
 //	return x - y;
 //}
+//
 //int main()
 //{
 //	int (*pAdd)(int, int) = &Add;
@@ -298,22 +304,27 @@
 //	printf("**********      0.Exit      **********\n");
 //	printf("**************************************\n");
 //}
+//
 //int Add(int x, int y)
 //{
 //	return x + y;
 //}
+//
 //int Sub(int x, int y)
 //{
 //	return x - y;
 //}
+//
 //int Mul(int x, int y)
 //{
 //	return x * y;
 //}
+//
 //int Div(int x, int y)
 //{
 //	return x / y;
 //}
+//
 //int main()
 //{
 //	int input = 0, x = 0, y = 0;
@@ -369,22 +380,27 @@
 //	printf("**********      0.Exit      **********\n");
 //	printf("**************************************\n");
 //}
+//
 //int Add(int x, int y)
 //{
 //	return x + y;
 //}
+//
 //int Sub(int x, int y)
 //{
 //	return x - y;
 //}
+//
 //int Mul(int x, int y)
 //{
 //	return x * y;
 //}
+//
 //int Div(int x, int y)
 //{
 //	return x / y;
 //}
+//
 //int main()
 //{
 //	int input = 0, x = 0, y = 0;
@@ -421,6 +437,7 @@
 //{
 //	;
 //}
+//
 //int main()
 //{
 //	void (*p)(int, int) = test;
@@ -444,22 +461,27 @@
 //	printf("**********      0.Exit      **********\n");
 //	printf("**************************************\n");
 //}
+//
 //int Add(int x, int y)
 //{
 //	return x + y;
 //}
+//
 //int Sub(int x, int y)
 //{
 //	return x - y;
 //}
+//
 //int Mul(int x, int y)
 //{
 //	return x * y;
 //}
+//
 //int Div(int x, int y)
 //{
 //	return x / y;
 //}
+//
 //int Calc(int(*ptr)(int, int))
 //{
 //	int x = 0, y = 0;
@@ -467,6 +489,7 @@
 //	scanf_s("%d %d", &x, &y);
 //	return ptr(x, y);
 //}
+//
 //int main()
 //{
 //	int input = 0;
@@ -521,6 +544,7 @@
 //		}
 //	}
 //}
+//
 //void print(int arr[], int size)
 //{
 //	for (int i = 0; i < size; i++)
@@ -529,6 +553,7 @@
 //	}
 //	printf("\n");
 //}
+//
 //int main()
 //{
 //	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
@@ -566,10 +591,12 @@
 //	}
 //	printf("\n");
 //}
+//
 //int compar(const void* p1, const void* p2)
 //{
 //	return *(int*)p1 - *(int*)p2;
 //}
+//
 //int main()
 //{
 //	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
@@ -586,14 +613,17 @@
 //	char name[20];
 //	int age;
 //};
+//
 //int compar_name(const void* p1, const void* p2)
 //{
 //	return strcmp(((struct Student*)p1)->name, ((struct Student*)p2)->name);
 //}
+//
 //int compar_age(const void* p1, const void* p2)
 //{
 //	return ((struct Student*)p1)->age - ((struct Student*)p2)->age;
 //}
+//
 //int main()
 //{
 //	struct Student arr[6] = { {"A",19},{"X",21},{"B",20},{"Y",19},{"C",18},{"Z",20} };
@@ -612,6 +642,7 @@
 //	}
 //	printf("\n");
 //}
+//
 //void Swap(char* p1, char* p2, size_t size)
 //{
 //	for (int i = 0; i < size; i++)
@@ -622,10 +653,12 @@
 //		p1++, p2++;
 //	}
 //}
+//
 //int Compar_Int(const void* p1, const void* p2)
 //{
 //	return *(int*)p1 - *(int*)p2;
 //}
+//
 //void Bubble_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
 //{
 //	for (int i = 0; i < num - 1; i++)
@@ -639,6 +672,7 @@
 //		}
 //	}
 //}
+//
 //void Int_Arr_Sort()
 //{
 //	int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
@@ -647,6 +681,7 @@
 //	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Int);
 //	Print(arr, size);
 //}
+//
 //int main()
 //{
 //	Int_Arr_Sort();
@@ -659,6 +694,7 @@
 //	char name[20];
 //	int age;
 //};
+//
 //void Swap(char* p1, char* p2, size_t size)
 //{
 //	for (int i = 0; i < size; i++)
@@ -669,14 +705,17 @@
 //		p1++, p2++;
 //	}
 //}
+//
 //int Compar_Name(const void* p1, const void* p2)
 //{
 //	return strcmp(((struct Student*)p1)->name, ((struct Student*)p2)->name);
 //}
+//
 //int Compar_Age(const void* p1, const void* p2)
 //{
 //	return ((struct Student*)p1)->age - ((struct Student*)p2)->age;
 //}
+//
 //void Bubble_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
 //{
 //	for (int i = 0; i < num - 1; i++)
@@ -690,14 +729,17 @@
 //		}
 //	}
 //}
+//
 //void Structure_Name_Sort(struct Student arr[],int size)
 //{
 //	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Name);
 //}
+//
 //void Structure_Age_Sort(struct Student arr[],int size)
 //{
 //	Bubble_Sort(arr, size, sizeof(arr[0]), Compar_Age);
 //}
+//
 //int main()
 //{
 //	struct Student arr[] = { {"Acb",19},{"Xxx",21},{"Bbb",20},{"Yyy",19},{"Ccc",18},{"Zzz",20},{"Abc",22} };
@@ -718,85 +760,85 @@
 //{
 //	////整型数组
 //	//int a[] = { 1,2,3,4 };
-//	//printf("%zd\n", sizeof(a));//16
-//	//printf("%zd\n", sizeof(a + 0));//4/8
-//	//printf("%zd\n", sizeof(*a));//4
-//	//printf("%zd\n", sizeof(a + 1));//4/8
-//	//printf("%zd\n", sizeof(a[1]));//4
-//	//printf("%zd\n", sizeof(&a));//4/8
-//	//printf("%zd\n", sizeof(*&a));//16
-//	//printf("%zd\n", sizeof(&a + 1));//4/8
-//	//printf("%zd\n", sizeof(&a[0]));//4/8
-//	//printf("%zd\n", sizeof(&a[0] + 1));//4/8
+//	//printf("%zu\n", sizeof(a));//16
+//	//printf("%zu\n", sizeof(a + 0));//4/8
+//	//printf("%zu\n", sizeof(*a));//4
+//	//printf("%zu\n", sizeof(a + 1));//4/8
+//	//printf("%zu\n", sizeof(a[1]));//4
+//	//printf("%zu\n", sizeof(&a));//4/8
+//	//printf("%zu\n", sizeof(*&a));//16
+//	//printf("%zu\n", sizeof(&a + 1));//4/8
+//	//printf("%zu\n", sizeof(&a[0]));//4/8
+//	//printf("%zu\n", sizeof(&a[0] + 1));//4/8
 //	//printf("\n");
 //	
-//	////字符数组
+//	////字符数组一
 //	//char arr1[] = { 'a','b','c','d','e','f' };
-//	//printf("%zd\n", sizeof(arr1));//6
-//	//printf("%zd\n", sizeof(arr1 + 0));//4/8
-//	//printf("%zd\n", sizeof(*arr1));//1
-//	//printf("%zd\n", sizeof(arr1[1]));//1
-//	//printf("%zd\n", sizeof(&arr1));//4/8
-//	//printf("%zd\n", sizeof(&arr1 + 1));//4/8
-//	//printf("%zd\n", sizeof(&arr1[0] + 1));//4/8
-//	//printf("%zd\n", strlen(arr1));//随机值
-//	//printf("%zd\n", strlen(arr1 + 0));//随机值
-//	////printf("%zd\n", strlen(*arr1));//err
-//	////printf("%zd\n", strlen(arr1[1]));//err
-//	//printf("%zd\n", strlen(&arr1));//随机值
-//	//printf("%zd\n", strlen(&arr1 + 1));//随机值-6
-//	//printf("%zd\n", strlen(&arr1[0] + 1));//随机值-1
+//	//printf("%zu\n", sizeof(arr1));//6
+//	//printf("%zu\n", sizeof(arr1 + 0));//4/8
+//	//printf("%zu\n", sizeof(*arr1));//1
+//	//printf("%zu\n", sizeof(arr1[1]));//1
+//	//printf("%zu\n", sizeof(&arr1));//4/8
+//	//printf("%zu\n", sizeof(&arr1 + 1));//4/8
+//	//printf("%zu\n", sizeof(&arr1[0] + 1));//4/8
+//	//printf("%zu\n", strlen(arr1));//随机值
+//	//printf("%zu\n", strlen(arr1 + 0));//随机值
+//	////printf("%zu\n", strlen(*arr1));//err
+//	////printf("%zu\n", strlen(arr1[1]));//err
+//	//printf("%zu\n", strlen(&arr1));//随机值
+//	//printf("%zu\n", strlen(&arr1 + 1));//随机值-6
+//	//printf("%zu\n", strlen(&arr1[0] + 1));//随机值-1
 //	//printf("\n");
 //
-//	////字符串数组
+//	////字符数组二
 //	//char arr2[] = "abcdef";
-//	//printf("%zd\n", sizeof(arr2));//7
-//	//printf("%zd\n", sizeof(arr2 + 0));//4/8
-//	//printf("%zd\n", sizeof(*arr2));//1
-//	//printf("%zd\n", sizeof(arr2[1]));//1
-//	//printf("%zd\n", sizeof(&arr2));//4/8
-//	//printf("%zd\n", sizeof(&arr2 + 1));//4/8
-//	//printf("%zd\n", sizeof(&arr2[0] + 1));//4/8
-//	//printf("%zd\n", strlen(arr2));//6
-//	//printf("%zd\n", strlen(arr2 + 0));//6
-//	////printf("%zd\n", strlen(*arr2));//err
-//	////printf("%zd\n", strlen(arr2[1]));//err
-//	//printf("%zd\n", strlen(&arr2));//6
-//	//printf("%zd\n", strlen(&arr2 + 1));//随机值
-//	//printf("%zd\n", strlen(&arr2[0] + 1));//5
+//	//printf("%zu\n", sizeof(arr2));//7
+//	//printf("%zu\n", sizeof(arr2 + 0));//4/8
+//	//printf("%zu\n", sizeof(*arr2));//1
+//	//printf("%zu\n", sizeof(arr2[1]));//1
+//	//printf("%zu\n", sizeof(&arr2));//4/8
+//	//printf("%zu\n", sizeof(&arr2 + 1));//4/8
+//	//printf("%zu\n", sizeof(&arr2[0] + 1));//4/8
+//	//printf("%zu\n", strlen(arr2));//6
+//	//printf("%zu\n", strlen(arr2 + 0));//6
+//	////printf("%zu\n", strlen(*arr2));//err
+//	////printf("%zu\n", strlen(arr2[1]));//err
+//	//printf("%zu\n", strlen(&arr2));//6
+//	//printf("%zu\n", strlen(&arr2 + 1));//随机值
+//	//printf("%zu\n", strlen(&arr2[0] + 1));//5
 //	//printf("\n");
 //	
 //	////字符指针
 //	//char* p = "abcdef";
-//	//printf("%zd\n", sizeof(p));//4/8
-//	//printf("%zd\n", sizeof(p + 1));//4/8
-//	//printf("%zd\n", sizeof(*p));//1
-//	//printf("%zd\n", sizeof(p[0]));//1
-//	//printf("%zd\n", sizeof(&p));//4/8
-//	//printf("%zd\n", sizeof(&p + 1));//4/8
-//	//printf("%zd\n", sizeof(&p[0] + 1));//4/8
-//	//printf("%zd\n", strlen(p));//6
-//	//printf("%zd\n", strlen(p + 1));//5
-//	////printf("%zd\n", strlen(*p));//err
-//	////printf("%zd\n", strlen(p[0]));//err
-//	//printf("%zd\n", strlen(&p));//6
-//	//printf("%zd\n", strlen(&p + 1));//随机值
-//	//printf("%zd\n", strlen(&p[0] + 1));//5
+//	//printf("%zu\n", sizeof(p));//4/8
+//	//printf("%zu\n", sizeof(p + 1));//4/8
+//	//printf("%zu\n", sizeof(*p));//1
+//	//printf("%zu\n", sizeof(p[0]));//1
+//	//printf("%zu\n", sizeof(&p));//4/8
+//	//printf("%zu\n", sizeof(&p + 1));//4/8
+//	//printf("%zu\n", sizeof(&p[0] + 1));//4/8
+//	//printf("%zu\n", strlen(p));//6
+//	//printf("%zu\n", strlen(p + 1));//5
+//	////printf("%zu\n", strlen(*p));//err
+//	////printf("%zu\n", strlen(p[0]));//err
+//	//printf("%zu\n", strlen(&p));//6
+//	//printf("%zu\n", strlen(&p + 1));//随机值
+//	//printf("%zu\n", strlen(&p[0] + 1));//5
 //	//printf("\n");
 //
 //	////二维数组
 //	//int a[3][4] = { 0 };
-//	//printf("%zd\n", sizeof(a));//48
-//	//printf("%zd\n", sizeof(a[0][0]));//4
-//	//printf("%zd\n", sizeof(a[0]));//16
-//	//printf("%zd\n", sizeof(a[0] + 1));//4/8
-//	//printf("%zd\n", sizeof(*(a[0] + 1)));//4
-//	//printf("%zd\n", sizeof(a + 1));//4/8
-//	//printf("%zd\n", sizeof(*(a + 1)));//16
-//	//printf("%zd\n", sizeof(&a[0] + 1));//4/8
-//	//printf("%zd\n", sizeof(*(&a[0] + 1)));//16
-//	//printf("%zd\n", sizeof(*a));//16
-//	//printf("%zd\n", sizeof(a[3]));//16
+//	//printf("%zu\n", sizeof(a));//48
+//	//printf("%zu\n", sizeof(a[0][0]));//4
+//	//printf("%zu\n", sizeof(a[0]));//16
+//	//printf("%zu\n", sizeof(a[0] + 1));//4/8
+//	//printf("%zu\n", sizeof(*(a[0] + 1)));//4
+//	//printf("%zu\n", sizeof(a + 1));//4/8
+//	//printf("%zu\n", sizeof(*(a + 1)));//16
+//	//printf("%zu\n", sizeof(&a[0] + 1));//4/8
+//	//printf("%zu\n", sizeof(*(&a[0] + 1)));//16
+//	//printf("%zu\n", sizeof(*a));//16
+//	//printf("%zu\n", sizeof(a[3]));//16
 //	//printf("\n");
 //}
 
@@ -823,6 +865,7 @@
 //	char cha[2];
 //	short sBa[4];
 //}*p;
+//
 //int main()
 //{
 //	printf("%p\n", p + 0x1);//0x100014

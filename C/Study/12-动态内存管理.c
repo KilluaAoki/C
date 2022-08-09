@@ -389,7 +389,7 @@
 */
 
 ////C/C++程序的内存开辟示例
-//int globalVal = 0;//全局变量，存放于内存中的数据段(静态区)。
+//int globalVal;//全局变量，存放于内存中的数据段(静态区)，此处"globalVal"变量的值为：0。
 //static int staticGlobalVal = 0;//静态数据("static"关键字修饰的变量)，存放于内存中的数据段(静态区)。
 //int main()
 //{

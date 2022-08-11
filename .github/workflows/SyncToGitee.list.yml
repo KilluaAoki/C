@@ -1,9 +1,6 @@
 name: SyncToGitee(list)
 
 on:
-  push:
-    branches:
-      - Aoki
   workflow_dispatch:
   schedule:
     - cron: "30 17 * * *" # UTC 17:30 -> CST (China) 1:30 see https://datetime360.com/cn/utc-cst-china-time/

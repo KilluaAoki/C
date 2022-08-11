@@ -1,9 +1,6 @@
 name: Sync Github Repos To Gitee
 
 on:
-  push:
-    branches:
-      - Aoki
   schedule:
     # UTC 17:00 -> CST (China) 1:00 see https://datetime360.com/cn/utc-cst-china-time/
     - cron: "1 17 * * *"

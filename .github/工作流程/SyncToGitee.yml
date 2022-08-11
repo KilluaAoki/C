@@ -1,6 +1,6 @@
 steps:
-- name: Hub Mirror Action.
-  uses: Yikun/hub-mirror-action@v1.2
+- name: Mirror the Github organization repos to Gitee.
+  uses: Yikun/hub-mirror-action@master
   with:
     src: github/KilluaAoki
     dst: gitee/KilluaAoki
@@ -9,4 +9,3 @@ steps:
     account_type: user
     force_update: true
     clone_style: "ssh"
-

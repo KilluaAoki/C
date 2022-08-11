@@ -353,7 +353,7 @@
 //	return 0;
 //}
 
-////二分查找：编写代码在一个整形有序数组中查找具体的某个数。
+////二分查找：编写代码在一个整型有序数组中查找具体的某个数。
 ////要求：
 ////	1. 找到了就打印数字所在的下标。
 ////	2. 找不到则打印：找不到。
@@ -905,16 +905,15 @@
 //	return 0;
 //}
 
-////数组操作：创建一个整形数组，并完成对数组的相应操作。
+////数组操作：创建一个整型数组，并完成对数组的相应操作。
 ////要求：
 ////	1. 实现函数"init"，将数组内元素全部初始化为"0"。
 ////	2. 实现函数"print"，打印数组内的每一个元素。
 ////	3. 实现函数"reverse"，完成对数组元素的逆置。
 ////	4. 实现函数"empty"，清空数组内所有元素。
-//void Swap(int* str1, int* str2)
+//void Swap(int* ptr1, int* ptr2)
 //{
-//	assert(str1 != NULL && str2 != NULL);
-//	(*str1 ^ *str2) && (*str2 ^= *str1 ^= *str2, *str1 ^= *str2);
+//	(*ptr1 ^ *ptr2) && (*ptr2 ^= *ptr1 ^= *ptr2, *ptr1 ^= *ptr2);
 //}
 //
 //void init(int arr[], int size)
@@ -989,10 +988,10 @@
 //	return 0;
 //}
 
-////冒泡排序：实现一个对整形数组的冒泡排序。
-//void Swap(int* str1, int* str2)
+////冒泡排序：实现一个对整型数组的冒泡排序。
+//void Swap(int* ptr1, int* ptr2)
 //{
-//	(*str1 ^ *str2) && (*str2 ^= *str1 ^= *str2, *str1 ^= *str2);
+//	(*ptr1 ^ *ptr2) && (*ptr2 ^= *ptr1 ^= *ptr2, *ptr1 ^= *ptr2);
 //}
 //
 //void BubbleSort(int arr[], int size)
@@ -1036,11 +1035,9 @@
 //{
 //	int arr[] = { -1, -2, -3, -4, -5, -6, -7, -8, -9, 0 };
 //	int size = sizeof(arr) / sizeof(arr[0]);
-//
 //	PrintIntArray(arr, size);
 //	BubbleSort(arr, size);
 //	PrintIntArray(arr, size);
-//
 //	return 0;
 //}
 
@@ -1822,5 +1819,383 @@
 //		}
 //		printf("\n");
 //	}
+//	return 0;
+//}
+
+////字符串左旋：实现一个函数，可以左旋字符串中的"k"个字符。(常规方法)
+////信息：
+////	"ABCD"左旋一个字符得到"BCDA"
+////	"ABCD"左旋两个字符得到"CDAB"
+//void Swap(char* str1, char* str2)
+//{
+//	(*str1 ^ *str2) && (*str2 ^= *str1 ^= *str2, *str1 ^= *str2);
+//}
+//
+//char* LeftRotateString(char* str, int k)
+//{
+//	size_t len = strlen(str);
+//	if (len <= 1)
+//		return str;
+//	for (int i = 0; i < k; ++i)
+//	{
+//		char* left = str;
+//		char* right = str + 1;
+//		while (*right)
+//		{
+//			Swap(left, right);
+//			left++;
+//			right++;
+//		}
+//	}
+//	return str;
+//}
+//
+//int main()
+//{
+//	int k = 0;
+//	scanf_s("%d", &k);
+//	char arr[] = "ABCD";
+//	printf("%s\n", LeftRotateString(arr, k));
+//	return 0;
+//}
+
+////字符串左旋：实现一个函数，可以左旋字符串中的"k"个字符。(三步翻转法)
+////信息：
+////	"ABCD"左旋一个字符得到"BCDA"
+////	"ABCD"左旋两个字符得到"CDAB"
+//void Swap(char* str1, char* str2)
+//{
+//	(*str1 ^ *str2) && (*str2 ^= *str1 ^= *str2, *str1 ^= *str2);
+//}
+//
+//void ReverseString(char* left, char* right)
+//{
+//	while (left < right)
+//	{
+//		Swap(left, right);
+//		left++;
+//		right--;
+//	}
+//}
+//
+//char* LeftRotateString(char* str, int k)
+//{
+//	size_t len = strlen(str);
+//	if (len <= 1)
+//		return str;
+//	k = k % (int)len;
+//	ReverseString(str, str + len - 1);
+//	ReverseString(str, str + len - k - 1);
+//	ReverseString(str + len - k, str + len - 1);
+//	return str;
+//}
+//
+//int main()
+//{
+//	int k = 0;
+//	scanf_s("%d", &k);
+//	char arr[] = "ABCD";
+//	printf("%s\n", LeftRotateString(arr, k));
+//	return 0;
+//}
+
+////杨氏矩阵：https://leetcode.cn/problems/search-a-2d-matrix-ii/。
+//bool searchMatrix(int** matrix, int matrixSize, int* matrixColSize, int target)
+//{
+//	int x = matrixSize - 1;
+//	int y = 0;
+//	while (x >= 0 && y < *matrixColSize)
+//	{
+//		if (target > matrix[x][y])
+//		{
+//			y++;
+//		}
+//		else if (target < matrix[x][y])
+//		{
+//			x--;
+//		}
+//		else
+//		{
+//			return true;
+//		}
+//	}
+//	return false;
+//}
+
+////判断字符串旋转：写一个函数，判断一个字符串是否为另外一个字符串旋转之后的字符串。(模拟方法)
+////要求：
+////	1. 给定"s1 = AABCD"和"s2 = BCDAA"，返回"1"。
+////	2. 给定"s1 = abcd"和"s2 = ACBD"，返回"0"。
+////信息：
+////	"AABCD"左旋一个字符得到"ABCDA"。
+////	"AABCD"左旋两个字符得到"BCDAA"。
+////	"AABCD"右旋一个字符得到"DAABC"。
+//bool RotateString(char* str1, char* str2)
+//{
+//	size_t m = strlen(str1), n = strlen(str2);
+//	if (m != n)
+//		return false;
+//	for (int i = 0; i < n; i++)
+//	{
+//		bool flag = true;
+//		for (int j = 0; j < n; j++)
+//		{
+//			if (str1[(i + j) % n] != str2[j])
+//			{
+//				flag = false;
+//				break;
+//			}
+//		}
+//		if (flag)
+//		{
+//			return true;
+//		}
+//	}
+//	return false;
+//}
+//
+//int main()
+//{
+//	char arr1[] = "abcd";
+//	char arr2[] = "ACBD";
+//	printf("%s\n", RotateString(arr1, arr2) == true ? "true" : "false");
+//	return 0;
+//}
+
+////判断字符串旋转：写一个函数，判断一个字符串是否为另外一个字符串旋转之后的字符串。(搜索子字符串方法)
+////要求：
+////	1. 给定"s1 = AABCD"和"s2 = BCDAA"，返回"1"。
+////	2. 给定"s1 = abcd"和"s2 = ACBD"，返回"0"。
+////信息：
+////	"AABCD"左旋一个字符得到"ABCDA"。
+////	"AABCD"左旋两个字符得到"BCDAA"。
+////	"AABCD"右旋一个字符得到"DAABC"。
+//bool RotateString(char* str1, char* str2)
+//{
+//	size_t m = strlen(str1), n = strlen(str2);
+//	if (m != n)
+//		return false;
+//	char* str = (char*)malloc(sizeof(char) * (m + n + 1));
+//	sprintf(str, "%s%s", str2, str2);
+//	return strstr(str, str1);
+//}
+//
+//int main()
+//{
+//	char arr1[] = "abcd";
+//	char arr2[] = "ACBD";
+//	printf("%s\n", RotateString(arr1, arr2) == true ? "true" : "false");
+//	return 0;
+//}
+
+////"qsort"库函数的使用练习：练习使用库函数"qsort"，排序各种类型的数据。(整型数组排序)
+//void PrintArray(int arr[], size_t size)
+//{
+//	for (int i = 0; i < size; ++i)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//int CompareIntArray(const void* p1, const void* p2)
+//{
+//	return *(int*)p1 - *(int*)p2;
+//}
+//
+//int main()
+//{
+//	int arr[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//	qsort(arr, size, sizeof(arr[0]), CompareIntArray);
+//	PrintArray(arr, size);
+//	return 0;
+//}
+
+////"qsort"库函数的使用练习：练习使用库函数"qsort"，排序各种类型的数据。(结构体类型数组内的数据排序)
+//struct Student
+//{
+//	char name[20];
+//	size_t age;
+//};
+//
+//void PrintStudent(struct Student arr[], size_t size)
+//{
+//	for (int i = 0; i < size; ++i)
+//	{
+//		printf("{ %s, %zu },", arr[i].name, arr[i].age);
+//	}
+//	printf("\n");
+//}
+//
+//int ComparName(const void* p1, const void* p2)
+//{
+//	return strcmp(((struct Student*)p1)->name, ((struct Student*)p2)->name);
+//}
+//
+//int ComparAge(const void* p1, const void* p2)
+//{
+//	return (int)(((struct Student*)p1)->age) - (int)(((struct Student*)p2)->age);
+//}
+//
+//int main()
+//{
+//	struct Student arr[] = {{ "A", 19 },
+//							{ "X", 21 },
+//							{ "B", 20 },
+//							{ "Y", 19 },
+//							{ "C", 18 },
+//							{ "Z", 20 }};
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//
+//	PrintStudent(arr, size);
+//
+//	qsort(arr, size, sizeof(arr[0]), ComparName);
+//
+//	PrintStudent(arr, size);
+//
+//	qsort(arr, size, sizeof(arr[0]), ComparAge);
+//
+//	PrintStudent(arr, size);
+//
+//	return 0;
+//}
+
+////模仿"qsort"库函数模拟实现冒泡排序：模仿库函数"qsort"，实现一个通用的冒泡排序。
+//void PrintArray(int arr[], size_t size)
+//{
+//	for (int i = 0; i < size; ++i)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//void Swap(char* str1, char* str2, size_t size)
+//{
+//	for (size_t i = 0; i < size; ++i)
+//	{
+//		(*str1 ^ *str2) && (*str2 ^= *str1 ^= *str2, *str1 ^= *str2);
+//		str1++;
+//		str2++;
+//	}
+//}
+//
+//int CompareIntArray(const void* p1, const void* p2)
+//{
+//	return *(int*)p1 - *(int*)p2;
+//}
+//
+//void BubbleSort(void* base, size_t num, size_t size, int (* compar)(const void*, const void*))
+//{
+//	if (num <= 1)
+//		return;
+//	for (size_t end = num - 1; end > 0; --end)
+//	{
+//		for (size_t i = 1; i <= end; ++i)
+//		{
+//			if (CompareIntArray((char*)base + (i - 1) * size, (char*)base + i * size) > 0)
+//			{
+//				Swap((char*)base + (i - 1) * size, (char*)base + i * size, size);
+//			}
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int arr[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//	BubbleSort(arr, size, sizeof(arr[0]), CompareIntArray);
+//	PrintArray(arr, size);
+//	return 0;
+//}
+
+////矩阵转置：https://www.nowcoder.com/practice/351b3d03e410496ab5a407b7ca3fd841。
+//int main()
+//{
+//	int m = 0, n = 0;
+//	scanf_s("%d%d", &n, &m);
+//	int arr[n][m];
+//	int copyArr[m][n];
+//	for (int i = 0; i < n; ++i)
+//	{
+//		for (int j = 0; j < m; ++j)
+//		{
+//			scanf_s("%d", &arr[i][j]);
+//			copyArr[j][i] = arr[i][j];
+//		}
+//	}
+//	for (int i = 0; i < m; ++i)
+//	{
+//		for (int j = 0; j < n; ++j)
+//		{
+//			printf("%d ", copyArr[i][j]);
+//		}
+//		printf("\n");
+//	}
+//	return 0;
+//}
+
+////上三角矩阵判定：https://www.nowcoder.com/practice/f5a29bacfc514e5a935723857e1245e4。
+//int main()
+//{
+//	int n = 0;
+//	scanf_s("%d", &n);
+//	int arr[n][n];
+//	for (int i = 0; i < n; ++i)
+//	{
+//		for (int j = 0; j < n; ++j)
+//		{
+//			scanf_s("%d", &arr[i][j]);
+//		}
+//	}
+//	bool flag = false;
+//	for (int i = 0; i < n; ++i)
+//	{
+//		for (int j = 0; j < i; ++j)
+//		{
+//			if (arr[i][j] != 0)
+//			{
+//				flag = true;
+//			}
+//		}
+//		if (flag)
+//			break;
+//	}
+//	if (!flag || arr[0][0] == 0)
+//	{
+//		printf("YES\n");
+//	}
+//	else
+//	{
+//		printf("NO\n");
+//	}
+//	return 0;
+//}
+
+////有序数组判断：https://www.nowcoder.com/practice/22e87f8a8d764a6582710f38d1b40c6e。
+//int main()
+//{
+//	int n = 0;
+//	scanf_s("%d", &n);
+//	int arr[n];
+//	bool flag1 = false;
+//	bool flag2 = false;
+//	for (int i = 0; i < n; ++i)
+//	{
+//		scanf_s("%d", &arr[i]);
+//		if (i >= 1)
+//		{
+//			if (arr[i] < arr[i - 1])
+//				flag1 = true;
+//			else if (arr[i] > arr[i - 1])
+//				flag2 = true;
+//		}
+//	}
+//	if (flag1 && flag2)
+//		printf("unsorted\n");
+//	else
+//		printf("sorted\n");
 //	return 0;
 //}

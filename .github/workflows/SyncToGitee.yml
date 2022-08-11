@@ -1,10 +1,25 @@
-- name: Gitee
-  uses: Yikun/hub-mirror-action@master
-  with:
-    src: github/KilluaAoki
-    dst: gitee/KilluaAoki
-    dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-    dst_token: ${{ secrets.GITEE_TOKEN }}
-    clone_style: "ssh"
-    force_update: true
-    account_type: user
+name: Sync Github Repos To Gitee
+
+on:
+  push:
+    branches: 
+      - Aoki
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Mirror the GitHub repos to Gitee
+      uses: Yikun/hub-mirror-action@v1.2
+      with:
+        src: github/KilluaAoki
+        dst: gitee/KilluaAoki
+        dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token:  ${{ secrets.GITEE_TOKEN }}
+        account_type: user
+        clone_style: "ssh"
+        debug: false
+        force_update: true
+        # static_list: "python-nianbao-struct"  # 静态同步列表，在此填写需要同步的仓库名称，可填写多个
+        timeout: 300

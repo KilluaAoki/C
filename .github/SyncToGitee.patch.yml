@@ -1,0 +1,42 @@
+name: SyncToGitee(patch)
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Directory need to delete'
+        required: false
+        default: ''
+
+jobs:
+  run:
+    name: Delete the wrong cache directory
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Get repo and time
+        id: info
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            core.setOutput('time', new Date(Date.now()).toISOString().replace(/[^0-9]/g, ""));
+            core.setOutput('key', `${context.repo.owner}-${context.repo.repo}`);
+
+      - name: Cache src repos
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: ${{ github.workspace }}/hub-mirror-cache
+          key: ${{ runner.os }}-${{ steps.info.outputs.key }}-list-cache-${{ steps.info.outputs.time }}
+          restore-keys: ${{ runner.os }}-${{ steps.info.outputs.key }}-list-
+
+      - name: Delete the wrong cache directory
+        run: |
+          cd ${{ github.workspace }}/hub-mirror-cache/
+          ls -la ./
+          rm -rf ${{ github.event.inputs.repo }}/
+
+      - name: Print cache path
+        run: |
+          ls -la ${{ github.workspace }}/hub-mirror-cache

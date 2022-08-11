@@ -42,7 +42,7 @@ jobs:
           cache_path: /github/workspace/hub-mirror-cache
           account_type: user
           force_update: true
-          # clone_style: "ssh"
+          clone_style: "ssh"
           # debug: false
           # timeout: 300
 

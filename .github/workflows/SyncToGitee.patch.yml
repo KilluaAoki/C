@@ -4,16 +4,15 @@ on:
   workflow_dispatch:
     inputs:
       repo:
-        description: 'Directory need to delete'
+        description: "Directory need to delete"
         required: false
-        default: ''
+        default: ""
 
 jobs:
   run:
     name: Delete the wrong cache directory
     runs-on: ubuntu-latest
     steps:
-
       - name: Get repo and time
         id: info
         uses: actions/github-script@v6

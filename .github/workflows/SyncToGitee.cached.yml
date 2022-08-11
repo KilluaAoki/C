@@ -1,9 +1,12 @@
 name: SyncToGitee(cached)
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - Aoki
   schedule:
-    - cron: "0 17 * * *"
+    - cron: "0 17 * * *" # UTC 17:00 -> CST (China) 1:00 see https://datetime360.com/cn/utc-cst-china-time/
+  workflow_dispatch:
 
 jobs:
   run:
@@ -12,7 +15,7 @@ jobs:
     steps:
       - name: Get repo and time
         id: info
-        uses: actions/github-script@v3.1
+        uses: actions/github-script@v6
         with:
           result-encoding: string
           script: |
@@ -21,7 +24,7 @@ jobs:
             return context.repo.repo;
 
       - name: Cache src repos
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v3
         id: cache
         with:
           path: ${{ github.workspace }}/hub-mirror-cache
@@ -29,7 +32,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ steps.info.outputs.key }}-cache-
 
       - name: Mirror the GitHub repos to Gitee with cache
-        uses: Yikun/hub-mirror-action@v0.13
+        uses: Yikun/hub-mirror-action@master
         with:
           src: github/KilluaAoki
           dst: gitee/KilluaAoki
@@ -39,6 +42,9 @@ jobs:
           cache_path: /github/workspace/hub-mirror-cache
           account_type: user
           force_update: true
+          # clone_style: "ssh"
+          # debug: false
+          # timeout: 300
 
       - name: Print cache path
         run: |

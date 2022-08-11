@@ -1,4 +1,4 @@
-name: SyncToGitee(cached
+name: SyncToGitee(cached)
 
 on:
   schedule:

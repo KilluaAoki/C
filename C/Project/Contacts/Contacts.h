@@ -13,7 +13,7 @@
 #define MAX_PHONE 20
 #define MAX_ADDRESS 50
 #define EXPAND_SIZE 5
-#define DEFAULT_SIZE 2
+#define DEFAULT_SIZE 5
 
 //定义枚举类型(选项)
 enum Option
@@ -35,7 +35,7 @@ typedef struct Information
 	char phone[MAX_PHONE];
 	char address[MAX_ADDRESS];
 	int age;
-}Information;
+} Information;
 
 ////定义结构体类型(通讯录)(静态)
 //typedef struct Contacts
@@ -50,7 +50,7 @@ typedef struct Contacts
 	Information* people;
 	int number;
 	int capacity;
-}Contacts;
+} Contacts;
 
 //菜单
 void Menu();

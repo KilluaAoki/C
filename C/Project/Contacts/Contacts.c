@@ -121,12 +121,12 @@ void Search_Contacts(Contacts* contacts)
 		{
 			printf("%-s\t%-10s\t%-5s\t%-5s\t%-20s\t%-30s\n", "序号", "姓名", "年龄", "性别", "电话", "地址");
 			printf("%-d\t%-10s\t%-5d\t%-5s\t%-20s\t%-30s\n",
-				i + 1,
-				contacts->people[i].name,
-				contacts->people[i].age,
-				contacts->people[i].sex,
-				contacts->people[i].phone,
-				contacts->people[i].address
+					i + 1,
+					contacts->people[i].name,
+					contacts->people[i].age,
+					contacts->people[i].sex,
+					contacts->people[i].phone,
+					contacts->people[i].address
 			);
 			return;
 		}
@@ -175,14 +175,17 @@ void Sort_Menu()
 	printf("**********  0.  Exit Sort    **********\n");
 	printf("***************************************\n");
 }
+
 int Compar_Name(const void* p1, const void* p2)
 {
 	return strcmp(((Information*)p1)->name, ((Information*)p2)->name);
 }
+
 int Compar_Age(const void* p1, const void* p2)
 {
 	return ((Information*)p1)->age - ((Information*)p2)->age;
 }
+
 void Swap(char* p1, char* p2, size_t size)
 {
 	for (int i = 0; i < size; i++)
@@ -193,7 +196,8 @@ void Swap(char* p1, char* p2, size_t size)
 		p1++, p2++;
 	}
 }
-void Insert_Sort(void* base, size_t num, size_t size, int (*compar)(const void*, const void*))
+
+void Insert_Sort(void* base, size_t num, size_t size, int (* compar)(const void*, const void*))
 {
 	for (int i = 1; i < num; i++)
 	{
@@ -203,7 +207,8 @@ void Insert_Sort(void* base, size_t num, size_t size, int (*compar)(const void*,
 		}
 	}
 }
-void Sort(Contacts* contacts, int (*ptr)(const void*, const void*))
+
+void Sort(Contacts* contacts, int (* ptr)(const void*, const void*))
 {
 	system("cls");
 	printf("排序前>");
@@ -213,6 +218,7 @@ void Sort(Contacts* contacts, int (*ptr)(const void*, const void*))
 	Point_Contacts(contacts);
 	system("pause");
 }
+
 void Sort_Contacts(Contacts* contacts)
 {
 	if (contacts->number == 0)
@@ -266,12 +272,12 @@ void Point_Contacts(Contacts* contacts)
 	for (int i = 0; i < contacts->number; i++)
 	{
 		printf("%-d\t%-10s\t%-5d\t%-5s\t%-20s\t%-30s\n",
-			i+1,
-			contacts->people[i].name,
-			contacts->people[i].age,
-			contacts->people[i].sex,
-			contacts->people[i].phone,
-			contacts->people[i].address
+				i + 1,
+				contacts->people[i].name,
+				contacts->people[i].age,
+				contacts->people[i].sex,
+				contacts->people[i].phone,
+				contacts->people[i].address
 		);
 	}
 	printf("\n");
@@ -282,7 +288,8 @@ void Check_Capacity(Contacts* contacts)
 {
 	if (contacts->number == contacts->capacity)
 	{
-		Information* tmp = (Information*)realloc(contacts->people, (EXPAND_SIZE + contacts->capacity) * sizeof(Information));
+		Information* tmp = (Information*)realloc(contacts->people,
+				(EXPAND_SIZE + contacts->capacity) * sizeof(Information));
 		if (tmp != NULL)
 		{
 			contacts->people = tmp;
@@ -312,7 +319,7 @@ void Read_Contacts(Contacts* contacts)
 	fopen_s(&ptr, "Contacts.dat", "r+");
 	if (ptr == NULL)
 	{
-		perror("Read_Contacts");
+		//perror("Read_Contacts");
 		return;
 	}
 	Information tmp;

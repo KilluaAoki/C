@@ -786,7 +786,7 @@
 			b.若"ptr1"或"ptr2"为空指针，则行为未定义。
 */
 
-////模拟实现"memcmp"函数示例
+////使用"memcmp"函数示例
 //int main()
 //{
 //	char buffer1[] = "KilluaAoki";
@@ -859,12 +859,30 @@
 			b.若"ptr"为空指针，则行为未定义。
 */
 
-////使用"memset"函数示例
+////使用"memset"函数示例一
 //int main()
 //{
 //	char str[] = "KilluaAoki";
 //	memset(str + 1, '*', sizeof(char) * 8);
 //	puts(str);
+//	return 0;
+//}
+
+////使用"memset"函数示例二
+//int main()
+//{
+//	int arr[10];
+//
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//	
+//	My_Memset(arr, 0, sizeof(arr));//只会将"value"二进制的低八位赋值给所输范围的每个字节。
+//	
+//	PrintArray(arr, size);
+//
+//	My_Memset(arr, 1, sizeof(arr));//会将输入范围中的每个字节都填充为值"value"。
+//
+//	PrintArray(arr, size);
+//	
 //	return 0;
 //}
 
@@ -894,12 +912,8 @@
 //
 //	size_t size = sizeof(arr) / sizeof(arr[0]);
 //	
-//	My_Memset(arr, 0, sizeof(arr));//只将"value"二进制的低八位赋值给所输范围的每个字节。
+//	My_Memset(arr, 0, sizeof(arr));
 //	
-//	PrintArray(arr, size);
-//
-//	My_Memset(arr, 1, sizeof(arr));//会将输入范围中的每个字节都填充为值"value"。
-//
 //	PrintArray(arr, size);
 //	
 //	return 0;

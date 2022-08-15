@@ -1664,7 +1664,7 @@
 //	return 0;
 //}
 
-////小乐乐改数字：https://www.nowcoder.com/practice/fcd30aac9c4f4028b23919a0c649824d。
+////小乐乐改数字：https://www.nowcoder.com/practice/fcd30aac9c4f4028b23919a0c649824d。(方法一)
 //int main()
 //{
 //	char arr[10];
@@ -1687,6 +1687,23 @@
 //		num = num * 10 + (arr[i] - '0');
 //	}
 //	printf("%zu\n", num);
+//	return 0;
+//}
+
+//////小乐乐改数字：https://www.nowcoder.com/practice/fcd30aac9c4f4028b23919a0c649824d。(方法二)
+//int main()
+//{
+//	int n = 0;
+//	scanf_s("%d", &n);
+//	int sum = 0;
+//	int x = 0;
+//	while (n)
+//	{
+//		int i = (n % 10) % 2;
+//		sum += i * (int)pow(10, x++);
+//		n /= 10;
+//	}
+//	printf("%d", sum);
 //	return 0;
 //}
 
@@ -1836,6 +1853,7 @@
 //	size_t len = strlen(str);
 //	if (len <= 1)
 //		return str;
+//	k %= (int)len;
 //	for (int i = 0; i < k; ++i)
 //	{
 //		char* left = str;
@@ -1883,7 +1901,7 @@
 //	size_t len = strlen(str);
 //	if (len <= 1)
 //		return str;
-//	k = k % (int)len;
+//	k %= (int)len;
 //	ReverseString(str, str + len - 1);
 //	ReverseString(str, str + len - k - 1);
 //	ReverseString(str + len - k, str + len - 1);
@@ -1962,7 +1980,7 @@
 //	return 0;
 //}
 
-////判断字符串旋转：写一个函数，判断一个字符串是否为另外一个字符串旋转之后的字符串。(使用"strstr"库函数搜索子串方法)
+////判断字符串旋转：写一个函数，判断一个字符串是否为另外一个字符串旋转之后的字符串。(搜索子字符串方法)
 ////要求：
 ////	1. 给定"s1 = AABCD"和"s2 = BCDAA"，返回"1"。
 ////	2. 给定"s1 = abcd"和"s2 = ACBD"，返回"0"。
@@ -2197,5 +2215,532 @@
 //		printf("unsorted\n");
 //	else
 //		printf("sorted\n");
+//	return 0;
+//}
+
+////"strlen"库函数实现：模拟实现"strlen"库函数。(三种实现方法)
+//size_t My_Strlen_Count(char* str)
+//{
+//	size_t count = 0;
+//	while (*str++)
+//	{
+//		++count;
+//	}
+//	return count;
+//}
+//
+//size_t My_Strlen_Recursion(char* str)
+//{
+//	if (*str == '\0')
+//	{
+//		return 0;
+//	}
+//	return 1 + My_Strlen_Recursion(str + 1);
+//}
+//
+//size_t My_Strlen_Pointer(char* str)
+//{
+//	char* tmp = str;
+//	while (*tmp++);
+//	return tmp - 1 - str;
+//}
+//
+//int main()
+//{
+//	char* str = "KilluaAoki";
+//
+//	//计数：创建临时变量。
+//	printf("%zu\n", My_Strlen_Count(str));
+//
+//	//递归：不创建临时变量。
+//	printf("%zu\n", My_Strlen_Recursion(str));
+//
+//	//指针：指针运算。
+//	printf("%zu\n", My_Strlen_Pointer(str));
+//
+//	return 0;
+//}
+
+////"strcpy"库函数实现：模拟实现"strcpy"库函数。
+//char* My_Strcpy(char* dest, const char* src)
+//{
+//	char* tmp = dest;
+//	while ((*tmp++ = *src++));
+//	return dest;
+//}
+//
+//int main()
+//{
+//	char arr1[20] = "XXXXXXXXXX";
+//	char arr2[] = "KilluaAoki";
+//	printf("%s\n", My_Strcpy(arr1, arr2));
+//	return 0;
+//}
+
+////"strcat"库函数实现：模拟实现"strcat"库函数。
+//char* My_Strcat(char* dest, const char* src)
+//{
+//	char* tmp = dest;
+//	while (*tmp++);
+//	--tmp;
+//	while ((*tmp++ = *src++));
+//	return dest;
+//}
+//
+//int main()
+//{
+//	char arr1[] = "Killua ";
+//	char arr2[] = "Aoki";
+//	printf("%s\n", My_Strcat(arr1, arr2));
+//	return 0;
+//}
+
+////"strcmp"库函数实现：模拟实现"strcmp"库函数。
+//int My_Strcmp(const char* str1, const char* str2)
+//{
+//	int ret = 0;
+//
+//	while ((ret = ((int)(*((unsigned char*)str1))) - *((unsigned char*)str2++)) == 0 && *str1++);
+//
+//	return ret;
+//}
+//
+//int main()
+//{
+//	char arr1[] = "KilluaAoki";
+//	char arr2[] = "KilluaAoki";
+//
+//	int ret = My_Strcmp(arr1, arr2);
+//
+//	if (ret == 0)
+//	{
+//		printf("==\n");
+//	}
+//	else if (ret < 0)
+//	{
+//		printf("<\n");
+//	}
+//	else
+//	{
+//		printf(">\n");
+//	}
+//
+//	return 0;
+//}
+
+////"strstr"库函数实现：模拟实现"strstr"库函数。
+//char* My_Strstr(const char* str, const char* substr)
+//{
+//	const char* str1 = str;
+//	const char* str2 = substr;
+//	do
+//	{
+//		if (*str2 == '\0')
+//		{
+//			return (char*)str;
+//		}
+//		if (*str1 == *str2)
+//		{
+//			++str1;
+//			++str2;
+//		}
+//		else
+//		{
+//			str2 = substr;
+//			if (*str1 == '\0')
+//			{
+//				return NULL;
+//			}
+//			str1 = ++str;
+//		}
+//	} while (1);
+//}
+//
+//int main()
+//{
+//	char arr1[] = "KilluaAoki";
+//	char arr2[] = "Aoki";
+//	printf("%s\n", My_Strstr(arr1, arr2));
+//	return 0;
+//}
+
+////"memcpy"库函数实现：模拟实现"memcpy"库函数。
+//void* My_Memcpy(void* destination, const void* source, size_t num)
+//{
+//	unsigned char* ptr1 = destination;
+//	const unsigned char* ptr2 = source;
+//	while (num--)
+//	{
+//		*ptr1++ = *ptr2++;
+//	}
+//	return destination;
+//}
+//
+//int main()
+//{
+//	int arr1[10] = { 0 };
+//	int arr2[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//	My_Memcpy(arr1, arr2, sizeof(arr2));
+//	for (int i = 0; i < sizeof(arr1) / sizeof(arr1[0]); i++)
+//	{
+//		printf("%d ", arr1[i]);
+//	}
+//	return 0;
+//}
+
+////"memmove"库函数实现：模拟实现"memmove"库函数。
+//void* My_Memmove(void* destination, const void* source, size_t num)
+//{
+//	unsigned char* ptr1 = destination;
+//	const unsigned char* ptr2 = source;
+//	if (ptr1 > ptr2)
+//	{
+//		while (num--)
+//		{
+//			ptr1[num] = ptr2[num];
+//		}
+//	}
+//	else
+//	{
+//		while (num--)
+//		{
+//			*ptr1++ = *ptr2++;
+//		}
+//	}
+//	return destination;
+//}
+//
+//int main()
+//{
+//	int arr[10] = { 5, 6, 7, 8, 9, 0, 1, 2, 3, 4 };
+//	My_Memmove(arr + 1, arr + 0, sizeof(arr[0]) * 4);
+//	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	return 0;
+//}
+
+////小乐乐与欧几里得：https://www.nowcoder.com/practice/da13e0cf321e4df9acd0fdf0a433cbb0。
+//size_t GetFactor(size_t x, size_t y)
+//{
+//	return y == 0 ? x : GetFactor(y, x % y);
+//}
+//
+//int main()
+//{
+//	size_t n = 0;
+//	size_t m = 0;
+//	scanf_s("%zu%zu", &n, &m);
+//	size_t product = m * n;
+//	size_t factor = GetFactor(n, m);
+//	printf("%zu\n", (product / factor) + factor);
+//	return 0;
+//}
+
+////空心正方形图案：https://www.nowcoder.com/practice/72347ee949dc47399186ee183632f303。
+//int main()
+//{
+//	int input = 0;
+//	while (scanf_s("%d", &input) != EOF)
+//	{
+//		for (int i = 0; i < input; ++i)
+//		{
+//			for (int j = 0; j < input; ++j)
+//			{
+//				if (i == 0 || i == input - 1 || j == 0 || j == input - 1)
+//				{
+//					printf("* ");
+//				}
+//				else
+//				{
+//					printf("  ");
+//				}
+//			}
+//			printf("\n");
+//		}
+//	}
+//	return 0;
+//}
+
+////箭形图案：https://www.nowcoder.com/practice/a6d1081e0c9a42f19e42ed6cd91556c1。
+//int main()
+//{
+//	int input = 0;
+//	while (scanf_s("%d", &input) != EOF)
+//	{
+//		for (int i = 1; i <= input * 2 + 1; i++)
+//		{
+//			for (int j = 1; j <= input * 2 + 1; j++)
+//			{
+//				if (i <= input + 1)
+//				{
+//					if ((2 * i + j >= 2 * input + 3) && (i + j <= 2 * input + 2))
+//					{
+//						printf("*");
+//					}
+//					else
+//					{
+//						printf(" ");
+//					}
+//				}
+//				else
+//				{
+//					if ((2 * i - j <= 2 * input + 1) && (i >= j))
+//					{
+//						printf("*");
+//					}
+//					else
+//					{
+//						printf(" ");
+//					}
+//				}
+//			}
+//			printf("\n");
+//		}
+//	}
+//	return 0;
+//}
+
+////公务员面试：https://www.nowcoder.com/practice/f3a134908d5b41869f14f58307008a97。
+//int main()
+//{
+//	int input = 0, min = 101, max = -1, sum = 0, count = 0;
+//	while (scanf_s("%d", &input) != EOF)
+//	{
+//		if (input > max)
+//		{
+//			max = input;
+//		}
+//		if (input < min)
+//		{
+//			min = input;
+//		}
+//		sum += input;
+//		count++;
+//		if (count == 7)
+//		{
+//			printf("%.2f\n", (sum - min - max) / 5.0);
+//			min = 101, max = -1, sum = 0, count = 0;
+//		}
+//	}
+//	return 0;
+//}
+
+////"strncpy"库函数实现：模拟实现"strncpy"库函数。
+//char* My_Strncpy(char* destination, const char* source, size_t count)
+//{
+//	char* tmp = destination;
+//	while (count--)
+//	{
+//		if ((*tmp++ = *source))
+//		{
+//			source++;
+//		}
+//	}
+//	return destination;
+//}
+//
+//int main()
+//{
+//	char arr1[20] = "XXXXXXAoki";
+//	char arr2[] = "Killua";
+//	printf("%s\n", My_Strncpy(arr1, arr2, 10));
+//	return 0;
+//}
+
+////"strncat"库函数实现：模拟实现"strncat"库函数。
+//char* My_Strncat(char* destination, const char* source, size_t count)
+//{
+//	char* tmp = destination;
+//	while (*tmp++);
+//	--tmp;
+//	while (count-- && (*tmp = *source++))
+//	{
+//		++tmp;
+//	}
+//	*tmp = '\0';
+//	return destination;
+//}
+//
+//int main()
+//{
+//	char arr1[] = "Killua ";
+//	char arr2[] = "Aoki";
+//	printf("%s\n", My_Strncat(arr1, arr2, 4));
+//	return 0;
+//}
+
+////"strncmp"库函数实现：模拟实现"strncmp"库函数。
+//int My_Strncmp(const char* str1, const char* str2, size_t count)
+//{
+//	int ret = 0;
+//	while (count-- && ((ret = ((int)(*((unsigned char*)str1))) - *((unsigned char*)str2++)) == 0) && *str1++);
+//	return ret;
+//}
+//
+//int main()
+//{
+//	char buffer1[] = "KilluaAoki";
+//	char buffer2[] = "KilluaAoki";
+//
+//	int n = My_Strncmp(buffer1, buffer2, 10);
+//
+//	if (n > 0)
+//	{
+//		printf("'%s' is greater than '%s'.\n", buffer1, buffer2);
+//	}
+//	else if (n < 0)
+//	{
+//		printf("'%s' is less than '%s'.\n", buffer1, buffer2);
+//	}
+//	else
+//	{
+//		printf("'%s' is the same as '%s'.\n", buffer1, buffer2);
+//	}
+//
+//	return 0;
+//}
+
+////"memcmp"库函数实现：模拟实现"memcmp"库函数。
+//int My_Memcmp(const void* ptr1, const void* ptr2, size_t num)
+//{
+//	int ret = 0;
+//	const unsigned char* p1 = (const unsigned char*)ptr1;
+//	const unsigned char* p2 = (const unsigned char*)ptr2;
+//	while (num-- && ((ret = ((int)(*p1++)) - *p2++) == 0));
+//	return ret;
+//}
+//
+//int main()
+//{
+//	char buffer1[] = "KilluaAoki";
+//	char buffer2[] = "KilluaAoki";
+//
+//	int n = memcmp(buffer1, buffer2, sizeof(buffer1));
+//
+//	if (n > 0)
+//	{
+//		printf("'%s' is greater than '%s'.\n", buffer1, buffer2);
+//	}
+//	else if (n < 0)
+//	{
+//		printf("'%s' is less than '%s'.\n", buffer1, buffer2);
+//	}
+//	else
+//	{
+//		printf("'%s' is the same as '%s'.\n", buffer1, buffer2);
+//	}
+//
+//	return 0;
+//}
+
+////"memset"库函数实现：模拟实现"memset"库函数。
+//void* My_Memset(void* ptr, int value, size_t num)
+//{
+//	unsigned char* tmp = (unsigned char*)ptr;
+//	while (num--)
+//	{
+//		*tmp++ = (unsigned char)value;
+//	}
+//	return ptr;
+//}
+//
+//void PrintArray(int arr[], size_t size)
+//{
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//
+//int main()
+//{
+//	int arr[10];
+//
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//
+//	My_Memset(arr, 0, sizeof(arr));
+//
+//	PrintArray(arr, size);
+//
+//	return 0;
+//}
+
+////找单身狗：在一个数组中只有两个数字是出现一次，其他所有数字都出现了两次，编写函数找出这两个只出现一次的数字。
+//void SingleNumber(const int arr[], size_t size, int* retX, int* retY)
+//{
+//	int xor = 0;
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		xor ^= arr[i];
+//	}
+//	int bit = xor & ~(xor - 1);
+//	*retX = *retY = 0;
+//	for (size_t i = 0; i < size; i++)
+//	{
+//		if (arr[i] & bit)
+//		{
+//			*retX ^= arr[i];
+//		}
+//		else
+//		{
+//			*retY ^= arr[i];
+//		}
+//	}
+//}
+//
+//int main()
+//{
+//	int arr[] = { 11, 22, 33, 44, 55, 22, 33, 44 };
+//	size_t size = sizeof(arr) / sizeof(arr[0]);
+//	int retX = 0;
+//	int retY = 0;
+//	SingleNumber(arr, size, &retX, &retY);
+//	printf("%d %d\n", retX, retY);
+//	return 0;
+//}
+
+////"atoi"库函数实现：模拟实现"atoi"库函数。
+//int My_Atoi(const char* str)
+//{
+//	int ret = 0;
+//	while (*str == ' ')
+//	{
+//		++str;
+//	}
+//	if (*str == '-')
+//	{
+//		++str;
+//		while (*str >= '0' && *str <= '9')
+//		{
+//			ret = ret * 10 - (*str++ - '0');
+//		}
+//	}
+//	else if (*str == '+')
+//	{
+//		++str;
+//		while (*str >= '0' && *str <= '9')
+//		{
+//			ret = ret * 10 + (*str++ - '0');
+//		}
+//	}
+//	else
+//	{
+//		while (*str >= '0' && *str <= '9')
+//		{
+//			ret = ret * 10 + (*str++ - '0');
+//		}
+//	}
+//	return ret;
+//}
+//
+//int main()
+//{
+//	printf("%d\n", My_Atoi(" -123junk"));
+//	printf("%d\n", My_Atoi("0"));
+//	printf("%d\n", My_Atoi("junk"));
+//	printf("%d\n", My_Atoi("2147483648"));
 //	return 0;
 //}

@@ -47,7 +47,7 @@
 		3."__DATE__"：文件被编译的日期。
 		4."__TIME__"：文件被编译的时间。
 		5."__STDC__"：如果编译器遵循"ANSI C"标准，则其值为"1"，否则行为未定义。
-		6."__FUNCTION__"：返回所在函数的函数名。   
+		6."__FUNCTION__"：返回所在函数的函数名。
 */
 
 ////预处理符号使用示例
@@ -83,7 +83,7 @@
 /**
 	预处理指令"#define"宏定义：在预处理阶段，由"#define"定义的宏等，会进行替换，即允许把参数替换到文本中，这种实现通常称为宏或定义宏。
 		1.定义标识符常量
-			a.在定义标识符常量时一般无需加上分号，若加上分号容易导致问题，因为预处理操作替换后多出的分号会被当成空语句，若是"if-else"语句则会导致语法错误。
+			a.在定义标识符常量时一般无需加上分号，若加上分号容易导致问题，因为预处理操作替换后多出的分号会被当成空语句，可能会导致语法错误。
 			b.不可用于替换注释符号。
 		2.定义宏
 			a.宏的声明方式为："#define name(parament-list) stuff"。
@@ -119,21 +119,22 @@
 //#define DEBUG_PRINT printf("File:%s Line:%d \
 //Date:%s Time:%s\n",\
 //__FILE__,__LINE__ ,\
-//__DATE__,__TIME__ )//"\"：若一条语句过长，可使用接续符"\"连接上下两行。
+//__DATE__,__TIME__ )//"\"：若一条语句过长，可使用接续符"\"连接上下两行，实际上就是转义了回车符号。
 //#define BSC //
+//
 //int main()
 //{
 //	printf("%d\n", MAX);
-//	
+//
 //	REG int fast = 0;
 //	printf("fast:%d.\n", fast);
 //
 //	DEBUG_PRINT;
-//	
+//
 //	//DO_FOREVER;//死循环。
 //
 //	//BSC My Single-line Comment//注释先于预处理指令被处理，当预处理被展开成"//"时，注释已处理完毕，故发生错误；因此，试图用宏开始或结束一段注释是不行的；"/**/"注释同理。
-//	
+//
 //	return 0;
 //}
 
@@ -142,6 +143,7 @@
 //#define SQUARE2(X) (X)*(X)
 //#define DOUBLE1(X) (X)+(X)
 //#define DOUBLE2(X) ((X)+(X))
+//
 //int main()
 //{
 //	int num = 10;
@@ -154,7 +156,8 @@
 
 ////"#define"替换规则示例
 //#define NUM 100
-//#define MAX(X,Y) (((X)>(Y))?(X):(Y))
+//#define MAX(X, Y) (((X)>(Y))?(X):(Y))
+//
 //int main()
 //{
 //	printf("%d\n", MAX(10, NUM));//宏参数可以出现其他"#define"定义的变量。
@@ -162,8 +165,9 @@
 //}
 
 ////预处理符号"#"和"##"使用示例
-//#define PRINT(X,FORMAT) printf("The value of "#X" is "FORMAT"\n",X)//"#"预处理符号可将一个宏参数变成对应的字符串(名称)。
-//#define CAT(W,X,Y,Z) W##X##Y##Z//"##"预处理符号可以把位于它两边的符号合成一个符号，它允许宏定义从分离的文本片段创建标识符。
+//#define PRINT(X, FORMAT) printf("The value of "#X" is "FORMAT"\n",X)//"#"预处理符号可将一个宏参数变成对应的字符串(名称)。
+//#define CAT(W, X, Y, Z) W##X##Y##Z//"##"预处理符号可以把位于它两边的符号合成一个符号，它允许宏定义从分离的文本片段创建标识符。
+//
 //int main()
 //{
 //	//预处理符号"#"使用示例：如何将变量名插入到字符串中？
@@ -182,11 +186,12 @@
 //}
 
 ////带副作用的宏参数示例
-//#define MAX(X,Y) (((X)>(Y))?(X):(Y))
+//#define MAX(X, Y) (((X)>(Y))?(X):(Y))
+//
 //int main()
 //{
 //	int a = 0, b = 0;
-//	
+//
 //	a = 5, b = 8;
 //	int num = MAX(a++, b++);//注意宏定义本质上为替换，故此行等价于"int num = (((a++)>(b++))?(a++):(b++));"。
 //	printf("a = %d,b = %d,num = %d\n", a, b, num);//得出结果为：a = 6,b = 10,num = 9。
@@ -198,11 +203,32 @@
 //	return 0;
 //}
 
+////预处理指令"#define"宏定义例题：模拟实现"offsetof"宏。
+//#define OFFSETOF(type, member) ((size_t)(&(((type*)0)->member)))
+//
+//struct MyStruct
+//{
+//	char x;
+//	int y;
+//	char z;
+//};
+//
+//int main()
+//{
+//	struct MyStruct myStruct = { 0 };
+//
+//	printf("%zu\n", OFFSETOF(struct MyStruct, x));
+//	printf("%zu\n", OFFSETOF(struct MyStruct, y));
+//	printf("%zu\n", OFFSETOF(struct MyStruct, z));
+//
+//	return 0;
+//}
+
 /**
 	预处理指令"#undef"移除宏定义：取消定义标识符，即取消先前由#define指令定义的标识符；如果标识符没有关联的宏，则忽略该指令。
 */
 
-////"#undef"移除宏定义示例
+////使用预处理指令"#undef"移除宏定义示例
 //int main()
 //{
 //#define NUM 100
@@ -213,11 +239,10 @@
 //}
 
 /**
-	命令行定义：大部分C的编译器提供了一种能力，允许在命令行中定义符号，用于启动编译过程，如：GCC编译器等。
+	命令行定义：大部分的C编译器提供了一种能力，允许在命令行中定义符号，用于启动编译过程，如：GCC编译器等。
 */
 
-////命令行定义示例(以下代码段请使用GCC编译器编译演示，编译命令为：gcc -D ARRAY_SIZE=10 文件名)
-//#include <stdio.h>
+////命令行定义示例(以下代码段请使用GCC编译器编译演示，编译命令为：gcc 文件名 -D ARRAY_SIZE=10)
 //int main()
 //{
 //	int array[ARRAY_SIZE];
@@ -246,17 +271,19 @@
 
 ////条件编译示例一
 //#if 1//此行若为真，则参与编译"#if"和"#endif"之间的代码，若为假，则不参与编译。
+//
 //int main()
 //{
-//#if 1==2
+//#if 1 == 2
 //	printf("哈哈哈\n");
-//#elif 2==3
+//#elif 2 == 3
 //	printf("嘻嘻嘻\n");
-//#else 
+//#else
 //	printf("略略略\n");
 //#endif
 //	return 0;
 //}
+//
 //#endif
 
 ////条件编译示例二
@@ -273,7 +300,7 @@
 //#if defined(TEST)
 //	printf("TEST2\n");
 //#endif
-//	
+//
 ////如果"HEHE"没有被定义，则参与编译"#ifndef"和"#endif"之间的代码。
 //#ifndef HEHE
 //	printf("HEHE1\n");
@@ -283,7 +310,7 @@
 //#if !defined(HEHE)
 //	printf("HEHE2\n");
 //#endif
-//	
+//
 //	return 0;
 //}
 
@@ -302,12 +329,12 @@
 //#define __TEST_H__ //定义"__TEST_H__"标识符常量。
 ///*在此处包含头文件*/
 //#endif
-
+//
 ////防止头文件被重复包含示例二
 //#pragma once
 ///*在此处包含头文件*/
 
-/*
+/**
 	其他预处理指令
 		1."#error"：编译程序时，只要遇到"#error"就会生成一个编译错误的提示信息，并且停止编译。
 		2."#pragma"：设定编译器的状态或者是指示编译器完成一些特定的动作。

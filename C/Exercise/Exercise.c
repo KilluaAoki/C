@@ -2744,3 +2744,45 @@
 //	printf("%d\n", My_Atoi("2147483648"));
 //	return 0;
 //}
+
+////实现"offsetof"宏：写一个宏，计算结构体中某变量相对于首地址的偏移，并给出说明。
+//#define OFFSETOF(type, member) ((size_t)(&(((type*)0)->member)))
+//
+//struct MyStruct
+//{
+//	char x;
+//	int y;
+//	char z;
+//};
+//
+//int main()
+//{
+//	struct MyStruct myStruct = { 0 };
+//
+//	printf("%zu\n", OFFSETOF(struct MyStruct, x));
+//	printf("%zu\n", OFFSETOF(struct MyStruct, y));
+//	printf("%zu\n", OFFSETOF(struct MyStruct, z));
+//
+//	return 0;
+//}
+
+////交换奇偶位：写一个宏，可以将一个整数的二进制位的奇数位和偶数位交换。
+//#define SWAP_ODD_EVEN(x) ((((x) & 0xaaaaaaaa) >> 1) | (((x) & 0x55555555) << 1))
+//
+//void PrintBinary(int x)
+//{
+//	for (int i = 31; i >= 0; i--)
+//	{
+//		printf("%-2d ", (x >> i) & 1);
+//	}
+//	printf("\n");
+//}
+//
+//int main()
+//{
+//	int num = 10;
+//	PrintBinary(num);
+//	num = SWAP_ODD_EVEN(num);
+//	PrintBinary(num);
+//	return 0;
+//}

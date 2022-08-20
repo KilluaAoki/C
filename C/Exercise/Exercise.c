@@ -2676,7 +2676,7 @@
 //	{
 //		xor ^= arr[i];
 //	}
-//	int bit = xor & ~(xor - 1);
+//	int bit = (xor == INT_MIN ? xor : xor & ~(xor - 1));
 //	*retX = *retY = 0;
 //	for (size_t i = 0; i < size; i++)
 //	{
@@ -2703,47 +2703,6 @@
 //}
 
 ////"atoi"库函数实现：模拟实现"atoi"库函数。
-//int My_Atoi(const char* str)
-//{
-//	int ret = 0;
-//	while (*str == ' ')
-//	{
-//		++str;
-//	}
-//	if (*str == '-')
-//	{
-//		++str;
-//		while (*str >= '0' && *str <= '9')
-//		{
-//			ret = ret * 10 - (*str++ - '0');
-//		}
-//	}
-//	else if (*str == '+')
-//	{
-//		++str;
-//		while (*str >= '0' && *str <= '9')
-//		{
-//			ret = ret * 10 + (*str++ - '0');
-//		}
-//	}
-//	else
-//	{
-//		while (*str >= '0' && *str <= '9')
-//		{
-//			ret = ret * 10 + (*str++ - '0');
-//		}
-//	}
-//	return ret;
-//}
-//
-//int main()
-//{
-//	printf("%d\n", My_Atoi(" -123junk"));
-//	printf("%d\n", My_Atoi("0"));
-//	printf("%d\n", My_Atoi("junk"));
-//	printf("%d\n", My_Atoi("2147483648"));
-//	return 0;
-//}
 
 ////实现"offsetof"宏：写一个宏，计算结构体中某变量相对于首地址的偏移，并给出说明。
 //#define OFFSETOF(type, member) ((size_t)(&(((type*)0)->member)))

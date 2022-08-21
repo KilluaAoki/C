@@ -2703,6 +2703,102 @@
 //}
 
 ////"atoi"库函数实现：模拟实现"atoi"库函数。
+//enum Status
+//{
+//	VALID = 0,
+//	INVALID
+//} getStatus = INVALID;
+//
+//long long Core(const char* str, int flag)
+//{
+//	getStatus = INVALID;
+//	long long ret = 0;
+//	while (*str)
+//	{
+//		if (*str >= '0' && *str <= '9')
+//		{
+//			ret = ret * 10 + flag * (*str - '0');
+//			if (ret > INT_MAX || ret < INT_MIN)
+//			{
+//				return 0;
+//			}
+//			++str;
+//		}
+//		else
+//		{
+//			return (int)ret;
+//		}
+//	}
+//	if (*str == '\0')
+//	{
+//		getStatus = VALID;
+//	}
+//	return ret;
+//}
+//
+//int My_Atoi(const char* str)
+//{
+//	if (str == NULL || *str == '\0')
+//	{
+//		return 0;
+//	}
+//	while (*str == ' ')
+//	{
+//		++str;
+//	}
+//	int flag = 1;
+//	if (*str == '+')
+//	{
+//		flag = 1;
+//		++str;
+//	}
+//	else if (*str == '-')
+//	{
+//		flag = -1;
+//		++str;
+//	}
+//	long long ret = 0;
+//	if (*str)
+//	{
+//		ret = Core(str, flag);
+//	}
+//	return (int)ret;
+//}
+//
+//void Test(const char* str)
+//{
+//	int result = My_Atoi(str);
+//	if (result == 0 && getStatus == INVALID)
+//		printf("The input %s is invalid.\n", str);
+//	else
+//		printf("Number for %s is: %d.\n", str, result);
+//}
+//
+//int main()
+//{
+//	Test(NULL);
+//	Test("");
+//	Test("123");
+//	Test("+123");
+//	Test("-123");
+//	Test("1a33");
+//	Test("+0");
+//	Test("-0");
+//	Test("+2147483647");
+//	Test("-2147483647");
+//	Test("+2147483648");
+//	Test("-2147483648");
+//	Test("+2147483649");
+//	Test("-2147483649");
+//	Test("+");
+//	Test("+");
+//	Test("-");
+//	Test("+123abc123");
+//	Test("-123abc123");
+//	Test("+abc123abc");
+//	Test("-abc123abc");
+//	return 0;
+//}
 
 ////实现"offsetof"宏：写一个宏，计算结构体中某变量相对于首地址的偏移，并给出说明。
 //#define OFFSETOF(type, member) ((size_t)(&(((type*)0)->member)))
@@ -2725,7 +2821,7 @@
 //	return 0;
 //}
 
-////交换奇偶位：写一个宏，可以将一个整数的二进制位的奇数位和偶数位交换。
+////交换奇偶位：写一个宏，可以将输入的整数的二进制位的奇数位和偶数位交换。
 //#define SWAP_ODD_EVEN(x) ((((x) & 0xaaaaaaaa) >> 1) | (((x) & 0x55555555) << 1))
 //
 //void PrintBinary(int x)
@@ -2739,9 +2835,11 @@
 //
 //int main()
 //{
-//	int num = 10;
+//	int num = 0;
+//	scanf_s("%d", &num);
 //	PrintBinary(num);
 //	num = SWAP_ODD_EVEN(num);
 //	PrintBinary(num);
+//	printf("%d\n", num);
 //	return 0;
 //}

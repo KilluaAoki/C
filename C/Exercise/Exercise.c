@@ -24,13 +24,7 @@
 //	return 0;
 //}
 
-////计算Y的值：已知一个函数"y=f(x)"，当"x<0"时，"y=1"；当"x=0"时，"y=0"；当"x>0"时，"y=-1"。
-////示例一：
-////	输入：10
-////	输出：-1
-////示例二：
-////	输入：-10
-////	输出：1
+////计算Y的值：https://www.nowcoder.com/practice/61a0f16117484d219b59c62224b33b1c。
 //int Y(int x)
 //{
 //	return x == 0 ? 0 : x > 0 ? -1 : 1;
@@ -39,44 +33,30 @@
 //int main()
 //{
 //	int x = 0;
-//	scanf_s("%d", &x);
+//	scanf("%d", &x);
 //	printf("%d", Y(x));
 //	return 0;
 //}
 
-////出生日期输入输出：输入一个人的出生日期(包括年月日)，将该生日中的年、月、日分别输出。(使用格式控制与输出解题)
-////示例：
-////	输入：20130225
-////	输出：year=2013
-////		 month=02
-////		 date=25
+////出生日期输入输出：https://www.nowcoder.com/practice/4a4a9dd1edb6453ba4a0432319200743。(使用格式控制与输出解题)
 //int main()
 //{
 //	int year = 0, month = 0, date = 0;
-//	scanf_s("%4d%2d%2d", &year, &month, &date);
+//	scanf("%4d%2d%2d", &year, &month, &date);
 //	printf("year=%d\nmonth=%.2d\ndate=%02d\n", year, month, date);
 //	return 0;
 //}
 
-////出生日期输入输出：输入一个人的出生日期(包括年月日)，将该生日中的年、月、日分别输出。(使用求余的方式解题)
-////示例：
-////	输入：20130225
-////	输出：year=2013
-////		 month=02
-////		 date=25
+////出生日期输入输出：https://www.nowcoder.com/practice/4a4a9dd1edb6453ba4a0432319200743。(使用求余的方式解题)
 //int main()
 //{
 //	int input = 0;
-//	scanf_s("%d", &input);
+//	scanf("%d", &input);
 //	printf("year=%d\nmonth=%02d\ndate=%02d\n", input / 100 / 100, input / 100 % 100, input % 100);
 //	return 0;
 //}
 
-////学生基本信息输入输出。
-////描述：依次输入一个学生的学号，以及三科(C语言，数学，英语)成绩，在屏幕上输出该学生的学号，三科成绩(输出成绩时需进行四舍五入且保留两位小数)。
-////数据范围：学号满足"1 <= n <= 20000000"，各科成绩使用百分制，且不可能出现负数。
-////输入描述：学号以及三科成绩，学号和成绩之间用英文分号隔开，成绩之间用英文逗号隔开；"17140216;80.845,90.55,100.00"。
-////输出描述："The each subject score of No. 17140216 is 80.85, 90.55, 100.00."。
+////学生基本信息输入输出：https://www.nowcoder.com/practice/58b6a69b4bf943b49d2cd3c15770b9fd。
 //int main()
 //{
 //	unsigned int id = 0;
@@ -86,24 +66,18 @@
 //	return 0;
 //}
 
-////"printf"函数的返回值
-////输出描述：
-////  第一行为："Hello world!"。
-////  第二行为："printf("Hello world!")"调用后的返回值。
+////"printf"函数的返回值：https://www.nowcoder.com/practice/a19ef1d8e55c4cc786f11cbf6b2fde61。
 //int main()
 //{
 //	printf("\n%d\n", printf("Hello world!"));
 //	return 0;
 //}
 
-////找出输入的四个整数的最大值
-////示例：
-////	输入：5 8 2 5
-////	输出：8
+////小乐乐找最大数：https://www.nowcoder.com/practice/ae6a21920cac4f9184c8ecfcc87f89b9。
 //int main()
 //{
 //	int a = 0, b = 0, c = 0, d = 0;
-//	scanf_s("%d%d%d%d", &a, &b, &c, &d);
+//	scanf("%d%d%d%d", &a, &b, &c, &d);
 //	printf("%d\n", (a > b ? a : b) > (c > d ? c : d) ? (a > b ? a : b) : (c > d ? c : d));
 //	return 0;
 //}
@@ -1050,7 +1024,7 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	printf("%d\n", Fib(n));
 //	return 0;
 //}
@@ -1071,7 +1045,7 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	printf("%d\n", Fib(n));
 //	return 0;
 //}
@@ -1096,7 +1070,7 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	printf("%d\n", Fib(n));
 //	return 0;
 //}
@@ -1105,13 +1079,13 @@
 //int main()
 //{
 //	int n = 0, del = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int arr1[n];
 //	for (int i = 0; i < n; ++i)
 //	{
-//		scanf_s("%d", &arr1[i]);
+//		scanf("%d", &arr1[i]);
 //	}
-//	scanf_s("%d", &del);
+//	scanf("%d", &del);
 //	int arr2[n];
 //	int count = 0;
 //	for (int i = 0, j = 0; i < n; ++i)
@@ -1133,11 +1107,11 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int arr[n];
 //	for (int i = 0; i < n; ++i)
 //	{
-//		scanf_s("%d", &arr[i]);
+//		scanf("%d", &arr[i]);
 //	}
 //	int max = arr[0];
 //	int min = arr[0];
@@ -1160,7 +1134,7 @@
 //int main()
 //{
 //	char input = 0;
-//	while (scanf_s("%c", &input) != EOF)
+//	while (scanf("%c", &input) != EOF)
 //	{
 //		getchar();
 //		if (input >= 'A' && input <= 'Z')
@@ -1179,7 +1153,7 @@
 //int main()
 //{
 //	char input = 0;
-//	while (scanf_s("%c", &input) != EOF)
+//	while (scanf("%c", &input) != EOF)
 //	{
 //		getchar();
 //		if (input >= 'A' && input <= 'z')
@@ -1225,7 +1199,7 @@
 //int main()
 //{
 //	int x = 0, y = 0, z = 0, count = 0;
-//	scanf_s("%d %d", &x, &y);
+//	scanf("%d %d", &x, &y);
 //	z = x ^ y;
 //	while (z)
 //	{
@@ -1288,7 +1262,7 @@
 //int main()
 //{
 //	int n = 0;
-//	while (scanf_s("%d", &n) != EOF)
+//	while (scanf("%d", &n) != EOF)
 //	{
 //		getchar();
 //		for (int i = 0; i < n; ++i)
@@ -1316,7 +1290,7 @@
 //	int year, month;
 //	int arr1[12] = { 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 //	int arr2[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
-//	while (scanf_s("%d %d", &year, &month) != EOF)
+//	while (scanf("%d %d", &year, &month) != EOF)
 //	{
 //		getchar();
 //		if (((year % 4 == 0) && (year % 100 != 0)) || year % 400 == 0)
@@ -1335,7 +1309,7 @@
 //int main()
 //{
 //	int a, b, c;
-//	while (scanf_s("%d %d %d", &a, &b, &c) != EOF)
+//	while (scanf("%d %d %d", &a, &b, &c) != EOF)
 //	{
 //		getchar();
 //		if (a + b > c && a + c > b && b + c > a)
@@ -1472,7 +1446,7 @@
 //int main()
 //{
 //	int n = 0;
-//	while (scanf_s("%d", &n) == 1)
+//	while (scanf("%d", &n) == 1)
 //	{
 //		for (int i = 0; i <= n; i++)
 //		{
@@ -1653,11 +1627,11 @@
 //int main()
 //{
 //	int n, m;
-//	scanf_s("%d%d", &n, &m);
+//	scanf("%d%d", &n, &m);
 //	int arr[m + n];
 //	for (int i = 0; i < m + n; ++i)
 //	{
-//		scanf_s("%d", &arr[i]);
+//		scanf("%d", &arr[i]);
 //	}
 //	BubbleSort(arr, m + n);
 //	PrintArray(arr, m + n);
@@ -1668,7 +1642,7 @@
 //int main()
 //{
 //	char arr[10];
-//	scanf_s("%s", arr, 10);
+//	scanf("%s", arr, 10);
 //	int len = (int)strlen(arr);
 //	for (int i = 0; i < len; ++i)
 //	{
@@ -1694,7 +1668,7 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int sum = 0;
 //	int x = 0;
 //	while (n)
@@ -1711,7 +1685,7 @@
 //int main()
 //{
 //	int n = 0;
-//	while (scanf_s("%d", &n) == 1)
+//	while (scanf("%d", &n) == 1)
 //	{
 //		for (int i = 0; i < n; ++i)
 //		{
@@ -1736,7 +1710,7 @@
 //	int coupon = 0;
 //	int month = 0;
 //	int date = 0;
-//	scanf_s("%lf %d %d %d", &price, &month, &date, &coupon);
+//	scanf("%lf %d %d %d", &price, &month, &date, &coupon);
 //	if (month == 11)
 //	{
 //		if (coupon == 1)
@@ -1818,7 +1792,7 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int arr[n][n];
 //	for (int i = 0; i < n; ++i)
 //	{
@@ -2133,14 +2107,14 @@
 //int main()
 //{
 //	int m = 0, n = 0;
-//	scanf_s("%d%d", &n, &m);
+//	scanf("%d%d", &n, &m);
 //	int arr[n][m];
 //	int copyArr[m][n];
 //	for (int i = 0; i < n; ++i)
 //	{
 //		for (int j = 0; j < m; ++j)
 //		{
-//			scanf_s("%d", &arr[i][j]);
+//			scanf("%d", &arr[i][j]);
 //			copyArr[j][i] = arr[i][j];
 //		}
 //	}
@@ -2159,13 +2133,13 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int arr[n][n];
 //	for (int i = 0; i < n; ++i)
 //	{
 //		for (int j = 0; j < n; ++j)
 //		{
-//			scanf_s("%d", &arr[i][j]);
+//			scanf("%d", &arr[i][j]);
 //		}
 //	}
 //	bool flag = false;
@@ -2196,13 +2170,13 @@
 //int main()
 //{
 //	int n = 0;
-//	scanf_s("%d", &n);
+//	scanf("%d", &n);
 //	int arr[n];
 //	bool flag1 = false;
 //	bool flag2 = false;
 //	for (int i = 0; i < n; ++i)
 //	{
-//		scanf_s("%d", &arr[i]);
+//		scanf("%d", &arr[i]);
 //		if (i >= 1)
 //		{
 //			if (arr[i] < arr[i - 1])
@@ -2431,7 +2405,7 @@
 //{
 //	size_t n = 0;
 //	size_t m = 0;
-//	scanf_s("%zu%zu", &n, &m);
+//	scanf("%zu%zu", &n, &m);
 //	size_t product = m * n;
 //	size_t factor = GetFactor(n, m);
 //	printf("%zu\n", (product / factor) + factor);
@@ -2442,7 +2416,7 @@
 //int main()
 //{
 //	int input = 0;
-//	while (scanf_s("%d", &input) != EOF)
+//	while (scanf("%d", &input) != EOF)
 //	{
 //		for (int i = 0; i < input; ++i)
 //		{
@@ -2467,7 +2441,7 @@
 //int main()
 //{
 //	int input = 0;
-//	while (scanf_s("%d", &input) != EOF)
+//	while (scanf("%d", &input) != EOF)
 //	{
 //		for (int i = 1; i <= input * 2 + 1; i++)
 //		{
@@ -2506,7 +2480,7 @@
 //int main()
 //{
 //	int input = 0, min = 101, max = -1, sum = 0, count = 0;
-//	while (scanf_s("%d", &input) != EOF)
+//	while (scanf("%d", &input) != EOF)
 //	{
 //		if (input > max)
 //		{

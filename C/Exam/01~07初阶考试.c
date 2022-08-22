@@ -21,9 +21,7 @@
 //{
 //	while (left < right)
 //	{
-//		char tmp = *left;
-//		*left = *right;
-//		*right = tmp;
+//		(*left ^ *right) && (*right ^= *left ^= *right, *left ^= *right);
 //		left++;
 //		right--;
 //	}

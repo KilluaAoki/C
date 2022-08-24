@@ -336,7 +336,7 @@
 //	char name[10];//名称。
 //	int age;//年龄。
 //	char id[20];//学号。
-//	struct Privacy A;//隐私；包含了结构体类型"struct Privacy"。
+//	struct Privacy A;//隐私：包含了结构体类型"struct Privacy"。
 //}A1, A2;//创建结构体对象的第一种方式：使用"struct Student"类型创建"A1"和"A2"对象，这两个变量为全局变量。
 //
 //void print(struct Student B1_A, struct Student* B1_B)

@@ -4,32 +4,25 @@
 //	((*ptr1) ^ (*ptr2)) && ((*ptr2) ^= (*ptr1) ^= (*ptr2), (*ptr1) ^= (*ptr2));
 //}
 //
+//void Reverse(int* nums, int begin, int end)
+//{
+//	while (begin < end)
+//	{
+//		Swap(nums + begin, nums + end);
+//		begin++;
+//		end--;
+//	}
+//}
+//
 //void rotate(int* nums, int numsSize, int k)
 //{
-//	int* left = nums;
-//	int* right = nums + k;
-//	while (left < right)
+//	if (k >= numsSize)
 //	{
-//		Swap(left, right);
-//		left++;
-//		right--;
+//		k %= numsSize;
 //	}
-//	left = nums + numsSize - k;
-//	right = nums + numsSize - 1;
-//	while (left <= right)
-//	{
-//		Swap(left, right);
-//		left++;
-//		right--;
-//	}
-//	left = nums;
-//	right = nums + numsSize - 1;
-//	while (left <= right)
-//	{
-//		Swap(left, right);
-//		left++;
-//		right--;
-//	}
+//	Reverse(nums, 0, numsSize - k - 1);
+//	Reverse(nums, numsSize - k, numsSize - 1);
+//	Reverse(nums, 0, numsSize - 1);
 //}
 
 ////消失的数字：https://leetcode-cn.com/problems/missing-number-lcci/。

@@ -25,14 +25,26 @@
 //	Reverse(nums, 0, numsSize - 1);
 //}
 
-////消失的数字：https://leetcode-cn.com/problems/missing-number-lcci/。
+////消失的数字：https://leetcode-cn.com/problems/missing-number-lcci/。(方法一)
 //int missingNumber(int* nums, int numsSize)
 //{
-//	int arr_sum = 0;
-//	int n_sum = ((0 + numsSize) * (numsSize + 1)) / 2;
+//	int total = numsSize * (numsSize + 1) / 2;
+//	int sum = 0;
 //	for (int i = 0; i < numsSize; ++i)
 //	{
-//		arr_sum += nums[i];
+//		sum += nums[i];
 //	}
-//	return n_sum - arr_sum;
+//	return total - sum;
+//}
+
+////消失的数字：https://leetcode-cn.com/problems/missing-number-lcci/。(方法二)
+//int missingNumber(int* nums, int numsSize)
+//{
+//	int xor = 0;
+//	for (int i = 0; i < numsSize; ++i)
+//	{
+//		xor ^= i;
+//		xor ^= nums[i];
+//	}
+//	return (xor ^= numsSize);
 //}

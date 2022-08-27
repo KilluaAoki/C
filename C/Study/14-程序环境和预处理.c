@@ -113,8 +113,8 @@
 */
 
 ////"define"定义标识符常量示例
-//#define MAX 100//定义数值宏常量
-//#define REG register//定义字符串宏常量
+//#define MAX 100//定义数值宏常量。
+//#define REG register//定义字符串宏常量。
 //#define DO_FOREVER for(;;)//用更形象的符号来替换一种实现。
 //#define DEBUG_PRINT printf("File:%s Line:%d \
 //Date:%s Time:%s\n",\

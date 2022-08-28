@@ -330,6 +330,7 @@
 //	char y;
 //	int z;
 //};
+//
 //int main()
 //{
 //	printf("%zu\n", offsetof(struct Test, x));//得出"struct Test"类型的成员"x"的偏移量是"0"。
@@ -494,6 +495,7 @@
 //	Option_Mul,
 //	Option_Div
 //};
+//
 //void Menu()
 //{
 //	printf("**************************************\n");
@@ -502,22 +504,27 @@
 //	printf("**********      0.Exit      **********\n");
 //	printf("**************************************\n");
 //}
+//
 //int Add(int x, int y)
 //{
 //	return x + y;
 //}
+//
 //int Sub(int x, int y)
 //{
 //	return x - y;
 //}
+//
 //int Mul(int x, int y)
 //{
 //	return x * y;
 //}
+//
 //int Div(int x, int y)
 //{
 //	return x / y;
 //}
+//
 //int main()
 //{
 //	int input = 0, x = 0, y = 0;

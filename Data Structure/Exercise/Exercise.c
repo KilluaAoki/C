@@ -1,4 +1,8 @@
-////轮转数组：https://leetcode-cn.com/problems/rotate-array/。
+//轮转数组：https://leetcode-cn.com/problems/rotate-array/。(方法一)
+
+//轮转数组：https://leetcode-cn.com/problems/rotate-array/。(方法二)
+
+////轮转数组：https://leetcode-cn.com/problems/rotate-array/。(方法三)
 //void Swap(int* ptr1, int* ptr2)
 //{
 //	((*ptr1) ^ (*ptr2)) && ((*ptr2) ^= (*ptr1) ^= (*ptr2), (*ptr1) ^= (*ptr2));

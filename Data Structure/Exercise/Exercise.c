@@ -1,28 +1,60 @@
+////轮转数组：https://leetcode-cn.com/problems/rotate-array/。(使用额外数组的方法)
+//void rotate(int* nums, int numsSize, int k)
+//{
+//	int* tmp = (int*)malloc(sizeof(int) * numsSize);
+//	for (int i = 0; i < numsSize; ++i)
+//	{
+//		tmp[i] = nums[i];
+//	}
+//	for (int i = 0; i < numsSize; ++i)
+//	{
+//		nums[(i + k) % numsSize] = tmp[i];
+//	}
+//	free(tmp);
+//}
+
 ////轮转数组：https://leetcode-cn.com/problems/rotate-array/。(三步翻转法)
 //void Swap(int* ptr1, int* ptr2)
 //{
 //	((*ptr1) ^ (*ptr2)) && ((*ptr2) ^= (*ptr1) ^= (*ptr2), (*ptr1) ^= (*ptr2));
 //}
 //
-//void Reverse(int* nums, int begin, int end)
+//void Reverse(int* nums, int x, int y)
 //{
-//	while (begin < end)
+//	while (x < y)
 //	{
-//		Swap(nums + begin, nums + end);
-//		begin++;
-//		end--;
+//		Swap(&nums[x++], &nums[y--]);
 //	}
 //}
 //
 //void rotate(int* nums, int numsSize, int k)
 //{
-//	if (k >= numsSize)
-//	{
-//		k %= numsSize;
-//	}
-//	Reverse(nums, 0, numsSize - k - 1);
-//	Reverse(nums, numsSize - k, numsSize - 1);
+//	k %= numsSize;
 //	Reverse(nums, 0, numsSize - 1);
+//	Reverse(nums, k, numsSize - 1);
+//	Reverse(nums, 0, k - 1);
+//}
+
+////轮转数组：https://leetcode-cn.com/problems/rotate-array/。(环状替换法)
+//void Swap(int* ptr1, int* ptr2)
+//{
+//	((*ptr1) ^ (*ptr2)) && ((*ptr2) ^= (*ptr1) ^= (*ptr2), (*ptr1) ^= (*ptr2));
+//}
+//
+//void rotate(int* nums, int numsSize, int k)
+//{
+//	k %= numsSize;
+//	for (int start = 0, count = 0; start < numsSize && count < numsSize; ++start)
+//	{
+//		int cur = start;
+//		do
+//		{
+//			int next = (cur + k) % numsSize;
+//			Swap(&nums[start], &nums[next]);
+//			cur = next;
+//			++count;
+//		} while (start != cur);
+//	}
 //}
 
 ////消失的数字：https://leetcode-cn.com/problems/missing-number-lcci/。(方法一)

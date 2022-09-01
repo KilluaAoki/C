@@ -107,7 +107,7 @@ void Check_SequenceList(SeqList* ptr)
 	}
 }
 
-//查找顺序表数据元素的位置
+//查找顺序表数据元素的位置(具有输出)
 size_t Search_SequenceList_Printf(SeqList* ptr, ElemType data)
 {
 	assert(ptr != NULL);
@@ -149,7 +149,7 @@ size_t Search_SequenceList_NoPrintf(SeqList* ptr, ElemType data)
 void Modify_SequenceList(SeqList* ptr, size_t Location, ElemType data)
 {
 	assert(ptr != NULL);
-	if (Location <= 0 || Location > ptr->size)
+	if (Location > ptr->size)
 	{
 		printf("输入错误，顺序表中无此位置数据元素。\n");
 		return;
@@ -211,7 +211,7 @@ void Tail_Delete_SequenceList(SeqList* ptr)
 void Insert_SequenceList(SeqList* ptr, size_t Location, ElemType data)
 {
 	assert(ptr != NULL);
-	if (Location <= 0 || Location > ptr->size + 1)
+	if (Location > ptr->size + 1)
 	{
 		printf("输入位置无效。\n");
 		return;
@@ -234,7 +234,7 @@ void Delete_SequenceList(SeqList* ptr, size_t Location)
 		printf("当前顺序表无数据元素。\n");
 		return;
 	}
-	if (Location <= 0 || Location > ptr->size)
+	if (Location > ptr->size)
 	{
 		printf("输入位置无效。\n");
 		return;
@@ -276,7 +276,7 @@ size_t Get_Data_SequenceList(SeqList* ptr, size_t Location, ElemType* data)
 		printf("当前顺序表无数据元素。\n");
 		return 0;
 	}
-	if (Location <= 0 || Location > ptr->size)
+	if (Location > ptr->size)
 	{
 		printf("输入位置无效。\n");
 		return 0;

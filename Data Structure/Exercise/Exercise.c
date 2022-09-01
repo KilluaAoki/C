@@ -80,3 +80,52 @@
 //	}
 //	return (xor ^= numsSize);
 //}
+
+////移除元素：https://leetcode.cn/problems/remove-element/。
+//int removeElement(int* nums, int numsSize, int val)
+//{
+//	int j = 0;
+//	for (int i = 0; i < numsSize; ++i)
+//	{
+//		if (nums[i] != val)
+//		{
+//			nums[j++] = nums[i];
+//		}
+//	}
+//	return j;
+//}
+
+////删除有序数组中的重复项：https://leetcode.cn/problems/remove-duplicates-from-sorted-array/。
+//int removeDuplicates(int* nums, int numsSize)
+//{
+//	if (numsSize < 2)
+//	{
+//		return numsSize;
+//	}
+//	int j = 0;
+//	for (int i = 1; i < numsSize; ++i)
+//	{
+//		if (nums[i] != nums[j])
+//		{
+//			nums[++j] = nums[i];
+//		}
+//	}
+//	return ++j;
+//}
+
+////合并两个有序数组：https://leetcode.cn/problems/merge-sorted-array/。
+//void merge(int* nums1, int nums1Size, int m, int* nums2, int nums2Size, int n)
+//{
+//	int x = m + n - 1;
+//	while (n)
+//	{
+//		if (m == 0 || nums1[m - 1] <= nums2[n - 1])
+//		{
+//			nums1[x--] = nums2[--n];
+//		}
+//		else
+//		{
+//			nums1[x--] = nums1[--m];
+//		}
+//	}
+//}

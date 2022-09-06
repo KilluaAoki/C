@@ -129,3 +129,152 @@
 //		}
 //	}
 //}
+
+////移除链表元素：https://leetcode.cn/problems/remove-linked-list-elements/。(常规方法)
+//struct ListNode* removeElements(struct ListNode* head, int val)
+//{
+//	struct ListNode* prev = NULL, * cur = head;
+//	while (cur != NULL)
+//	{
+//		if (cur->val == val)
+//		{
+//			if (prev == NULL)
+//			{
+//				head = head->next;
+//				free(cur);
+//				cur = head;
+//			}
+//			else
+//			{
+//				prev->next = cur->next;
+//				free(cur);
+//				cur = prev->next;
+//			}
+//		}
+//		else
+//		{
+//			prev = cur;
+//			cur = cur->next;
+//		}
+//	}
+//	return head;
+//}
+
+////移除链表元素：https://leetcode.cn/problems/remove-linked-list-elements/。(重建链表方法(步步置空))
+//struct ListNode* removeElements(struct ListNode* head, int val)
+//{
+//	struct ListNode* newhead = NULL;
+//	struct ListNode* newheadCur = NULL;
+//	struct ListNode* headCur = head;
+//	while (headCur != NULL)
+//	{
+//		if (headCur->val != val)
+//		{
+//			if (newhead == NULL)
+//			{
+//				newheadCur = newhead = headCur;
+//				headCur = headCur->next;
+//				newhead->next = NULL;
+//			}
+//			else
+//			{
+//				newheadCur->next = headCur;
+//				headCur = headCur->next;
+//				newheadCur = newheadCur->next;
+//				newheadCur->next = NULL;
+//			}
+//		}
+//		else
+//		{
+//			struct ListNode* del = headCur;
+//			headCur = headCur->next;
+//			free(del);
+//		}
+//	}
+//	return newhead;
+//}
+
+////移除链表元素：https://leetcode.cn/problems/remove-linked-list-elements/。(重建链表方法(最后置空))
+//struct ListNode* removeElements(struct ListNode* head, int val)
+//{
+//	struct ListNode* newhead = NULL;
+//	struct ListNode* newheadCur = NULL;
+//	struct ListNode* headCur = head;
+//	while (headCur != NULL)
+//	{
+//		if (headCur->val != val)
+//		{
+//			if (newhead == NULL)
+//			{
+//				newheadCur = newhead = headCur;
+//			}
+//			else
+//			{
+//				newheadCur->next = headCur;
+//				newheadCur = newheadCur->next;
+//			}
+//			headCur = headCur->next;
+//		}
+//		else
+//		{
+//			struct ListNode* del = headCur;
+//			headCur = headCur->next;
+//			free(del);
+//		}
+//	}
+//	if (newheadCur != NULL)
+//		newheadCur->next = NULL;
+//	return newhead;
+//}
+
+////移除链表元素：https://leetcode.cn/problems/remove-linked-list-elements/。(创建哨兵位节点方法)
+//struct ListNode* removeElements(struct ListNode* head, int val)
+//{
+//	struct ListNode* guard = (struct ListNode*)malloc(sizeof(struct ListNode));
+//	guard->next = head;
+//	struct ListNode* cur = guard;
+//	while (cur->next != NULL)
+//	{
+//		if (cur->next->val == val)
+//		{
+//			struct ListNode* next = cur->next->next;
+//			free(cur->next);
+//			cur->next = next;
+//		}
+//		else
+//		{
+//			cur = cur->next;
+//		}
+//	}
+//	return guard->next;
+//}
+
+////反转链表：https://leetcode.cn/problems/reverse-linked-list/。(重建链表方法)
+//struct ListNode* reverseList(struct ListNode* head)
+//{
+//	struct ListNode* newhead = NULL;
+//	struct ListNode* headCur = head;
+//	while (headCur != NULL)
+//	{
+//		struct ListNode* next = headCur->next;
+//		headCur->next = newhead;
+//		newhead = headCur;
+//		headCur = next;
+//	}
+//	return newhead;
+//}
+
+////反转链表：https://leetcode.cn/problems/reverse-linked-list/。(三指针方法(包括头指针))
+//struct ListNode* reverseList(struct ListNode* head)
+//{
+//	struct ListNode* prev = NULL;
+//	struct ListNode* next = NULL;
+//	while (head != NULL)
+//	{
+//		next = head->next;
+//		head->next = prev;
+//		prev = head;
+//		head = next;
+//	}
+//	return prev;
+//}

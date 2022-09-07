@@ -264,7 +264,7 @@
 //	return newhead;
 //}
 
-////反转链表：https://leetcode.cn/problems/reverse-linked-list/。(三指针方法(包括头指针))
+////反转链表：https://leetcode.cn/problems/reverse-linked-list/。(三指针方法(包含头指针))
 //struct ListNode* reverseList(struct ListNode* head)
 //{
 //	struct ListNode* prev = NULL;

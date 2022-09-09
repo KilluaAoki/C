@@ -291,3 +291,79 @@
 //	}
 //	return slow;
 //}
+
+////链表中倒数第k个节点：https://leetcode.cn/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/。
+//struct ListNode* getKthFromEnd(struct ListNode* head, int k)
+//{
+//	struct ListNode* fast, * slow;
+//	fast = slow = head;
+//	while (k-- && fast)
+//	{
+//		fast = fast->next;
+//	}
+//	while (fast)
+//	{
+//		slow = slow->next;
+//		fast = fast->next;
+//	}
+//	return slow;
+//}
+
+////合并两个有序链表：https://leetcode.cn/problems/merge-two-sorted-lists/submissions/。
+//struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2)
+//{
+//	if (list1 == NULL || list2 == NULL)
+//		return list1 == NULL ? list2 : list1;
+//	struct ListNode* head = list1->val <= list2->val ? list1 : list2;
+//	struct ListNode* cur1 = head->next;
+//	struct ListNode* cur2 = head == list1 ? list2 : list1;
+//	struct ListNode* prev = head;
+//	while (cur1 && cur2)
+//	{
+//		if (cur1->val <= cur2->val)
+//		{
+//			prev->next = cur1;
+//			cur1 = cur1->next;
+//		}
+//		else
+//		{
+//			prev->next = cur2;
+//			cur2 = cur2->next;
+//		}
+//		prev = prev->next;
+//	}
+//	prev->next = cur1 != NULL ? cur1 : cur2;
+//	return head;
+//}
+
+////分隔链表：https://leetcode.cn/problems/partition-list/。
+//struct ListNode* partition(struct ListNode* head, int x)
+//{
+//	if (head == NULL)
+//		return NULL;
+//	struct ListNode* lessGuard, * lessTail, * greaterGuard, * greaterTail;
+//	lessTail = lessGuard = (struct ListNode*)malloc(sizeof(struct ListNode));
+//	greaterTail = greaterGuard = (struct ListNode*)malloc(sizeof(struct ListNode));
+//	lessGuard->next = greaterGuard->next = NULL;
+//	struct ListNode* cur = head;
+//	while (cur)
+//	{
+//		if (cur->val < x)
+//		{
+//			lessTail->next = cur;
+//			lessTail = lessTail->next;
+//		}
+//		else
+//		{
+//			greaterTail->next = cur;
+//			greaterTail = greaterTail->next;
+//		}
+//		cur = cur->next;
+//	}
+//	lessTail->next = greaterGuard->next;
+//	greaterTail->next = NULL;
+//	head = lessGuard->next;
+//	free(lessGuard);
+//	free(greaterGuard);
+//	return head;
+//}

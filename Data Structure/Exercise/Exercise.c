@@ -367,3 +367,48 @@
 //	free(greaterGuard);
 //	return head;
 //}
+
+////回文链表：https://leetcode.cn/problems/palindrome-linked-list/。
+//bool isPalindrome(struct ListNode* head)
+//{
+//	struct ListNode* n1, * n2;
+//	n2 = n1 = head;
+//	while (n2->next && n2->next->next)
+//	{
+//		n1 = n1->next;
+//		n2 = n2->next->next;
+//	}
+//	n2 = n1->next;
+//	n1->next = NULL;
+//	struct ListNode* n3 = NULL;
+//	while (n2)
+//	{
+//		n3 = n2->next;
+//		n2->next = n1;
+//		n1 = n2;
+//		n2 = n3;
+//	}
+//	n3 = n1;
+//	n2 = head;
+//	bool res = true;
+//	while (n1 && n2)
+//	{
+//		if (n1->val != n2->val)
+//		{
+//			res = false;
+//			break;
+//		}
+//		n1 = n1->next;
+//		n2 = n2->next;
+//	}
+//	n1 = n3->next;
+//	n3->next = NULL;
+//	while (n1)
+//	{
+//		n2 = n1->next;
+//		n1->next = n3;
+//		n3 = n1;
+//		n1 = n2;
+//	}
+//	return res;
+//}

@@ -11,7 +11,7 @@ typedef int SLLDataType;
 //定义结构体类型(无头单向非循环链表)
 typedef struct SinglyLinkedListNode
 {
-	int data;
+	SLLDataType data;
 	struct SinglyLinkedListNode* next;
 } SLLNode;
 

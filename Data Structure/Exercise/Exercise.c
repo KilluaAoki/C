@@ -300,8 +300,10 @@
 //{
 //	struct ListNode* fast, * slow;
 //	fast = slow = head;
-//	while (k-- && fast)
+//	while (k--)
 //	{
+//		if (fast == NULL)
+//			return NULL;
 //		fast = fast->next;
 //	}
 //	while (fast)

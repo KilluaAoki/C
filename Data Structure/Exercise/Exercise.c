@@ -416,6 +416,160 @@
 //	return res;
 //}
 
+////相交链表：https://leetcode.cn/problems/intersection-of-two-linked-lists/。
+//struct ListNode* getIntersectionNode(struct ListNode* headA, struct ListNode* headB)
+//{
+//	if (headA == NULL && headB == NULL)
+//	{
+//		return NULL;
+//	}
+//	struct ListNode* cur1 = headA;
+//	struct ListNode* cur2 = headB;
+//	int n = 0;
+//	while (cur1->next != NULL)
+//	{
+//		++n;
+//		cur1 = cur1->next;
+//	}
+//	while (cur2->next != NULL)
+//	{
+//		--n;
+//		cur2 = cur2->next;
+//	}
+//	if (cur1 != cur2)
+//	{
+//		return NULL;
+//	}
+//	cur1 = n > 0 ? headA : headB;
+//	cur2 = cur1 == headA ? headB : headA;
+//	n = abs(n);
+//	while (n--)
+//	{
+//		cur1 = cur1->next;
+//	}
+//	while (cur1 != cur2)
+//	{
+//		cur1 = cur1->next;
+//		cur2 = cur2->next;
+//	}
+//	return cur1;
+//}
+
+////环形链表：https://leetcode.cn/problems/linked-list-cycle/。
+//bool hasCycle(struct ListNode* head)
+//{
+//	if (head == NULL || head->next == NULL || head->next->next == NULL)
+//	{
+//		return false;
+//	}
+//	struct ListNode* slow = head->next;
+//	struct ListNode* fast = head->next->next;
+//	while (slow != fast)
+//	{
+//		if (fast->next == NULL || fast->next->next == NULL)
+//		{
+//			return false;
+//		}
+//		slow = slow->next;
+//		fast = fast->next->next;
+//	}
+//	return true;
+//}
+
+////环形链表 II：https://leetcode.cn/problems/linked-list-cycle-ii/。
+//struct ListNode* detectCycle(struct ListNode* head)
+//{
+//	if (head == NULL || head->next == NULL || head->next->next == NULL)
+//	{
+//		return false;
+//	}
+//	struct ListNode* slow = head->next;
+//	struct ListNode* fast = head->next->next;
+//	while (slow != fast)
+//	{
+//		if (fast->next == NULL || fast->next->next == NULL)
+//		{
+//			return false;
+//		}
+//		slow = slow->next;
+//		fast = fast->next->next;
+//	}
+//	fast = head;
+//	while (slow != fast)
+//	{
+//		slow = slow->next;
+//		fast = fast->next;
+//	}
+//	return slow;
+//}
+
+////复制带随机指针的链表：https://leetcode.cn/problems/copy-list-with-random-pointer/submissions/。("while"循环版本)
+//struct Node* copyRandomList(struct Node* head)
+//{
+//	if (head == NULL)
+//	{
+//		return NULL;
+//	}
+//	struct Node* cur = head;
+//	while (cur != NULL)
+//	{
+//		struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+//		newNode->val = cur->val;
+//		newNode->next = cur->next;
+//		cur->next = newNode;
+//		cur = cur->next->next;
+//	}
+//	cur = head;
+//	struct Node* curNewNode, * next;
+//	while (cur != NULL)
+//	{
+//		next = cur->next->next;
+//		curNewNode = cur->next;
+//		curNewNode->random = cur->random == NULL ? NULL : cur->random->next;
+//		cur = next;
+//	}
+//	cur = head;
+//	struct Node* newHead = head->next;
+//	while (cur != NULL)
+//	{
+//		next = cur->next->next;
+//		curNewNode = cur->next;
+//		cur->next = next;
+//		curNewNode->next = curNewNode->next == NULL ? NULL : curNewNode->next->next;
+//		cur = cur->next;
+//	}
+//	return newHead;
+//}
+
+////复制带随机指针的链表：https://leetcode.cn/problems/copy-list-with-random-pointer/submissions/。("for"循环版本)
+//struct Node* copyRandomList(struct Node* head)
+//{
+//	if (head == NULL)
+//	{
+//		return NULL;
+//	}
+//	for (struct Node* cur = head; cur != NULL; cur = cur->next->next)
+//	{
+//		struct Node* curNewNode = (struct Node*)malloc(sizeof(struct Node));
+//		curNewNode->val = cur->val;
+//		curNewNode->next = cur->next;
+//		cur->next = curNewNode;
+//	}
+//	for (struct Node* cur = head; cur != NULL; cur = cur->next->next)
+//	{
+//		struct Node* curNewNode = cur->next;
+//		curNewNode->random = (cur->random != NULL) ? cur->random->next : NULL;
+//	}
+//	struct Node* res = head->next;
+//	for (struct Node* cur = head; cur != NULL; cur = cur->next)
+//	{
+//		struct Node* curNewNode = cur->next;
+//		cur->next = cur->next->next;
+//		curNewNode->next = (curNewNode->next != NULL) ? curNewNode->next->next : NULL;
+//	}
+//	return res;
+//}
+
 ////相交链表：给定两个可能有环也可能无环的单链表，头节点为"head1"和"head2"。请实现一个函数，如果两个链表相交，请返回链表相交的第一个节点，如果不相交，返回"NULL"。
 ////要求：
 ////	1. 如果两个链表的长度之和为"N"，时间复杂度请达到"O(N)"，额外空间复杂度请达到"O(1)"。

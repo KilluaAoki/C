@@ -206,7 +206,7 @@ size_t Length_SinglyLinkedList(SLLNode* phead)
 }
 
 //销毁单链表
-void Destroy_SinglyLinkedListNode(SLLNode** pphead)
+void Destroy_SinglyLinkedList(SLLNode** pphead)
 {
 	assert(pphead);
 	SLLNode* cur = *pphead;

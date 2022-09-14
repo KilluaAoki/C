@@ -16,7 +16,7 @@ void Test_SinglyLinkedList_01()
 	Head_Insert_SinglyLinkedListNode(&phead, -2);
 	Print_SinglyLinkedList(phead);
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -36,7 +36,7 @@ void Test_SinglyLinkedList_02()
 	Tail_Insert_SinglyLinkedListNode(&phead, 2);
 	Print_SinglyLinkedList(phead);
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -63,7 +63,7 @@ void Test_SinglyLinkedList_03()
 	Head_Delete_SinglyLinkedListNode(&phead);
 	Print_SinglyLinkedList(phead);
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -88,7 +88,7 @@ void Test_SinglyLinkedList_04()
 	Head_Insert_SinglyLinkedListNode(&phead, 0);
 	Print_SinglyLinkedList(phead);
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -147,7 +147,7 @@ void Test_SinglyLinkedList_05()
 	Print_SinglyLinkedList(phead);
 	pos = NULL;
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -193,7 +193,7 @@ void Test_SinglyLinkedList_06()
 	Print_SinglyLinkedList(phead);
 	pos = NULL;
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -230,7 +230,7 @@ void Test_SinglyLinkedList_07()
 	Print_SinglyLinkedList(phead);
 	pos = NULL;
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -254,7 +254,7 @@ void Test_SinglyLinkedList_08()
 	Print_SinglyLinkedList(phead);
 	printf("Singly Linked List Length = %zu\n", Length_SinglyLinkedList(phead));
 
-	Destroy_SinglyLinkedListNode(&phead);
+	Destroy_SinglyLinkedList(&phead);
 	printf("*****************************EXIT*****************************\n\n");
 }
 

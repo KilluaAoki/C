@@ -55,4 +55,4 @@ void After_Erase_SinglyLinkedListNode(SLLNode* pos);
 size_t Length_SinglyLinkedList(SLLNode* phead);
 
 //销毁单链表
-void Destroy_SinglyLinkedListNode(SLLNode** pphead);
+void Destroy_SinglyLinkedList(SLLNode** pphead);

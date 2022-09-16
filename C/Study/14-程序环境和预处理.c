@@ -180,7 +180,7 @@
 //
 //	//预处理符号"##"使用示例
 //	int minutesOfAnHour = 60 * 1;
-//	printf("%d\n", CAT(minutes, Of, An, Hour));//等价于"printf("%d\n",minutesOfAnHour);"。
+//	printf("%d\n", CAT(minutes, Of, An, Hour));//等价于"printf("%d\n", minutesOfAnHour);"。
 //
 //	return 0;
 //}

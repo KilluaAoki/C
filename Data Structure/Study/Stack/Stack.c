@@ -19,7 +19,7 @@ void Push_Stack(Stack* ptr, ElemType data)
 		if (tmp == NULL)
 		{
 			perror("Push_Stack");
-			exit(errno);
+			exit(EXIT_FAILURE);
 		}
 		ptr->array_ptr = tmp;
 		ptr->capacity = newCapacity;

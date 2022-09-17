@@ -4,6 +4,11 @@
 DLLNode* Init_DoublyLinkedListNode()
 {
 	DLLNode* guard = (DLLNode*)malloc(sizeof(DLLNode));
+	if (guard == NULL)
+	{
+		perror("Init_DoublyLinkedListNode");
+		exit(EXIT_FAILURE);
+	}
 	guard->prev = guard;
 	guard->next = guard;
 	return guard;
@@ -13,6 +18,11 @@ DLLNode* Init_DoublyLinkedListNode()
 DLLNode* Create_DoublyLinkedListNode(DLLDataType data)
 {
 	DLLNode* newNode = (DLLNode*)malloc(sizeof(DLLNode));
+	if (newNode == NULL)
+	{
+		perror("Create_SinglyLinkedListNode");
+		exit(EXIT_FAILURE);
+	}
 	newNode->data = data;
 	newNode->prev = newNode;
 	newNode->next = newNode;

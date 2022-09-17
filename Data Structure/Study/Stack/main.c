@@ -16,7 +16,7 @@ void Test_Stack_01()
 	printf("%d\n", Top_Stack(&stack));
 	Push_Stack(&stack, 1);
 	printf("%d\n", Top_Stack(&stack));
-	printf("%zu\n", Size_Stack(&stack));
+	printf("Size_Stack = %zu.\n", Size_Stack(&stack));
 
 	Destroy_Stack(&stack);
 	printf("*****************************EXIT*****************************\n\n");

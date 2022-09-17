@@ -92,7 +92,7 @@
 		6."fprintf"函数：将格式化的数据写入流，适用于所有输出流；文档：https://zh.cppreference.com/w/c/io/fprintf。
 		7."fread"函数：从流中读取数据块，适用于文件；文档：https://zh.cppreference.com/w/c/io/fread。
 		8."fwrite"函数：将数据块写入流，适用于文件；文档：https://zh.cppreference.com/w/c/io/fwrite。
-		9.拓展函数："sscanf"函数、"sprintf"函数。
+		9.拓展函数："sscanf"函数和"sprintf"函数。
 */
 
 ////文件顺序读写相关函数使用示例

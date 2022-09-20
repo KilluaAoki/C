@@ -300,10 +300,8 @@
 //{
 //	struct ListNode* fast, * slow;
 //	fast = slow = head;
-//	while (k--)
+//	while (k-- && fast)
 //	{
-//		if (fast == NULL)
-//			return NULL;
 //		fast = fast->next;
 //	}
 //	while (fast)
@@ -804,4 +802,180 @@
 //	Test2();
 //	Test3();
 //	return 0;
+//}
+
+////有效的括号：https://leetcode.cn/problems/valid-parentheses/。(数组模拟栈实现)
+//bool isValid(char* s)
+//{
+//	size_t n;
+//	if (s == NULL || (n = strlen(s)) == 0)
+//		return true;
+//	size_t size = 0;
+//	char* parr = (char*)malloc(sizeof(char) * n);
+//	for (size_t i = 0; i < n; ++i)
+//	{
+//		char cha = s[i];
+//		if (cha == '(' || cha == '[' || cha == '{')
+//		{
+//			parr[size++] = cha == '(' ? ')' : (cha == '[' ? ']' : '}');
+//		}
+//		else
+//		{
+//			if (size == 0)
+//				return false;
+//			else
+//			{
+//				char last = parr[--size];
+//				if (last != cha)
+//					return false;
+//			}
+//		}
+//	}
+//	free(parr);
+//	return size == 0;
+//}
+
+////用队列实现栈：https://leetcode.cn/problems/implement-stack-using-queues/。
+//typedef struct QueueNode
+//{
+//	int data;
+//	struct QueueNode* next;
+//} QueueNode;
+//
+//typedef struct Queue
+//{
+//	QueueNode* head;
+//	QueueNode* tail;
+//	size_t size;
+//} Queue;
+//
+//typedef struct MyStack
+//{
+//	Queue queue;
+//	Queue help;
+//} MyStack;
+//
+//void Init_Queue(Queue* ptr)
+//{
+//	assert(ptr);
+//	ptr->head = ptr->tail = NULL;
+//	ptr->size = 0;
+//}
+//
+//bool Empty_Queue(Queue* ptr)
+//{
+//	assert(ptr);
+//	return ((ptr->head == NULL) && (ptr->tail == NULL));
+//}
+//
+//void Push_Queue(Queue* ptr, int data)
+//{
+//	assert(ptr);
+//	QueueNode* newNode = (QueueNode*)malloc(sizeof(QueueNode));
+//	newNode->data = data;
+//	newNode->next = NULL;
+//	if (ptr->head == NULL && ptr->tail == NULL)
+//	{
+//		ptr->head = ptr->tail = newNode;
+//	}
+//	else
+//	{
+//		ptr->tail->next = newNode;
+//		ptr->tail = newNode;
+//	}
+//	++ptr->size;
+//}
+//
+//void Pop_Queue(Queue* ptr)
+//{
+//	assert(ptr);
+//	assert(!Empty_Queue(ptr));
+//	if (ptr->head->next == NULL)
+//	{
+//		free(ptr->head);
+//		ptr->head = ptr->tail = NULL;
+//	}
+//	else
+//	{
+//		QueueNode* del = ptr->head;
+//		ptr->head = ptr->head->next;
+//		free(del);
+//	}
+//	--ptr->size;
+//}
+//
+//int Front_Queue(Queue* ptr)
+//{
+//	assert(ptr);
+//	assert(!Empty_Queue(ptr));
+//	return ptr->head->data;
+//}
+//
+//void Destroy_Queue(Queue* ptr)
+//{
+//	assert(ptr);
+//	QueueNode* cur = ptr->head;
+//	while (cur != NULL)
+//	{
+//		QueueNode* del = cur;
+//		cur = cur->next;
+//		free(del);
+//	}
+//	ptr->head = ptr->tail = NULL;
+//}
+//
+//MyStack* myStackCreate()
+//{
+//	MyStack* obj = (MyStack*)malloc(sizeof(MyStack));
+//	Init_Queue(&obj->queue);
+//	Init_Queue(&obj->help);
+//	return obj;
+//}
+//
+//void myStackPush(MyStack* obj, int x)
+//{
+//	Push_Queue(&obj->queue, x);
+//}
+//
+//int myStackPop(MyStack* obj)
+//{
+//	while (obj->queue.size > 1)
+//	{
+//		Push_Queue(&obj->help, Front_Queue(&obj->queue));
+//		Pop_Queue(&obj->queue);
+//	}
+//	int ans = Front_Queue(&obj->queue);
+//	Pop_Queue(&obj->queue);
+//	Queue tmp = obj->queue;
+//	obj->queue = obj->help;
+//	obj->help = tmp;
+//	return ans;
+//}
+//
+//int myStackTop(MyStack* obj)
+//{
+//	while (obj->queue.size > 1)
+//	{
+//		Push_Queue(&obj->help, Front_Queue(&obj->queue));
+//		Pop_Queue(&obj->queue);
+//	}
+//	int ans = Front_Queue(&obj->queue);
+//	Pop_Queue(&obj->queue);
+//	Push_Queue(&obj->help, ans);
+//	Queue tmp = obj->queue;
+//	obj->queue = obj->help;
+//	obj->help = tmp;
+//	return ans;
+//}
+//
+//bool myStackEmpty(MyStack* obj)
+//{
+//	return Empty_Queue(&obj->queue);
+//}
+//
+//void myStackFree(MyStack* obj)
+//{
+//	Destroy_Queue(&obj->queue);
+//	Destroy_Queue(&obj->help);
+//	free(obj);
 //}

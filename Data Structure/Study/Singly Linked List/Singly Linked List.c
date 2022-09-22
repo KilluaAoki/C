@@ -192,7 +192,7 @@ void After_Erase_SinglyLinkedListNode(SLLNode* pos)
 	pos->next = next;
 }
 
-//获取单链表的长度
+//获取单链表长度
 size_t Length_SinglyLinkedList(SLLNode* phead)
 {
 	size_t count = 0;

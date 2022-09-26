@@ -55,7 +55,6 @@ bool Empty_Stack(Stack* ptr)
 size_t Size_Stack(Stack* ptr)
 {
 	assert(ptr);
-	assert(!Empty_Stack(ptr));
 	return ptr->top;
 }
 

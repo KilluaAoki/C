@@ -6,22 +6,22 @@
 #include <assert.h>
 #include <stdbool.h>
 
-//重命名栈数据元素类型
+//重命名队列数据元素类型
 typedef int ElemType;
 
-//定义结构体类型(队列节点)
+//定义结构体类型(队列节点(单链表节点))
 typedef struct QueueNode
 {
 	ElemType data;
 	struct QueueNode* next;
 } QueueNode;
 
-//定义结构体类型(队列)
+//定义结构体类型(双端链表实现队列)
 typedef struct Queue
 {
+	size_t size;
 	QueueNode* head;
 	QueueNode* tail;
-	size_t size;
 } Queue;
 
 //初始化队列

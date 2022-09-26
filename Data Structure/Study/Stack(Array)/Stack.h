@@ -9,7 +9,7 @@
 //重命名栈数据元素类型
 typedef int ElemType;
 
-//定义结构体类型(栈)
+//定义结构体类型(数组实现栈)
 typedef struct Stack
 {
 	ElemType* array_ptr;

@@ -979,3 +979,248 @@
 //	Destroy_Queue(&obj->help);
 //	free(obj);
 //}
+
+////用栈实现队列：https://leetcode-cn.com/problems/implement-queue-using-stacks/。
+//typedef int ElemType;
+//
+//typedef struct StackNode
+//{
+//	ElemType data;
+//	struct StackNode* prev;
+//	struct StackNode* next;
+//} StackNode;
+//
+//typedef struct Stack
+//{
+//	size_t size;
+//	StackNode* head;
+//	StackNode* tail;
+//} Stack;
+//
+//typedef struct
+//{
+//	Stack stackPush;
+//	Stack stackPop;
+//} MyQueue;
+//
+//void Init_Stack(Stack* ptr)
+//{
+//	assert(ptr);
+//	ptr->size = 0;
+//	ptr->head = ptr->tail = NULL;
+//}
+//
+//void Push_Stack(Stack* ptr, ElemType data)
+//{
+//	assert(ptr);
+//	StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));
+//	if (newNode == NULL)
+//	{
+//		perror("Push_Stack");
+//		exit(EXIT_FAILURE);
+//	}
+//	newNode->data = data;
+//	newNode->prev = newNode->next = NULL;
+//	if (ptr->head == NULL)
+//	{
+//		ptr->head = ptr->tail = newNode;
+//	}
+//	else
+//	{
+//		ptr->head->prev = newNode;
+//		newNode->next = ptr->head;
+//		ptr->head = newNode;
+//	}
+//	++ptr->size;
+//}
+//
+//bool Empty_Stack(Stack* ptr)
+//{
+//	assert(ptr);
+//	return ptr->size == 0;
+//}
+//
+//ElemType Pop_Stack(Stack* ptr)
+//{
+//	assert(ptr);
+//	assert(!Empty_Stack(ptr));
+//	ElemType ans = ptr->head->data;
+//	if (ptr->head == ptr->tail)
+//	{
+//		free(ptr->head);
+//		ptr->head = ptr->tail = NULL;
+//	}
+//	else
+//	{
+//		ptr->head = ptr->head->next;
+//		free(ptr->head->prev);
+//		ptr->head->prev = NULL;
+//	}
+//	--ptr->size;
+//	return ans;
+//}
+//
+//ElemType Top_Stack(Stack* ptr)
+//{
+//	assert(ptr);
+//	return ptr->head->data;
+//}
+//
+//void Destroy_Stack(Stack* ptr)
+//{
+//	assert(ptr);
+//	while (ptr->head)
+//	{
+//		if (ptr->head->next == NULL)
+//		{
+//			free(ptr->head);
+//			break;
+//		}
+//		ptr->head = ptr->head->next;
+//		free(ptr->head->prev);
+//	}
+//	ptr->head = ptr->tail = NULL;
+//}
+//
+//void PushToPop(MyQueue* obj)
+//{
+//	if (Empty_Stack(&obj->stackPop))
+//	{
+//		while (!Empty_Stack(&obj->stackPush))
+//		{
+//			Push_Stack(&obj->stackPop, Pop_Stack(&obj->stackPush));
+//		}
+//	}
+//}
+//
+//MyQueue* myQueueCreate()
+//{
+//	MyQueue* obj = (MyQueue*)malloc(sizeof(MyQueue));
+//	Init_Stack(&obj->stackPush);
+//	Init_Stack(&obj->stackPop);
+//	return obj;
+//}
+//
+//void myQueuePush(MyQueue* obj, int x)
+//{
+//	Push_Stack(&obj->stackPush, x);
+//	PushToPop(obj);
+//}
+//
+//int myQueuePop(MyQueue* obj)
+//{
+//	assert(!(Empty_Stack(&obj->stackPush) && Empty_Stack(&obj->stackPop)));
+//	PushToPop(obj);
+//	return Pop_Stack(&obj->stackPop);
+//}
+//
+//int myQueuePeek(MyQueue* obj)
+//{
+//	assert(!(Empty_Stack(&obj->stackPush) && Empty_Stack(&obj->stackPop)));
+//	PushToPop(obj);
+//	return Top_Stack(&obj->stackPop);
+//}
+//
+//bool myQueueEmpty(MyQueue* obj)
+//{
+//	return (Empty_Stack(&obj->stackPush) && Empty_Stack(&obj->stackPop));
+//}
+//
+//void myQueueFree(MyQueue* obj)
+//{
+//	Destroy_Stack(&obj->stackPop);
+//	Destroy_Stack(&obj->stackPush);
+//	free(obj);
+//}
+
+////设计循环队列：https://leetcode-cn.com/problems/design-circular-queue/。
+//typedef struct
+//{
+//	int* array_ptr;
+//	size_t push_index;
+//	size_t pop_index;
+//	size_t size;
+//	size_t capacity;
+//} MyCircularQueue;
+//
+//size_t NextIndex(size_t limit, size_t index)
+//{
+//	return index < limit - 1 ? index + 1 : 0;
+//}
+//
+//MyCircularQueue* myCircularQueueCreate(size_t k)
+//{
+//	MyCircularQueue* obj = (MyCircularQueue*)malloc(sizeof(MyCircularQueue));
+//	obj->capacity = k;
+//	obj->array_ptr = (int*)malloc(sizeof(int) * obj->capacity);
+//	obj->push_index = obj->pop_index = obj->size = 0;
+//	return obj;
+//}
+//
+//bool myCircularQueueIsEmpty(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	return obj->size == 0;
+//}
+//
+//bool myCircularQueueIsFull(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	return obj->size == obj->capacity;
+//}
+//
+//bool myCircularQueueEnQueue(MyCircularQueue* obj, int value)
+//{
+//	assert(obj);
+//	if (myCircularQueueIsFull(obj))
+//	{
+//		return false;
+//	}
+//	++obj->size;
+//	obj->array_ptr[obj->push_index] = value;
+//	obj->push_index = NextIndex(obj->capacity, obj->push_index);
+//	return true;
+//}
+//
+//bool myCircularQueueDeQueue(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	if (myCircularQueueIsEmpty(obj))
+//	{
+//		return false;
+//	}
+//	--obj->size;
+//	obj->pop_index = NextIndex(obj->capacity, obj->pop_index);
+//	return true;
+//}
+//
+//int myCircularQueueFront(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	if (myCircularQueueIsEmpty(obj))
+//	{
+//		return -1;
+//	}
+//	return obj->array_ptr[obj->pop_index];
+//}
+//
+//int myCircularQueueRear(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	if (myCircularQueueIsEmpty(obj))
+//	{
+//		return -1;
+//	}
+//	if (obj->push_index == 0)
+//	{
+//		return obj->array_ptr[obj->capacity - 1];
+//	}
+//	return obj->array_ptr[obj->push_index - 1];
+//}
+//
+//void myCircularQueueFree(MyCircularQueue* obj)
+//{
+//	assert(obj);
+//	free(obj->array_ptr);
+//	free(obj);
+//}

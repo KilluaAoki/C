@@ -63,5 +63,6 @@ void Destroy_Stack(Stack* ptr)
 {
 	assert(ptr);
 	free(ptr->array_ptr);
+	ptr->array_ptr = NULL;
 	ptr->top = ptr->capacity = 0;
 }

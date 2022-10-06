@@ -72,5 +72,6 @@ void Destroy_Queue(Queue* ptr)
 {
 	assert(ptr);
 	free(ptr->array_ptr);
+	ptr->array_ptr = NULL;
 	ptr->push_index = ptr->pop_index = ptr->size = ptr->capacity = ptr->capacity_count = 0;
 }

@@ -2086,7 +2086,7 @@
 //	{
 //		for (size_t i = 1; i <= end; ++i)
 //		{
-//			if (CompareIntArray((char*)base + (i - 1) * size, (char*)base + i * size) > 0)
+//			if (compar((char*)base + (i - 1) * size, (char*)base + i * size) > 0)
 //			{
 //				Swap((char*)base + (i - 1) * size, (char*)base + i * size, size);
 //			}

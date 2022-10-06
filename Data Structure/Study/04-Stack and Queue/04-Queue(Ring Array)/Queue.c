@@ -8,7 +8,7 @@ void Init_Queue(Queue* ptr)
 	ptr->array_ptr = (ElemType*)malloc(sizeof(ElemType) * ptr->capacity);
 	if (ptr->array_ptr == NULL)
 	{
-		perror("Push_Queue");
+		perror("Init_Queue");
 		exit(EXIT_FAILURE);
 	}
 	ptr->push_index = ptr->pop_index = ptr->size = 0;

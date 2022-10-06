@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <stdbool.h>
 
-//重命名栈数据元素类型
+//重命名双端队列数据元素类型
 typedef int ElemType;
 
 //定义结构体类型(双端队列节点(双向链表节点))

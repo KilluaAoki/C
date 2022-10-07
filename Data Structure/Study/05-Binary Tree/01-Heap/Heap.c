@@ -59,7 +59,6 @@ void Print_Heap(ElemType* arr_ptr, size_t size)
 		}
 		pos--;
 	}
-	//printf("%d %d\n", longest_digits, tree_depth);
 	pos = 0;
 	depth = 0;
 	const int additional_offset = 3;

@@ -25,6 +25,14 @@ void Check_Heap(Heap* ptr)
 	}
 }
 
+//交换元素
+void Swap(ElemType* array_ptr, size_t x, size_t y)
+{
+	ElemType tmp = array_ptr[x];
+	array_ptr[x] = array_ptr[y];
+	array_ptr[y] = tmp;
+}
+
 //以树状打印堆：https://stackoverflow.com/questions/65140349/printing-binary-heap-in-tree-format-c-language。
 int Pow_2i(int a)
 {
@@ -93,96 +101,82 @@ void Print_Heap(ElemType* arr_ptr, size_t size)
 	printf("\n\n");
 }
 
-//交换元素
-void Swap(Heap* ptr, size_t x, size_t y)
-{
-	assert(ptr);
-	ElemType tmp = ptr->array_ptr[x];
-	ptr->array_ptr[x] = ptr->array_ptr[y];
-	ptr->array_ptr[y] = tmp;
-}
-
 //适用于小根堆的向上调整函数
-void Insert_Min_Heap(Heap* ptr, size_t index, size_t size)
+void Insert_Min_Heap(ElemType* array_ptr, size_t index)
 {
-	assert(ptr && size != 0);
 	size_t father = index == 0 ? 0 : (index - 1) / 2;
-	while (ptr->array_ptr[index] < ptr->array_ptr[father])
+	while (array_ptr[index] < array_ptr[father])
 	{
-		Swap(ptr, index, father);
+		Swap(array_ptr, index, (index - 1) / 2);
 		index = father;
 		father = index == 0 ? 0 : (index - 1) / 2;
 	}
 }
 
 //适用于小根堆的向下调整函数
-void Ify_Min_Heap(Heap* ptr, size_t index, size_t size)
+void Ify_Min_Heap(ElemType* array_ptr, size_t index, size_t size)
 {
-	assert(ptr && size != 0);
 	size_t left = index * 2 + 1;
 	while (left < size)
 	{
-		size_t smallest = left + 1 < size && ptr->array_ptr[left + 1] < ptr->array_ptr[left] ? left + 1 : left;
-		smallest = ptr->array_ptr[smallest] < ptr->array_ptr[index] ? smallest : index;
-		if (smallest == index)
+		size_t smallest = left + 1 < size && array_ptr[left + 1] < array_ptr[left] ? left + 1 : left;
+		smallest = array_ptr[smallest] < array_ptr[index] ? smallest : index;
+		if (index == smallest)
 		{
 			break;
 		}
-		Swap(ptr, index, smallest);
+		Swap(array_ptr, index, smallest);
 		index = smallest;
-		left = index * 2 + 1;
+		left = smallest * 2 + 1;
 	}
 }
 
 //适用于大根堆的向上调整函数
-void Insert_Max_Heap(Heap* ptr, size_t index, size_t size)
+void Insert_Max_Heap(ElemType* array_ptr, size_t index)
 {
-	assert(ptr && size != 0);
 	size_t father = index == 0 ? 0 : (index - 1) / 2;
-	while (ptr->array_ptr[index] > ptr->array_ptr[father])
+	while (array_ptr[index] > array_ptr[father])
 	{
-		Swap(ptr, index, father);
+		Swap(array_ptr, index, (index - 1) / 2);
 		index = father;
 		father = index == 0 ? 0 : (index - 1) / 2;
 	}
 }
 
 //适用于大根堆的向下调整函数
-void Ify_Max_Heap(Heap* ptr, size_t index, size_t size)
+void Ify_Max_Heap(ElemType* array_ptr, size_t index, size_t size)
 {
-	assert(ptr && size != 0);
 	size_t left = index * 2 + 1;
 	while (left < size)
 	{
-		size_t largest = left + 1 < size && ptr->array_ptr[left + 1] > ptr->array_ptr[left] ? left + 1 : left;
-		largest = ptr->array_ptr[largest] > ptr->array_ptr[index] ? largest : index;
-		if (largest == index)
+		size_t largest = left + 1 < size && array_ptr[left + 1] > array_ptr[left] ? left + 1 : left;
+		largest = array_ptr[largest] > array_ptr[index] ? largest : index;
+		if (index == largest)
 		{
 			break;
 		}
-		Swap(ptr, index, largest);
+		Swap(array_ptr, index, largest);
 		index = largest;
 		left = index * 2 + 1;
 	}
 }
 
 //插入元素到堆中
-void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(Heap*, size_t, size_t))
+void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(ElemType*, size_t))
 {
 	assert(ptr);
 	Check_Heap(ptr);
 	ptr->array_ptr[ptr->size] = data;
-	Adjustment(ptr, ptr->size++, ptr->size);
+	Adjustment(ptr->array_ptr, ptr->size++);
 }
 
 //删除堆顶元素
-ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(Heap*, size_t, size_t))
+ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(ElemType*, size_t, size_t))
 {
-	assert(ptr);
-	assert(!Empty_Heap(ptr));
+	assert(ptr && !Empty_Heap(ptr));
 	ElemType ans = ptr->array_ptr[0];
-	Swap(ptr, 0, --ptr->size);
-	Adjustment(ptr, 0, ptr->size);
+	Swap(ptr->array_ptr, 0, --ptr->size);
+	Adjustment(ptr->array_ptr, 0, ptr->size);
 	return ans;
 }
 
@@ -195,21 +189,22 @@ ElemType Top_Heap(Heap* ptr)
 }
 
 //堆排序
-void Sort_Heap(Heap* ptr, size_t size)
+void Sort_Heap(ElemType* array_ptr, size_t size)
 {
-	assert(ptr);
-	if (size < 2)
-		return;
-	for (int i = ((int)size) - 1; i >= 0; --i)
+	if (array_ptr == NULL || size < 2)
 	{
-		Ify_Max_Heap(ptr, i, size);
+		return;
+	}
+	for (int i = (int)size - 1; i >= 0; --i)
+	{
+		Ify_Max_Heap(array_ptr, i, size);
 	}
 	size_t heapSize = size;
-	Swap(ptr, 0, --heapSize);
+	Swap(array_ptr, 0, --heapSize);
 	while (heapSize > 0)
 	{
-		Ify_Max_Heap(ptr, 0, heapSize);
-		Swap(ptr, 0, --heapSize);
+		Ify_Max_Heap(array_ptr, 0, heapSize);
+		Swap(array_ptr, 0, --heapSize);
 	}
 }
 

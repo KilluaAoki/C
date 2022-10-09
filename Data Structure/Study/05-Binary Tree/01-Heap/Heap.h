@@ -24,34 +24,34 @@ void Init_Heap(Heap* ptr);
 void Check_Heap(Heap* ptr);
 
 //交换元素
-void Swap(Heap* ptr, size_t x, size_t y);
+void Swap(ElemType* array_ptr, size_t x, size_t y);
 
 //以树状打印堆：https://stackoverflow.com/questions/65140349/printing-binary-heap-in-tree-format-c-language。
 void Print_Heap(ElemType* arr_ptr, size_t size);
 
 //适用于小根堆的向上调整函数
-void Insert_Min_Heap(Heap* ptr, size_t index, size_t size);
+void Insert_Min_Heap(ElemType* array_ptr, size_t index);
 
 //适用于小根堆的向下调整函数
-void Ify_Min_Heap(Heap* ptr, size_t index, size_t size);
+void Ify_Min_Heap(ElemType* array_ptr, size_t index, size_t size);
 
 //适用于大根堆的向上调整函数
-void Insert_Max_Heap(Heap* ptr, size_t index, size_t size);
+void Insert_Max_Heap(ElemType* array_ptr, size_t index);
 
 //适用于大根堆的向下调整函数
-void Ify_Max_Heap(Heap* ptr, size_t index, size_t size);
+void Ify_Max_Heap(ElemType* array_ptr, size_t index, size_t size);
 
 //插入元素到堆中
-void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(Heap*, size_t, size_t));
+void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(ElemType*, size_t));
 
 //删除堆顶元素
-ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(Heap*, size_t, size_t));
+ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(ElemType*, size_t, size_t));
 
 //获取堆顶元素数据
 ElemType Top_Heap(Heap* ptr);
 
 //堆排序
-void Sort_Heap(Heap* ptr, size_t size);
+void Sort_Heap(ElemType* array_ptr, size_t size);
 
 //判断堆是否为空堆
 bool Empty_Heap(Heap* ptr);

@@ -103,7 +103,7 @@ void Test_Heap_03()
 	Push_Heap(&heap, 1, Insert_Min_Heap);
 	Push_Heap(&heap, 0, Insert_Min_Heap);
 	Print_Heap(heap.array_ptr, heap.size);
-	Sort_Heap(&heap, heap.size);
+	Sort_Heap(heap.array_ptr, heap.size);
 	for (int i = 0; i < heap.size; ++i)
 	{
 		printf("%d ", heap.array_ptr[i]);
@@ -132,7 +132,7 @@ void Test_Heap_04()
 	Push_Heap(&heap, 8, Insert_Max_Heap);
 	Push_Heap(&heap, 9, Insert_Max_Heap);
 	Print_Heap(heap.array_ptr, heap.size);
-	Sort_Heap(&heap, heap.size);
+	Sort_Heap(heap.array_ptr, heap.size);
 	for (int i = 0; i < heap.size; ++i)
 	{
 		printf("%d ", heap.array_ptr[i]);

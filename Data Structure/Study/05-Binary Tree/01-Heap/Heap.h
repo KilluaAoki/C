@@ -51,7 +51,7 @@ ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(ElemType*, size_t, size_t));
 ElemType Top_Heap(Heap* ptr);
 
 //堆排序
-void Sort_Heap(ElemType* array_ptr, size_t size);
+void Sort_Heap(ElemType* array_ptr, size_t size, void (* Adjustment)(ElemType*, size_t, size_t));
 
 //判断堆是否为空堆
 bool Empty_Heap(Heap* ptr);

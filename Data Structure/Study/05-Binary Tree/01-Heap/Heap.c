@@ -189,7 +189,7 @@ ElemType Top_Heap(Heap* ptr)
 }
 
 //堆排序
-void Sort_Heap(ElemType* array_ptr, size_t size)
+void Sort_Heap(ElemType* array_ptr, size_t size, void (* Adjustment)(ElemType*, size_t, size_t))
 {
 	if (array_ptr == NULL || size < 2)
 	{
@@ -197,13 +197,13 @@ void Sort_Heap(ElemType* array_ptr, size_t size)
 	}
 	for (int i = (int)size - 1; i >= 0; --i)
 	{
-		Ify_Max_Heap(array_ptr, i, size);
+		Adjustment(array_ptr, i, size);
 	}
 	size_t heapSize = size;
 	Swap(array_ptr, 0, --heapSize);
 	while (heapSize > 0)
 	{
-		Ify_Max_Heap(array_ptr, 0, heapSize);
+		Adjustment(array_ptr, 0, heapSize);
 		Swap(array_ptr, 0, --heapSize);
 	}
 }

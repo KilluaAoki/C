@@ -1,6 +1,6 @@
 #pragma once
 
-//引用标准库头文件
+//引用头文件
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>

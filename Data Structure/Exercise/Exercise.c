@@ -804,7 +804,7 @@
 //	return 0;
 //}
 
-////有效的括号：https://leetcode.cn/problems/valid-parentheses/。
+////有效的括号：https://leetcode.cn/problems/valid-parentheses/。(数组模拟栈实现)
 //bool isValid(char* s)
 //{
 //	size_t n;
@@ -1223,4 +1223,18 @@
 //	assert(obj);
 //	free(obj->array_ptr);
 //	free(obj);
+//}
+
+////相同的树：https://leetcode.cn/problems/same-tree/。
+//bool isSameTree(struct TreeNode* p, struct TreeNode* q)
+//{
+//	if (p == NULL ^ q == NULL)
+//	{
+//		return false;
+//	}
+//	if (p == NULL && q == NULL)
+//	{
+//		return true;
+//	}
+//	return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
 //}

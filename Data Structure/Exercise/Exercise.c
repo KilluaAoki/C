@@ -804,7 +804,7 @@
 //	return 0;
 //}
 
-////有效的括号：https://leetcode.cn/problems/valid-parentheses/。(数组模拟栈实现)
+////有效的括号：https://leetcode.cn/problems/valid-parentheses/。
 //bool isValid(char* s)
 //{
 //	size_t n;

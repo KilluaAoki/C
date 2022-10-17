@@ -1224,3 +1224,67 @@
 //	free(obj->array_ptr);
 //	free(obj);
 //}
+
+////二叉树的前序遍历：https://leetcode.cn/problems/binary-tree-preorder-traversal/。
+//void pre(struct TreeNode* root, int* array, int* arraySize)
+//{
+//	if (root == NULL)
+//	{
+//		return;
+//	}
+//	array[(*arraySize)++] = root->val;
+//	pre(root->left, array, arraySize);
+//	pre(root->right, array, arraySize);
+//}
+//
+//int* preorderTraversal(struct TreeNode* root, int* returnSize)
+//{
+//	int* array = (int*)malloc(sizeof(int) * 100);
+//	*returnSize = 0;
+//	pre(root, array, returnSize);
+//	return array;
+//}
+
+////单值二叉树：https://leetcode.cn/problems/univalued-binary-tree/。
+//bool isUnivalTree(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return true;
+//	}
+//	if (root->left && root->val != root->left->val || !isUnivalTree(root->left))
+//	{
+//		return false;
+//	}
+//	if (root->right && root->val != root->right->val || !isUnivalTree(root->right))
+//	{
+//		return false;
+//	}
+//	return true;
+//}
+
+////二叉树的最大深度：https://leetcode.cn/problems/maximum-depth-of-binary-tree/。
+//int maxDepth(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return 0;
+//	}
+//	int leftHeight = maxDepth(root->left);
+//	int rightHeight = maxDepth(root->right);
+//	return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+//}
+
+////翻转二叉树：https://leetcode.cn/problems/invert-binary-tree/submissions/。
+//struct TreeNode* invertTree(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return NULL;
+//	}
+//	struct TreeNode* leftTree = invertTree(root->left);
+//	struct TreeNode* rightTree = invertTree(root->right);
+//	root->left = rightTree;
+//	root->right = leftTree;
+//	return root;
+//}

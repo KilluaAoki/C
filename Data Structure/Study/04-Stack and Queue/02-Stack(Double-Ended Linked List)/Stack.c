@@ -9,7 +9,7 @@ void Init_Stack(Stack* ptr)
 }
 
 //将一个元素压入栈中
-void Push_Stack(Stack* ptr, ElemType data)
+void Push_Stack(Stack* ptr, StackType data)
 {
 	assert(ptr);
 	StackNode* newNode = (StackNode*)malloc(sizeof(StackNode));
@@ -34,11 +34,11 @@ void Push_Stack(Stack* ptr, ElemType data)
 }
 
 //将一个元素从栈中弹出
-ElemType Pop_Stack(Stack* ptr)
+StackType Pop_Stack(Stack* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Stack(ptr));
-	ElemType ans = ptr->head->data;
+	StackType ans = ptr->head->data;
 	if (ptr->head == ptr->tail)
 	{
 		free(ptr->head);
@@ -55,7 +55,7 @@ ElemType Pop_Stack(Stack* ptr)
 }
 
 //获取栈的栈顶元素数据
-ElemType Top_Stack(Stack* ptr)
+StackType Top_Stack(Stack* ptr)
 {
 	assert(ptr);
 	return ptr->head->data;

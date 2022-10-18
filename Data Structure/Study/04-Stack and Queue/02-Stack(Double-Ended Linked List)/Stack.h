@@ -7,12 +7,12 @@
 #include <stdbool.h>
 
 //重命名栈数据元素类型
-typedef int ElemType;
+typedef int StackType;
 
 //定义结构体类型(栈节点(双向链表节点))
 typedef struct StackNode
 {
-	ElemType data;
+	StackType data;
 	struct StackNode* prev;
 	struct StackNode* next;
 } StackNode;
@@ -29,13 +29,13 @@ typedef struct Stack
 void Init_Stack(Stack* ptr);
 
 //将一个元素压入栈中
-void Push_Stack(Stack* ptr, ElemType data);
+void Push_Stack(Stack* ptr, StackType data);
 
 //将一个元素从栈中弹出
-ElemType Pop_Stack(Stack* ptr);
+StackType Pop_Stack(Stack* ptr);
 
 //获取栈的栈顶元素数据
-ElemType Top_Stack(Stack* ptr);
+StackType Top_Stack(Stack* ptr);
 
 //判断栈是否为空栈
 bool Empty_Stack(Stack* ptr);

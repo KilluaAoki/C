@@ -9,13 +9,13 @@ void Init_Stack(Stack* ptr)
 }
 
 //将一个元素压入栈中
-void Push_Stack(Stack* ptr, ElemType data)
+void Push_Stack(Stack* ptr, StackType data)
 {
 	assert(ptr);
 	if (ptr->top == ptr->capacity)
 	{
 		size_t newCapacity = ptr->capacity == 0 ? 4 : ptr->capacity * 2;
-		ElemType* tmp = (ElemType*)realloc(ptr->array_ptr, sizeof(ElemType) * newCapacity);
+		StackType* tmp = (StackType*)realloc(ptr->array_ptr, sizeof(StackType) * newCapacity);
 		if (tmp == NULL)
 		{
 			perror("Push_Stack");
@@ -37,7 +37,7 @@ void Pop_Stack(Stack* ptr)
 }
 
 //获取栈的栈顶元素数据
-ElemType Top_Stack(Stack* ptr)
+StackType Top_Stack(Stack* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Stack(ptr));

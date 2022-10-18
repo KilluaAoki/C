@@ -15,7 +15,7 @@ void Check_Heap(Heap* ptr)
 	if (ptr->size == ptr->capacity)
 	{
 		ptr->capacity = ptr->capacity == 0 ? 4 : ptr->capacity * 2;
-		ElemType* tmp = (ElemType*)realloc(ptr->array_ptr, sizeof(ElemType) * ptr->capacity);
+		HeapType* tmp = (HeapType*)realloc(ptr->array_ptr, sizeof(HeapType) * ptr->capacity);
 		if (tmp == NULL)
 		{
 			perror("Check_Heap");
@@ -26,9 +26,9 @@ void Check_Heap(Heap* ptr)
 }
 
 //交换元素
-void Swap(ElemType* array_ptr, size_t x, size_t y)
+void Swap(HeapType* array_ptr, size_t x, size_t y)
 {
-	ElemType tmp = array_ptr[x];
+	HeapType tmp = array_ptr[x];
 	array_ptr[x] = array_ptr[y];
 	array_ptr[y] = tmp;
 }
@@ -44,7 +44,7 @@ int Pow_2i(int a)
 	return r;
 }
 
-void Print_Heap(ElemType* arr_ptr, size_t size)
+void Print_Heap(HeapType* arr_ptr, size_t size)
 {
 	int longest_digits = 0;
 	int tree_depth = 0;
@@ -102,7 +102,7 @@ void Print_Heap(ElemType* arr_ptr, size_t size)
 }
 
 //适用于小根堆的向上调整函数
-void Insert_Min_Heap(ElemType* array_ptr, size_t index)
+void Insert_Min_Heap(HeapType* array_ptr, size_t index)
 {
 	size_t father = index == 0 ? 0 : (index - 1) / 2;
 	while (array_ptr[index] < array_ptr[father])
@@ -114,7 +114,7 @@ void Insert_Min_Heap(ElemType* array_ptr, size_t index)
 }
 
 //适用于小根堆的向下调整函数
-void Ify_Min_Heap(ElemType* array_ptr, size_t index, size_t size)
+void Ify_Min_Heap(HeapType* array_ptr, size_t index, size_t size)
 {
 	size_t left = index * 2 + 1;
 	while (left < size)
@@ -132,7 +132,7 @@ void Ify_Min_Heap(ElemType* array_ptr, size_t index, size_t size)
 }
 
 //适用于大根堆的向上调整函数
-void Insert_Max_Heap(ElemType* array_ptr, size_t index)
+void Insert_Max_Heap(HeapType* array_ptr, size_t index)
 {
 	size_t father = index == 0 ? 0 : (index - 1) / 2;
 	while (array_ptr[index] > array_ptr[father])
@@ -144,7 +144,7 @@ void Insert_Max_Heap(ElemType* array_ptr, size_t index)
 }
 
 //适用于大根堆的向下调整函数
-void Ify_Max_Heap(ElemType* array_ptr, size_t index, size_t size)
+void Ify_Max_Heap(HeapType* array_ptr, size_t index, size_t size)
 {
 	size_t left = index * 2 + 1;
 	while (left < size)
@@ -162,7 +162,7 @@ void Ify_Max_Heap(ElemType* array_ptr, size_t index, size_t size)
 }
 
 //插入元素到堆中
-void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(ElemType*, size_t))
+void Push_Heap(Heap* ptr, HeapType data, void (* Adjustment)(HeapType*, size_t))
 {
 	assert(ptr);
 	Check_Heap(ptr);
@@ -171,17 +171,17 @@ void Push_Heap(Heap* ptr, ElemType data, void (* Adjustment)(ElemType*, size_t))
 }
 
 //删除堆顶元素
-ElemType Pop_Heap(Heap* ptr, void (* Adjustment)(ElemType*, size_t, size_t))
+HeapType Pop_Heap(Heap* ptr, void (* Adjustment)(HeapType*, size_t, size_t))
 {
 	assert(ptr && !Empty_Heap(ptr));
-	ElemType ans = ptr->array_ptr[0];
+	HeapType ans = ptr->array_ptr[0];
 	Swap(ptr->array_ptr, 0, --ptr->size);
 	Adjustment(ptr->array_ptr, 0, ptr->size);
 	return ans;
 }
 
 //获取堆顶元素数据
-ElemType Top_Heap(Heap* ptr)
+HeapType Top_Heap(Heap* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Heap(ptr));
@@ -189,7 +189,7 @@ ElemType Top_Heap(Heap* ptr)
 }
 
 //堆排序
-void Sort_Heap(ElemType* array_ptr, size_t size, void (* Adjustment)(ElemType*, size_t, size_t))
+void Sort_Heap(HeapType* array_ptr, size_t size, void (* Adjustment)(HeapType*, size_t, size_t))
 {
 	if (array_ptr == NULL || size < 2)
 	{

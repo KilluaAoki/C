@@ -128,7 +128,7 @@ void Test_Deque_04()
 		{
 			if (!Empty_Deque(&deque01))
 			{
-				ElemType num1, num2;
+				DequeType num1, num2;
 				if (rand() % 2 == 0)
 				{
 					num1 = Pop_Front_Deque(&deque01);
@@ -150,7 +150,7 @@ void Test_Deque_04()
 		{
 			if (!Empty_Deque(&deque01))
 			{
-				ElemType num1, num2;
+				DequeType num1, num2;
 				if (rand() % 2 == 0)
 				{
 					num1 = Front_Deque(&deque01);
@@ -176,7 +176,7 @@ void Test_Deque_04()
 	}
 	while (!Empty_Deque(&deque01))
 	{
-		ElemType num1, num2;
+		DequeType num1, num2;
 		num1 = Pop_Front_Deque(&deque01);
 		num2 = Pop_Front_Deque(&deque02);
 		if (num1 != num2)
@@ -234,7 +234,7 @@ void Test_Deque_05()
 		{
 			if (!Empty_Deque(&deque01))
 			{
-				ElemType num1, num2;
+				DequeType num1, num2;
 				if (rand() % 2 == 0)
 				{
 					num1 = Pop_Front_Deque(&deque01);
@@ -256,7 +256,7 @@ void Test_Deque_05()
 		{
 			if (!Empty_Deque(&deque01))
 			{
-				ElemType num1, num2;
+				DequeType num1, num2;
 				if (rand() % 2 == 0)
 				{
 					num1 = Front_Deque(&deque01);
@@ -282,7 +282,7 @@ void Test_Deque_05()
 	}
 	while (!Empty_Deque(&deque01))
 	{
-		ElemType num1, num2;
+		DequeType num1, num2;
 		num1 = Pop_Front_Deque(&deque01);
 		num2 = Pop_Front_Deque(&deque02);
 		if (num1 != num2)

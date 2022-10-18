@@ -36,7 +36,7 @@ void Check_SequenceList(SeqList* ptr)
 	if (ptr->size == ptr->capacity)
 	{
 		size_t newCapacity = ptr->capacity == 0 ? DEFAULT_SIZE : ptr->capacity + EXPAND_SIZE;
-		ElemType* tmp = (ElemType*)realloc(ptr->array_ptr, sizeof(ElemType) * newCapacity);
+		SeqListType* tmp = (SeqListType*)realloc(ptr->array_ptr, sizeof(SeqListType) * newCapacity);
 		if (tmp == NULL)
 		{
 			perror("Check_SequenceList");
@@ -48,7 +48,7 @@ void Check_SequenceList(SeqList* ptr)
 }
 
 //查找顺序表数据元素的位置
-size_t Search_SequenceList(SeqList* ptr, ElemType data)
+size_t Search_SequenceList(SeqList* ptr, SeqListType data)
 {
 	assert(ptr);
 	assert(ptr->size);
@@ -61,7 +61,7 @@ size_t Search_SequenceList(SeqList* ptr, ElemType data)
 }
 
 //修改顺序表数据元素
-void Modify_SequenceList(SeqList* ptr, size_t pos, ElemType data)
+void Modify_SequenceList(SeqList* ptr, size_t pos, SeqListType data)
 {
 	assert(ptr);
 	assert(pos < ptr->size);
@@ -69,7 +69,7 @@ void Modify_SequenceList(SeqList* ptr, size_t pos, ElemType data)
 }
 
 //在顺序表的首位置插入数据元素(头插)
-void Head_Insert_SequenceList(SeqList* ptr, ElemType data)
+void Head_Insert_SequenceList(SeqList* ptr, SeqListType data)
 {
 	assert(ptr);
 	Check_SequenceList(ptr);
@@ -82,7 +82,7 @@ void Head_Insert_SequenceList(SeqList* ptr, ElemType data)
 }
 
 //在顺序表的末位置插入数据元素(尾插)
-void Tail_Insert_SequenceList(SeqList* ptr, ElemType data)
+void Tail_Insert_SequenceList(SeqList* ptr, SeqListType data)
 {
 	assert(ptr);
 	Check_SequenceList(ptr);
@@ -111,7 +111,7 @@ void Tail_Delete_SequenceList(SeqList* ptr)
 }
 
 //在顺序表的任意位置插入数据元素
-void Insert_SequenceList(SeqList* ptr, size_t pos, ElemType data)
+void Insert_SequenceList(SeqList* ptr, size_t pos, SeqListType data)
 {
 	assert(ptr);
 	assert(pos <= ptr->size);

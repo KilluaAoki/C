@@ -9,7 +9,7 @@ void Init_Deque(Deque* ptr)
 }
 
 //创建一个双端队列节点
-DequeNode* Create_DequeNode(ElemType data)
+DequeNode* Create_DequeNode(DequeType data)
 {
 	DequeNode* newNode = (DequeNode*)malloc(sizeof(DequeNode));
 	if (newNode == NULL)
@@ -23,7 +23,7 @@ DequeNode* Create_DequeNode(ElemType data)
 }
 
 //向双端队列的首端插入元素
-void Push_Front_Deque(Deque* ptr, ElemType data)
+void Push_Front_Deque(Deque* ptr, DequeType data)
 {
 	assert(ptr);
 	DequeNode* newNode = Create_DequeNode(data);
@@ -41,7 +41,7 @@ void Push_Front_Deque(Deque* ptr, ElemType data)
 }
 
 //向双端队列的尾部插入元素
-void Push_Back_Deque(Deque* ptr, ElemType data)
+void Push_Back_Deque(Deque* ptr, DequeType data)
 {
 	assert(ptr);
 	DequeNode* newNode = Create_DequeNode(data);
@@ -59,11 +59,11 @@ void Push_Back_Deque(Deque* ptr, ElemType data)
 }
 
 //从双端队列首端弹出元素
-ElemType Pop_Front_Deque(Deque* ptr)
+DequeType Pop_Front_Deque(Deque* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Deque(ptr));
-	ElemType ans = ptr->head->data;
+	DequeType ans = ptr->head->data;
 	if (ptr->head->next == NULL)
 	{
 		free(ptr->head);
@@ -80,11 +80,11 @@ ElemType Pop_Front_Deque(Deque* ptr)
 }
 
 //从双端队列尾部弹出元素
-ElemType Pop_Back_Deque(Deque* ptr)
+DequeType Pop_Back_Deque(Deque* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Deque(ptr));
-	ElemType ans = ptr->tail->data;
+	DequeType ans = ptr->tail->data;
 	if (ptr->tail->prev == NULL)
 	{
 		free(ptr->tail);
@@ -101,7 +101,7 @@ ElemType Pop_Back_Deque(Deque* ptr)
 }
 
 //获取双端队列的首端元素数据
-ElemType Front_Deque(Deque* ptr)
+DequeType Front_Deque(Deque* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Deque(ptr));
@@ -109,7 +109,7 @@ ElemType Front_Deque(Deque* ptr)
 }
 
 //获取双端队列的尾部元素数据
-ElemType Back_Deque(Deque* ptr)
+DequeType Back_Deque(Deque* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Deque(ptr));

@@ -9,13 +9,13 @@ void Init_Queue(Queue* ptr)
 }
 
 //向队列尾部插入元素
-void Push_Queue(Queue* ptr, ElemType data)
+void Push_Queue(Queue* ptr, QueueType data)
 {
 	assert(ptr);
 	if (ptr->capacity_count == ptr->capacity)
 	{
 		ptr->capacity = ptr->capacity == 0 ? 4 : ptr->capacity * 2;
-		ElemType* tmp = (ElemType*)realloc(ptr->array_ptr, sizeof(ElemType) * ptr->capacity);
+		QueueType* tmp = (QueueType*)realloc(ptr->array_ptr, sizeof(QueueType) * ptr->capacity);
 		if (tmp == NULL)
 		{
 			perror("Push_Queue");
@@ -29,7 +29,7 @@ void Push_Queue(Queue* ptr, ElemType data)
 }
 
 //从首端弹出元素
-ElemType Pop_Queue(Queue* ptr)
+QueueType Pop_Queue(Queue* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Queue(ptr));
@@ -38,7 +38,7 @@ ElemType Pop_Queue(Queue* ptr)
 }
 
 //获取队列的首端元素数据
-ElemType Front_Queue(Queue* ptr)
+QueueType Front_Queue(Queue* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Queue(ptr));
@@ -46,7 +46,7 @@ ElemType Front_Queue(Queue* ptr)
 }
 
 //获取队列的尾部元素数据
-ElemType Back_Queue(Queue* ptr)
+QueueType Back_Queue(Queue* ptr)
 {
 	assert(ptr);
 	assert(!Empty_Queue(ptr));

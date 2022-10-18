@@ -7,12 +7,12 @@
 #include <stdbool.h>
 
 //重命名队列数据元素类型
-typedef int ElemType;
+typedef int QueueType;
 
 //定义结构体类型(队列节点(单链表节点))
 typedef struct QueueNode
 {
-	ElemType data;
+	QueueType data;
 	struct QueueNode* next;
 } QueueNode;
 
@@ -28,16 +28,16 @@ typedef struct Queue
 void Init_Queue(Queue* ptr);
 
 //向队列尾部插入元素
-void Push_Queue(Queue* ptr, ElemType data);
+void Push_Queue(Queue* ptr, QueueType data);
 
 //从首端弹出元素
 void Pop_Queue(Queue* ptr);
 
 //获取队列的首端元素数据
-ElemType Front_Queue(Queue* ptr);
+QueueType Front_Queue(Queue* ptr);
 
 //获取队列的尾部元素数据
-ElemType Back_Queue(Queue* ptr);
+QueueType Back_Queue(Queue* ptr);
 
 //判断队列是否为空队列
 bool Empty_Queue(Queue* ptr);

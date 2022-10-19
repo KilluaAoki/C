@@ -33,7 +33,10 @@ void Test_BinaryTree_01()
 		printf("Oops!\n");
 	}
 
+	Level_Traversals(root);
+
 	Destroy_BinaryTree(root);
+	root = NULL;
 	printf("*****************************EXIT*****************************\n\n");
 }
 
@@ -73,7 +76,10 @@ void Test_BinaryTree_02()
 		printf("Oops!\n");
 	}
 
+	Level_Traversals(root);
+
 	Destroy_BinaryTree(root);
+	root = NULL;
 	printf("*****************************EXIT*****************************\n\n");
 }
 

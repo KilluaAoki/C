@@ -1,7 +1,11 @@
+//引用二叉树头文件
 #include "Binary Tree.h"
 
+//引用队列头文件
+#include "Queue/Queue.h"
+
 //创建一个二叉树节点
-BTNode* Create_BinaryTreeNode(ElemType data)
+BTNode* Create_BinaryTreeNode(BTDataType data)
 {
 	BTNode* newNode = (BTNode*)malloc(sizeof(BTNode));
 	if (newNode == NULL)
@@ -48,6 +52,34 @@ void Postorder_Traversals(BTNode* root)
 	Postorder_Traversals(root->left);
 	Postorder_Traversals(root->right);
 	printf("%d ", root->data);
+}
+
+//按层遍历二叉树(由队列实现)
+void Level_Traversals(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return;
+	}
+	Queue help;
+	Init_Queue(&help);
+	Push_Queue(&help, root);
+	while (!Empty_Queue(&help))
+	{
+		BTNode* cur = Front_Queue(&help);
+		printf("%d ", cur->data);
+		Pop_Queue(&help);
+		if (cur->left != NULL)
+		{
+			Push_Queue(&help, cur->left);
+		}
+		if (cur->right != NULL)
+		{
+			Push_Queue(&help, cur->right);
+		}
+	}
+	printf("\n");
+	Destroy_Queue(&help);
 }
 
 //获取二叉树的节点个数
@@ -98,7 +130,7 @@ size_t K_Layer_BinaryTree(BTNode* root, size_t k)
 }
 
 //查找二叉树节点
-BTNode* Find_BinaryTree(BTNode* root, ElemType data)
+BTNode* Find_BinaryTree(BTNode* root, BTDataType data)
 {
 	if (root == NULL)
 	{

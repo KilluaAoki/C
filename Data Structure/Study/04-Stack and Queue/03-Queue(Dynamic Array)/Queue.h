@@ -7,12 +7,12 @@
 #include <stdbool.h>
 
 //重命名队列数据元素类型
-typedef int QueueType;
+typedef int QueueDataType;
 
 //定义结构体类型(数组实现队列(此实现会造成空间浪费，可移动元素规避(效率低)，也可使用循环数组规避，但其限定了可用空间的大小))
 typedef struct Queue
 {
-	QueueType* array_ptr;
+	QueueDataType* array_ptr;
 	size_t push_index;
 	size_t pop_index;
 	size_t size;
@@ -24,16 +24,16 @@ typedef struct Queue
 void Init_Queue(Queue* ptr);
 
 //向队列尾部插入元素
-void Push_Queue(Queue* ptr, QueueType data);
+void Push_Queue(Queue* ptr, QueueDataType data);
 
 //从首端弹出元素
-QueueType Pop_Queue(Queue* ptr);
+QueueDataType Pop_Queue(Queue* ptr);
 
 //获取队列的首端元素数据
-QueueType Front_Queue(Queue* ptr);
+QueueDataType Front_Queue(Queue* ptr);
 
 //获取队列的尾部元素数据
-QueueType Back_Queue(Queue* ptr);
+QueueDataType Back_Queue(Queue* ptr);
 
 //判断队列是否为空队列
 bool Empty_Queue(Queue* ptr);

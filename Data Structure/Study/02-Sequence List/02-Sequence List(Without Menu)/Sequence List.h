@@ -10,12 +10,12 @@
 #define DEFAULT_SIZE 5
 
 //重命名顺序表数据元素类型
-typedef int SeqListType;
+typedef int SeqListDataType;
 
 //定义结构体类型(顺序表)
 typedef struct SequenceList
 {
-	SeqListType* array_ptr;
+	SeqListDataType* array_ptr;
 	size_t size;
 	size_t capacity;
 } SeqList;
@@ -33,16 +33,16 @@ void Remove_SequenceList(SeqList* ptr);
 void Check_SequenceList(SeqList* ptr);
 
 //查找顺序表数据元素的位置
-size_t Search_SequenceList(SeqList* ptr, SeqListType data);
+size_t Search_SequenceList(SeqList* ptr, SeqListDataType data);
 
 //修改顺序表数据元素
-void Modify_SequenceList(SeqList* ptr, size_t pos, SeqListType data);
+void Modify_SequenceList(SeqList* ptr, size_t pos, SeqListDataType data);
 
 //在顺序表的首位置插入数据元素(头插)
-void Head_Insert_SequenceList(SeqList* ptr, SeqListType data);
+void Head_Insert_SequenceList(SeqList* ptr, SeqListDataType data);
 
 //在顺序表的末位置插入数据元素(尾插)
-void Tail_Insert_SequenceList(SeqList* ptr, SeqListType data);
+void Tail_Insert_SequenceList(SeqList* ptr, SeqListDataType data);
 
 //在顺序表的首位置删除数据元素(头删)
 void Head_Delete_SequenceList(SeqList* ptr);
@@ -51,7 +51,7 @@ void Head_Delete_SequenceList(SeqList* ptr);
 void Tail_Delete_SequenceList(SeqList* ptr);
 
 //在顺序表的任意位置插入数据元素
-void Insert_SequenceList(SeqList* ptr, size_t pos, SeqListType data);
+void Insert_SequenceList(SeqList* ptr, size_t pos, SeqListDataType data);
 
 //在顺序表的任意位置删除数据元素
 void Delete_SequenceList(SeqList* ptr, size_t pos);

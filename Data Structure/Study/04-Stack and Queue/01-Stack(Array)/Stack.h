@@ -7,12 +7,12 @@
 #include <stdbool.h>
 
 //重命名栈数据元素类型
-typedef int StackType;
+typedef int StackDataType;
 
 //定义结构体类型(数组实现栈)
 typedef struct Stack
 {
-	StackType* array_ptr;
+	StackDataType* array_ptr;
 	size_t top;
 	size_t capacity;
 } Stack;
@@ -21,13 +21,13 @@ typedef struct Stack
 void Init_Stack(Stack* ptr);
 
 //将一个元素压入栈中
-void Push_Stack(Stack* ptr, StackType data);
+void Push_Stack(Stack* ptr, StackDataType data);
 
 //将一个元素从栈中弹出
 void Pop_Stack(Stack* ptr);
 
 //获取栈的栈顶元素数据
-StackType Top_Stack(Stack* ptr);
+StackDataType Top_Stack(Stack* ptr);
 
 //判断栈是否为空栈
 bool Empty_Stack(Stack* ptr);

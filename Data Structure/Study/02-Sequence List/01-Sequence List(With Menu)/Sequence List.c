@@ -96,7 +96,7 @@ void Check_SequenceList(SeqList* ptr)
 	if (ptr->capacity == ptr->size)
 	{
 		size_t newCapacity = ptr->capacity == 0 ? DEFAULT_SIZE : ptr->capacity + EXPAND_SIZE;
-		SeqListType* tmp = (SeqListType*)realloc(ptr->array_ptr, newCapacity * sizeof(SeqListType));
+		SeqListDataType* tmp = (SeqListDataType*)realloc(ptr->array_ptr, newCapacity * sizeof(SeqListDataType));
 		if (tmp == NULL)
 		{
 			perror("realloc fail");
@@ -108,7 +108,7 @@ void Check_SequenceList(SeqList* ptr)
 }
 
 //查找顺序表数据元素的位置
-size_t Search_SequenceList_Printf(SeqList* ptr, SeqListType data)
+size_t Search_SequenceList_Printf(SeqList* ptr, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	if (ptr->size == 0)
@@ -128,7 +128,7 @@ size_t Search_SequenceList_Printf(SeqList* ptr, SeqListType data)
 }
 
 //查找顺序表数据元素的位置(无输出)
-size_t Search_SequenceList_NoPrintf(SeqList* ptr, SeqListType data)
+size_t Search_SequenceList_NoPrintf(SeqList* ptr, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	if (ptr->size == 0)
@@ -146,7 +146,7 @@ size_t Search_SequenceList_NoPrintf(SeqList* ptr, SeqListType data)
 }
 
 //修改顺序表数据元素
-void Modify_SequenceList(SeqList* ptr, size_t Location, SeqListType data)
+void Modify_SequenceList(SeqList* ptr, size_t Location, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	if (Location > ptr->size)
@@ -158,7 +158,7 @@ void Modify_SequenceList(SeqList* ptr, size_t Location, SeqListType data)
 }
 
 //在顺序表的首位置插入数据元素(头插)
-void Head_Insert_SequenceList(SeqList* ptr, SeqListType data)
+void Head_Insert_SequenceList(SeqList* ptr, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	Check_SequenceList(ptr);
@@ -171,7 +171,7 @@ void Head_Insert_SequenceList(SeqList* ptr, SeqListType data)
 }
 
 //在顺序表的末位置插入数据元素(尾插)
-void Tail_Insert_SequenceList(SeqList* ptr, SeqListType data)
+void Tail_Insert_SequenceList(SeqList* ptr, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	Check_SequenceList(ptr);
@@ -208,7 +208,7 @@ void Tail_Delete_SequenceList(SeqList* ptr)
 }
 
 //在顺序表的任意位置插入数据元素
-void Insert_SequenceList(SeqList* ptr, size_t Location, SeqListType data)
+void Insert_SequenceList(SeqList* ptr, size_t Location, SeqListDataType data)
 {
 	assert(ptr != NULL);
 	if (Location > ptr->size + 1)
@@ -268,7 +268,7 @@ void Clear_SequenceList(SeqList* ptr)
 }
 
 //获取顺序表任意位置的数据元素
-size_t Get_Data_SequenceList(SeqList* ptr, size_t Location, SeqListType* data)
+size_t Get_Data_SequenceList(SeqList* ptr, size_t Location, SeqListDataType* data)
 {
 	assert(ptr != NULL);
 	if (ptr->size == 0)
@@ -289,7 +289,7 @@ size_t Get_Data_SequenceList(SeqList* ptr, size_t Location, SeqListType* data)
 void Union_SequenceList(SeqList* ptr1, SeqList* ptr2)
 {
 	assert(ptr1 != NULL && ptr2 != NULL);
-	SeqListType tmp;
+	SeqListDataType tmp;
 	for (size_t i = 1; i <= ptr2->size; i++)
 	{
 		Get_Data_SequenceList(ptr2, i, &tmp);

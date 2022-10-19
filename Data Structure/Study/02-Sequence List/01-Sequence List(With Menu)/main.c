@@ -15,7 +15,7 @@ void Single_SequenceList()
 		{
 		case 1:
 		{
-			SeqListType val;
+			SeqListDataType val;
 			printf("请输入数据>>");
 			scanf_s("%d", &val);
 			Head_Insert_SequenceList(&List, val);
@@ -24,7 +24,7 @@ void Single_SequenceList()
 		}
 		case 2:
 		{
-			SeqListType val;
+			SeqListDataType val;
 			printf("请输入数据>>");
 			scanf_s("%d", &val);
 			Tail_Insert_SequenceList(&List, val);
@@ -41,7 +41,7 @@ void Single_SequenceList()
 			break;
 		case 5:
 		{
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List);
 			printf("请输入数据>>");
@@ -80,7 +80,7 @@ void Single_SequenceList()
 				Clear_Screen();
 				break;
 			}
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List);
 			printf("请输入数据>>");
@@ -99,7 +99,7 @@ void Single_SequenceList()
 				Clear_Screen();
 				break;
 			}
-			SeqListType val;
+			SeqListDataType val;
 			printf("请输入数据>>");
 			scanf_s("%d", &val);
 			size_t location = Search_SequenceList_Printf(&List, val);
@@ -123,7 +123,7 @@ void Single_SequenceList()
 				Clear_Screen();
 				break;
 			}
-			SeqListType data;
+			SeqListDataType data;
 			size_t location;
 			printf("请输入位置>>");
 			scanf_s("%zu", &location);
@@ -167,7 +167,7 @@ void Multiple_SequenceList()
 		{
 		case 1:
 		{
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List_01);
 			printf("请输入数据>>");
@@ -180,7 +180,7 @@ void Multiple_SequenceList()
 		}
 		case 2:
 		{
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List_02);
 			printf("请输入数据>>");
@@ -239,7 +239,7 @@ void Multiple_SequenceList()
 				Clear_Screen();
 				break;
 			}
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List_01);
 			printf("请输入数据>>");
@@ -258,7 +258,7 @@ void Multiple_SequenceList()
 				Clear_Screen();
 				break;
 			}
-			SeqListType val;
+			SeqListDataType val;
 			size_t location;
 			Print_SequenceList(&List_02);
 			printf("请输入数据>>");

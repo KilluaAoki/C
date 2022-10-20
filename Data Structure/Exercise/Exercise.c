@@ -1226,6 +1226,11 @@
 //}
 
 ////二叉树的前序遍历：https://leetcode.cn/problems/binary-tree-preorder-traversal/。
+//size_t Tree_Size(struct TreeNode* root)
+//{
+//	return root == NULL ? 0 : Tree_Size(root->left) + Tree_Size(root->right) + 1;
+//}
+//
 //void pre(struct TreeNode* root, int* array, int* arraySize)
 //{
 //	if (root == NULL)
@@ -1239,7 +1244,7 @@
 //
 //int* preorderTraversal(struct TreeNode* root, int* returnSize)
 //{
-//	int* array = (int*)malloc(sizeof(int) * 100);
+//	int* array = (int*)malloc(sizeof(int) * Tree_Size(root));
 //	*returnSize = 0;
 //	pre(root, array, returnSize);
 //	return array;
@@ -1287,4 +1292,64 @@
 //	root->left = rightTree;
 //	root->right = leftTree;
 //	return root;
+//}
+
+////相同的树：https://leetcode.cn/problems/same-tree/。
+//bool isSameTree(struct TreeNode* p, struct TreeNode* q)
+//{
+//	if (p == NULL ^ q == NULL)
+//	{
+//		return false;
+//	}
+//	if (p == NULL && q == NULL)
+//	{
+//		return true;
+//	}
+//	return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+//}
+
+////对称二叉树：https://leetcode.cn/problems/symmetric-tree/submissions/。
+//bool isMirror(struct TreeNode* head1, struct TreeNode* head2)
+//{
+//	if (head1 == NULL ^ head2 == NULL)
+//	{
+//		return false;
+//	}
+//	if (head1 == NULL && head2 == NULL)
+//	{
+//		return true;
+//	}
+//	return head1->val == head2->val && isMirror(head1->left, head2->right) && isMirror(head1->right, head2->left);
+//}
+//
+//bool isSymmetric(struct TreeNode* root)
+//{
+//	return isMirror(root, root);
+//}
+
+////另一棵树的子树：https://leetcode.cn/problems/subtree-of-another-tree/submissions/。
+//bool isSameTree(struct TreeNode* p, struct TreeNode* q)
+//{
+//	if (p == NULL ^ q == NULL)
+//	{
+//		return false;
+//	}
+//	if (p == NULL && q == NULL)
+//	{
+//		return true;
+//	}
+//	return p->val == q->val && isSameTree(p->left, q->left) && isSameTree(p->right, q->right);
+//}
+//
+//bool isSubtree(struct TreeNode* root, struct TreeNode* subRoot)
+//{
+//	if (root == NULL)
+//	{
+//		return false;
+//	}
+//	if (isSameTree(root, subRoot))
+//	{
+//		return true;
+//	}
+//	return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
 //}

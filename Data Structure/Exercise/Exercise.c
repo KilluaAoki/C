@@ -1353,3 +1353,46 @@
 //	}
 //	return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
 //}
+
+////平衡二叉树：https://leetcode.cn/problems/balanced-binary-tree/。
+//typedef struct Info
+//{
+//	bool isBalanced;
+//	size_t height;
+//} Info;
+//
+//Info info(bool isBalanced, size_t height)
+//{
+//	Info info = { isBalanced, height };
+//	return info;
+//}
+//
+//Info process(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return info(true, 0);
+//	}
+//	Info left = process(root->left);
+//	Info right = process(root->right);
+//	size_t height = fmax(left.height, right.height) + 1;
+//	bool isBalanced = true;
+//	if (!left.isBalanced)
+//	{
+//		isBalanced = false;
+//	}
+//	if (!right.isBalanced)
+//	{
+//		isBalanced = false;
+//	}
+//	if (abs(left.height - right.height) > 1)
+//	{
+//		isBalanced = false;
+//	}
+//	return info(isBalanced, height);
+//}
+//
+//bool isBalanced(struct TreeNode* root)
+//{
+//	return process(root).isBalanced;
+//}

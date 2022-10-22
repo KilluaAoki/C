@@ -19,6 +19,7 @@ void Test_BinaryTree_01()
 
 	printf("%zu\n", Size_BinaryTree(root));
 	printf("%zu\n", Size_Leaf_BinaryTree(root));
+	printf("%zu\n", Size_OneSpend_BinaryTree(root));
 	printf("%zu\n", Height_BinaryTree(root));
 	printf("%zu\n", K_Layer_BinaryTree(root, 1));
 	printf("%zu\n", K_Layer_BinaryTree(root, 2));
@@ -61,6 +62,7 @@ void Test_BinaryTree_02()
 
 	printf("%zu\n", Size_BinaryTree(root));
 	printf("%zu\n", Size_Leaf_BinaryTree(root));
+	printf("%zu\n", Size_OneSpend_BinaryTree(root));
 	printf("%zu\n", Height_BinaryTree(root));
 	printf("%zu\n", K_Layer_BinaryTree(root, 1));
 	printf("%zu\n", K_Layer_BinaryTree(root, 2));

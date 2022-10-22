@@ -102,6 +102,20 @@ size_t Size_Leaf_BinaryTree(BTNode* root)
 	return Size_Leaf_BinaryTree(root->left) + Size_Leaf_BinaryTree(root->right);
 }
 
+//获取二叉树度为一的节点个数
+size_t Size_OneSpend_BinaryTree(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return 0;
+	}
+	if ((root->left == NULL && root->right != NULL) || (root->left != NULL && root->right == NULL))
+	{
+		return Size_OneSpend_BinaryTree(root->left) + Size_OneSpend_BinaryTree(root->right) + 1;
+	}
+	return Size_OneSpend_BinaryTree(root->left) + Size_OneSpend_BinaryTree(root->right);
+}
+
 //获取二叉树的高度
 size_t Height_BinaryTree(BTNode* root)
 {

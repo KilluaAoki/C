@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include <assert.h>
 
+////引用队列头文件(直接在"Binary Tree.c"引用，以解决相互依赖问题)
+//#include "Queue/Queue.h"
+
 //重命名二叉树数据元素类型
 typedef int BTDataType;
 
@@ -19,13 +22,13 @@ typedef struct BinaryTreeNode
 //创建一个二叉树节点
 BTNode* Create_BinaryTreeNode(BTDataType data);
 
-//以先序(头左右)遍历二叉树
+//先序(头左右)遍历二叉树
 void Preorder_Traversals(BTNode* root);
 
-//以中序(左头右)遍历二叉树
+//中序(左头右)遍历二叉树
 void Inorder_Traversals(BTNode* root);
 
-//以后序(左右头)遍历二叉树
+//后序(左右头)遍历二叉树
 void Postorder_Traversals(BTNode* root);
 
 //按层遍历二叉树(由队列实现)
@@ -36,6 +39,9 @@ size_t Size_BinaryTree(BTNode* root);
 
 //获取二叉树的叶子节点个数
 size_t Size_Leaf_BinaryTree(BTNode* root);
+
+//获取二叉树度为一的节点个数
+size_t Size_OneSpend_BinaryTree(BTNode* root);
 
 //获取二叉树的高度
 size_t Height_BinaryTree(BTNode* root);

@@ -1353,3 +1353,98 @@
 //	}
 //	return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
 //}
+
+////平衡二叉树：https://leetcode.cn/problems/balanced-binary-tree/。
+//int height(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return 0;
+//	}
+//	int leftHeight = height(root->left);
+//	int rightHeight = height(root->right);
+//	if (leftHeight == -1 || rightHeight == -1 || abs(leftHeight - rightHeight) > 1)
+//	{
+//		return -1;
+//	}
+//	return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
+//}
+//
+//bool isBalanced(struct TreeNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return true;
+//	}
+//	return height(root) >= 0;
+//}
+
+
+////二叉树遍历：https://www.nowcoder.com/practice/4b91205483694f449f94c179883c1fef。
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//
+//typedef char BTDataType;
+//
+//typedef struct BinaryTreeNode
+//{
+//	BTDataType data;
+//	struct BinaryTreeNode* left;
+//	struct BinaryTreeNode* right;
+//} BTNode;
+//
+//BTNode* Create_BinaryTreeNode(BTDataType data)
+//{
+//	BTNode* newNode = (BTNode*)malloc(sizeof(BTNode));
+//	if (newNode == NULL)
+//	{
+//		perror("Create_BinaryTreeNode");
+//		exit(EXIT_FAILURE);
+//	}
+//	newNode->data = data;
+//	newNode->left = newNode->right = NULL;
+//	return newNode;
+//}
+//
+//BTNode* Preorder_Reconstruct(BTDataType* str, size_t* index)
+//{
+//	if (str[*index] == '#')
+//	{
+//		++(*index);
+//		return NULL;
+//	}
+//	BTNode* root = Create_BinaryTreeNode(str[(*index)++]);
+//	root->left = Preorder_Reconstruct(str, index);
+//	root->right = Preorder_Reconstruct(str, index);
+//	return root;
+//}
+//
+//BTNode* Reconstruct(BTDataType* str)
+//{
+//	if (*str == '#' || strlen(str) == 0)
+//	{
+//		return NULL;
+//	}
+//	size_t index = 0;
+//	return Preorder_Reconstruct(str, &index);
+//}
+//
+//void Inorder_Traversals(BTNode* root)
+//{
+//	if (root == NULL)
+//	{
+//		return;
+//	}
+//	Inorder_Traversals(root->left);
+//	printf("%c ", root->data);
+//	Inorder_Traversals(root->right);
+//}
+//
+//int main()
+//{
+//	char arr[101];
+//	scanf("%s", arr);
+//	Inorder_Traversals(Reconstruct(arr));
+//	return 0;
+//}

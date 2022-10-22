@@ -36,6 +36,10 @@ void Test_BinaryTree_01()
 
 	Level_Traversals(root);
 
+	printf("%zu\n", Max_Width_BinaryTree(root));
+
+	printf("Is Complete BinaryTree? - %s.\n", Is_Complete_BinaryTree(root) ? "True" : "False");
+
 	Destroy_BinaryTree(root);
 	root = NULL;
 	printf("*****************************EXIT*****************************\n\n");
@@ -79,6 +83,10 @@ void Test_BinaryTree_02()
 	}
 
 	Level_Traversals(root);
+
+	printf("%zu\n", Max_Width_BinaryTree(root));
+
+	printf("Is Complete BinaryTree? - %s.\n", Is_Complete_BinaryTree(root) ? "True" : "False");
 
 	Destroy_BinaryTree(root);
 	root = NULL;

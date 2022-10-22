@@ -128,6 +128,44 @@ size_t Height_BinaryTree(BTNode* root)
 	return leftHeight > rightHeight ? leftHeight + 1 : rightHeight + 1;
 }
 
+//获取二叉树的最大宽度
+size_t Max_Width_BinaryTree(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return 0;
+	}
+	Queue help;
+	Init_Queue(&help);
+	Push_Queue(&help, root);
+	size_t max = 0, curCount = 0;
+	BTNode* curEnd = root, * nextEnd = NULL;
+	while (!Empty_Queue(&help))
+	{
+		BTNode* cur = Front_Queue(&help);
+		Pop_Queue(&help);
+		if (cur->left != NULL)
+		{
+			Push_Queue(&help, cur->left);
+			nextEnd = cur->left;
+		}
+		if (cur->right != NULL)
+		{
+			Push_Queue(&help, cur->right);
+			nextEnd = cur->right;
+		}
+		++curCount;
+		if (cur == curEnd)
+		{
+			max = curCount > max ? curCount : max;
+			curCount = 0;
+			curEnd = nextEnd;
+		}
+	}
+	Destroy_Queue(&help);
+	return max;
+}
+
 //获取二叉树第"K"层节点的个数
 size_t K_Layer_BinaryTree(BTNode* root, size_t k)
 {
@@ -165,6 +203,45 @@ BTNode* Find_BinaryTree(BTNode* root, BTDataType data)
 		return right;
 	}
 	return NULL;
+}
+
+//判断二叉树是否为完全二叉树
+bool Is_Complete_BinaryTree(BTNode* root)
+{
+	if (root == NULL)
+	{
+		return true;
+	}
+	Queue help;
+	Init_Queue(&help);
+	bool leaf = false;
+	BTNode* left = NULL, * right = NULL;
+	Push_Queue(&help, root);
+	while (!Empty_Queue(&help))
+	{
+		BTNode* cur = Front_Queue(&help);
+		Pop_Queue(&help);
+		left = cur->left;
+		right = cur->right;
+		if ((leaf && (left != NULL || right != NULL)) || (left == NULL && right != NULL))
+		{
+			return false;
+		}
+		if (left != NULL)
+		{
+			Push_Queue(&help, left);
+		}
+		if (right != NULL)
+		{
+			Push_Queue(&help, right);
+		}
+		if (left == NULL || right == NULL)
+		{
+			leaf = true;
+		}
+	}
+	Destroy_Queue(&help);
+	return true;
 }
 
 //销毁二叉树

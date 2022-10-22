@@ -1,11 +1,5 @@
 #pragma once
 
-//引用头文件
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <stdbool.h>
-
 //引用二叉树头文件
 #include "../Binary Tree.h"
 

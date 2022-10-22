@@ -1,9 +1,11 @@
 #pragma once
 
 //引用头文件
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <stdbool.h>
 
 ////引用队列头文件(直接在"Binary Tree.c"引用，以解决相互依赖问题)
 //#include "Queue/Queue.h"
@@ -46,11 +48,17 @@ size_t Size_OneSpend_BinaryTree(BTNode* root);
 //获取二叉树的高度
 size_t Height_BinaryTree(BTNode* root);
 
+//获取二叉树的最大宽度
+size_t Max_Width_BinaryTree(BTNode* root);
+
 //获取二叉树第"K"层节点的个数
 size_t K_Layer_BinaryTree(BTNode* root, size_t k);
 
 //查找二叉树节点
 BTNode* Find_BinaryTree(BTNode* root, BTDataType data);
+
+//判断二叉树是否为完全二叉树
+bool Is_Complete_BinaryTree(BTNode* root);
 
 //销毁二叉树
 void Destroy_BinaryTree(BTNode* root);

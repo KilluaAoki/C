@@ -1379,7 +1379,6 @@
 //	return height(root) >= 0;
 //}
 
-
 ////二叉树遍历：https://www.nowcoder.com/practice/4b91205483694f449f94c179883c1fef。
 //#include <stdio.h>
 //#include <stdlib.h>

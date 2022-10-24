@@ -7,7 +7,7 @@
 #include <assert.h>
 #include <stdbool.h>
 
-////引用队列头文件(直接在"Binary Tree.c"引用，以解决相互依赖问题)
+////引用队列头文件(直接在"Binary Tree.c"文件中引用，以解决相互依赖问题)
 //#include "Queue/Queue.h"
 
 //重命名二叉树数据元素类型

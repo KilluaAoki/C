@@ -41,9 +41,8 @@ void Test_Sort_02()
 	printf("******************************02******************************\n");
 
 	srand((unsigned int)time(NULL));
-	size_t maxSize = 10000;
 
-	size_t size = rand() % maxSize + 1;
+	size_t size = 50000;
 	SortDataType* arr1 = Generate_Random_Array(size);
 	SortDataType* arr2 = Copy_Array(arr1, size);
 	SortDataType* arr3 = Copy_Array(arr1, size);

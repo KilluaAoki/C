@@ -48,13 +48,17 @@ void Test_Sort_02()
 	SortDataType* arr3 = Copy_Array(arr1, size);
 	SortDataType* arr4 = Copy_Array(arr1, size);
 	SortDataType* arr5 = Copy_Array(arr1, size);
+	SortDataType* arr6 = Copy_Array(arr1, size);
+	SortDataType* arr7 = Copy_Array(arr1, size);
 
 	clock_t begin = clock();
 	printf("Insertion_Sort：%lfs\n", Clock_Sort(arr1, size, Insertion_Sort));
 	printf("Selection_Sort：%lfs\n", Clock_Sort(arr2, size, Selection_Sort));
 	printf("Bubble_Sort：%lfs\n", Clock_Sort(arr3, size, Bubble_Sort));
 	printf("Heap_Sort：%lfs\n", Clock_Sort(arr4, size, Heap_Sort));
-	printf("qsort：%lfs\n", Contrast(arr5, size, Compare_Int));
+	printf("Merge_Sort_Recursive：%lfs\n", Clock_Sort(arr5, size, Merge_Sort_Recursive));
+	printf("Merge_Sort_UnRecursive：%lfs\n", Clock_Sort(arr6, size, Merge_Sort_UnRecursive));
+	printf("qsort：%lfs\n", Contrast(arr7, size, Compare_Int));
 	printf("Total Time：%lfs\n", (double)(clock() - begin) / CLOCKS_PER_SEC);
 
 	free(arr1);
@@ -62,6 +66,8 @@ void Test_Sort_02()
 	free(arr3);
 	free(arr4);
 	free(arr5);
+	free(arr6);
+	free(arr7);
 
 	printf("*****************************EXIT*****************************\n\n");
 }

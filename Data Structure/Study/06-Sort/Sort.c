@@ -65,7 +65,7 @@ void Insertion_Sort(SortDataType* arr, size_t size)
 	}
 }
 
-//堆排序
+//适用于大根堆的向下调整函数
 void Ify_Max_Heap(SortDataType* arr, size_t index, size_t size)
 {
 	size_t left = index * 2 + 1;
@@ -83,6 +83,7 @@ void Ify_Max_Heap(SortDataType* arr, size_t index, size_t size)
 	}
 }
 
+//堆排序
 void Heap_Sort(SortDataType* arr, size_t size)
 {
 	if (arr == NULL || size < 2)
@@ -99,5 +100,83 @@ void Heap_Sort(SortDataType* arr, size_t size)
 	{
 		Ify_Max_Heap(arr, 0, heapSize);
 		Swap(&arr[0], &arr[--heapSize]);
+	}
+}
+
+//归并排序核心函数
+void Merge(SortDataType* arr, size_t left, size_t middle, size_t right)
+{
+	SortDataType* help = malloc(sizeof(SortDataType) * (right - left + 1));
+	size_t i = 0;
+	size_t p1 = left, p2 = middle + 1;
+	while (p1 <= middle && p2 <= right)
+	{
+		help[i++] = arr[p1] <= arr[p2] ? arr[p1++] : arr[p2++];
+	}
+	while (p1 <= middle)
+	{
+		help[i++] = arr[p1++];
+	}
+	while (p2 <= right)
+	{
+		help[i++] = arr[p2++];
+	}
+	for (size_t j = 0; j < i; ++j)
+	{
+		arr[left + j] = help[j];
+	}
+	free(help);
+}
+
+//归并排序递归过程函数
+void Merge_Sort_Recursive_Process(SortDataType* arr, size_t left, size_t right)
+{
+	if (left == right)
+	{
+		return;
+	}
+	size_t middle = left + ((right - left) >> 1);
+	Merge_Sort_Recursive_Process(arr, left, middle);
+	Merge_Sort_Recursive_Process(arr, middle + 1, right);
+	Merge(arr, left, middle, right);
+}
+
+//归并排序(递归实现)
+void Merge_Sort_Recursive(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	Merge_Sort_Recursive_Process(arr, 0, size - 1);
+}
+
+//归并排序(非递归实现)
+void Merge_Sort_UnRecursive(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	size_t stepSize = 1;
+	while (stepSize < size)
+	{
+		size_t left = 0;
+		while (left < size)
+		{
+			size_t middle = left + stepSize - 1;
+			if (middle >= size)
+			{
+				break;
+			}
+			size_t right = middle + stepSize < size - 1 ? middle + stepSize : size - 1;
+			Merge(arr, left, middle, right);
+			left = right + 1;
+		}
+		if (stepSize > size / 2)
+		{
+			break;
+		}
+		stepSize <<= 1;
 	}
 }

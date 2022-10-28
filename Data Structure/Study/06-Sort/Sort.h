@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//引用栈头文件
+#include "./Stack/Stack.h"
+
 //重命名需要排序的数组的数据元素类型
 typedef int SortDataType;
 
@@ -62,3 +65,19 @@ void Merge_Sort_Recursive(SortDataType* arr, size_t size);
 
 //归并排序(非递归实现)
 void Merge_Sort_UnRecursive(SortDataType* arr, size_t size);
+
+/*
+ * 快速排序(升序)
+ */
+
+//快速排序核心函数
+void Quick_Sort_Partition(SortDataType* arr, int left, int right, int* pkeyLight, int* pkeyRight);
+
+//快速排序递归过程函数
+void Quick_Sort_Recursive_Process(SortDataType* arr, int left, int right);
+
+//快速排序(递归实现)
+void Quick_Sort_Recursive(SortDataType* arr, size_t size);
+
+//快速排序(非递归实现)
+void Quick_Sort_UnRecursive(SortDataType* arr, size_t size);

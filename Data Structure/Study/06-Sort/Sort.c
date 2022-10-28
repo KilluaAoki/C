@@ -180,3 +180,95 @@ void Merge_Sort_UnRecursive(SortDataType* arr, size_t size)
 		stepSize <<= 1;
 	}
 }
+
+//快速排序核心函数
+void Quick_Sort_Partition(SortDataType* arr, int left, int right, int* pkeyLight, int* pkeyRight)
+{
+	if (left > right)
+	{
+		*pkeyLight = -1, *pkeyRight = -1;
+		return;
+	}
+	if (left == right)
+	{
+		*pkeyLight = left, *pkeyRight = right;
+		return;
+	}
+	int less = left - 1;
+	int more = right;
+	int index = left;
+	while (index < more)
+	{
+		if (arr[index] == arr[right])
+		{
+			index++;
+		}
+		else if (arr[index] < arr[right])
+		{
+			Swap(&arr[index++], &arr[++less]);
+		}
+		else
+		{
+			Swap(&arr[index], &arr[--more]);
+		}
+	}
+	Swap(&arr[more], &arr[right]);
+	*pkeyLight = less + 1, *pkeyRight = more;
+}
+
+//快速排序递归过程函数
+void Quick_Sort_Recursive_Process(SortDataType* arr, int left, int right)
+{
+	if (left >= right)
+	{
+		return;
+	}
+	Swap(&arr[left + (rand() % (right - left + 1))], &arr[right]);
+	int keyLeft, keyRight;
+	Quick_Sort_Partition(arr, left, right, &keyLeft, &keyRight);
+	Quick_Sort_Recursive_Process(arr, left, keyLeft - 1);
+	Quick_Sort_Recursive_Process(arr, keyRight + 1, right);
+}
+
+//快速排序(递归实现)
+void Quick_Sort_Recursive(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	Quick_Sort_Recursive_Process(arr, 0, (int)size - 1);
+}
+
+//快速排序(非递归实现)
+void Quick_Sort_UnRecursive(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	Stack help;
+	Init_Stack(&help);
+	Swap(&arr[rand() % size], &arr[size - 1]);
+	int keyLeft, keyRight;
+	Quick_Sort_Partition(arr, 0, (int)size - 1, &keyLeft, &keyRight);
+	Push_Stack(&help, 0);
+	Push_Stack(&help, keyLeft - 1);
+	Push_Stack(&help, keyRight + 1);
+	Push_Stack(&help, (int)size - 1);
+	while (!Empty_Stack(&help))
+	{
+		int right = Pop_Stack(&help);
+		int left = Pop_Stack(&help);
+		if (left < right)
+		{
+			Swap(&arr[left + (rand() % (right - left + 1))], &arr[right]);
+			Quick_Sort_Partition(arr, left, right, &keyLeft, &keyRight);
+			Push_Stack(&help, left);
+			Push_Stack(&help, keyLeft - 1);
+			Push_Stack(&help, keyRight + 1);
+			Push_Stack(&help, right);
+		}
+	}
+	Destroy_Stack(&help);
+}

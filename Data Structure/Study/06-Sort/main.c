@@ -15,7 +15,7 @@ void Test_Sort_01()
 		SortDataType* arr = Generate_Random_Array(size);
 		SortDataType* arr1 = Copy_Array(arr, size);
 		SortDataType* arr2 = Copy_Array(arr, size);
-		Heap_Sort(arr1, size);
+		Quick_Sort_UnRecursive(arr1, size);
 		Contrast(arr2, size, Compare_Int);
 		if (!Is_Equal(arr1, arr2, size))
 		{
@@ -50,6 +50,8 @@ void Test_Sort_02()
 	SortDataType* arr5 = Copy_Array(arr1, size);
 	SortDataType* arr6 = Copy_Array(arr1, size);
 	SortDataType* arr7 = Copy_Array(arr1, size);
+	SortDataType* arr8 = Copy_Array(arr1, size);
+	SortDataType* arr9 = Copy_Array(arr1, size);
 
 	clock_t begin = clock();
 	printf("Insertion_Sort：%lfs\n", Clock_Sort(arr1, size, Insertion_Sort));
@@ -58,7 +60,9 @@ void Test_Sort_02()
 	printf("Heap_Sort：%lfs\n", Clock_Sort(arr4, size, Heap_Sort));
 	printf("Merge_Sort_Recursive：%lfs\n", Clock_Sort(arr5, size, Merge_Sort_Recursive));
 	printf("Merge_Sort_UnRecursive：%lfs\n", Clock_Sort(arr6, size, Merge_Sort_UnRecursive));
-	printf("qsort：%lfs\n", Contrast(arr7, size, Compare_Int));
+	printf("Quick_Sort_Recursive：%lfs\n", Clock_Sort(arr7, size, Quick_Sort_Recursive));
+	printf("Quick_Sort_UnRecursive：%lfs\n", Clock_Sort(arr8, size, Quick_Sort_UnRecursive));
+	printf("qsort：%lfs\n", Contrast(arr9, size, Compare_Int));
 	printf("Total Time：%lfs\n", (double)(clock() - begin) / CLOCKS_PER_SEC);
 
 	free(arr1);
@@ -68,6 +72,8 @@ void Test_Sort_02()
 	free(arr5);
 	free(arr6);
 	free(arr7);
+	free(arr8);
+	free(arr9);
 
 	printf("*****************************EXIT*****************************\n\n");
 }

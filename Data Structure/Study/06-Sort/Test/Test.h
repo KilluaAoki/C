@@ -8,8 +8,11 @@
 //引用排序头文件
 #include "../Sort.h"
 
-//生成随机数组
-SortDataType* Generate_Random_Array(size_t size);
+//生成一个包含整数(正数和负数和零)的随机数组，"size"的值超过"rand"函数的最大值则无效。
+SortDataType* Generate_Integer_Random_Array(size_t size);
+
+//生成一个包含自然数(不含负数的整数)的随机数组，"maxValue"用于限定数值最大值，"size"的值超过"rand"函数的最大值则无效。
+SortDataType* Generate_Natural_Random_Array(size_t size, size_t maxValue);
 
 //复制数组
 SortDataType* Copy_Array(const SortDataType* arr, size_t size);

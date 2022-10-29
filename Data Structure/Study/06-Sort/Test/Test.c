@@ -1,17 +1,33 @@
 #include "Test.h"
 
-//生成随机数组
-SortDataType* Generate_Random_Array(size_t size)
+//生成一个包含整数(正数和负数和零)的随机数组，"size"的值超过"rand"函数的最大值则无效。
+SortDataType* Generate_Integer_Random_Array(size_t size)
 {
 	SortDataType* arr = (SortDataType*)malloc(sizeof(SortDataType) * size);
 	if (arr == NULL)
 	{
-		perror("Generate_Random_Array");
+		perror("Generate_Integer_Random_Array");
 		exit(EXIT_FAILURE);
 	}
 	for (int i = 0; i < size; ++i)
 	{
 		arr[i] = (rand() - rand());
+	}
+	return arr;
+}
+
+//生成一个包含自然数(不含负数的整数)的随机数组，"maxValue"用于限定数值最大值，"size"的值超过"rand"函数的最大值则无效。
+SortDataType* Generate_Natural_Random_Array(size_t size, size_t maxValue)
+{
+	SortDataType* arr = (SortDataType*)malloc(sizeof(SortDataType) * size);
+	if (arr == NULL)
+	{
+		perror("Generate_Natural_Random_Array");
+		exit(EXIT_FAILURE);
+	}
+	for (int i = 0; i < size; ++i)
+	{
+		arr[i] = rand() % maxValue + 1;
 	}
 	return arr;
 }

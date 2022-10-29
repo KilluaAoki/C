@@ -65,6 +65,31 @@ void Insertion_Sort(SortDataType* arr, size_t size)
 	}
 }
 
+//希尔排序
+void Shell_Sort(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	size_t gap = 1;
+	while (gap < size / 3)
+	{
+		gap = 3 * gap + 1;
+	}
+	while (gap >= 1)
+	{
+		for (size_t i = gap; i < size; ++i)
+		{
+			for (size_t j = i; j >= gap && arr[j] < arr[j - gap]; j -= gap)
+			{
+				Swap(&arr[j], &arr[j - gap]);
+			}
+		}
+		gap /= 3;
+	}
+}
+
 //适用于大根堆的向下调整函数
 void Ify_Max_Heap(SortDataType* arr, size_t index, size_t size)
 {
@@ -182,7 +207,7 @@ void Merge_Sort_UnRecursive(SortDataType* arr, size_t size)
 }
 
 //快速排序核心函数
-void Quick_Sort_Partition(SortDataType* arr, int left, int right, int* pkeyLight, int* pkeyRight)
+void Partition(SortDataType* arr, int left, int right, int* pkeyLight, int* pkeyRight)
 {
 	if (left > right)
 	{
@@ -225,7 +250,7 @@ void Quick_Sort_Recursive_Process(SortDataType* arr, int left, int right)
 	}
 	Swap(&arr[left + (rand() % (right - left + 1))], &arr[right]);
 	int keyLeft, keyRight;
-	Quick_Sort_Partition(arr, left, right, &keyLeft, &keyRight);
+	Partition(arr, left, right, &keyLeft, &keyRight);
 	Quick_Sort_Recursive_Process(arr, left, keyLeft - 1);
 	Quick_Sort_Recursive_Process(arr, keyRight + 1, right);
 }
@@ -251,7 +276,7 @@ void Quick_Sort_UnRecursive(SortDataType* arr, size_t size)
 	Init_Stack(&help);
 	Swap(&arr[rand() % size], &arr[size - 1]);
 	int keyLeft, keyRight;
-	Quick_Sort_Partition(arr, 0, (int)size - 1, &keyLeft, &keyRight);
+	Partition(arr, 0, (int)size - 1, &keyLeft, &keyRight);
 	Push_Stack(&help, 0);
 	Push_Stack(&help, keyLeft - 1);
 	Push_Stack(&help, keyRight + 1);
@@ -263,7 +288,7 @@ void Quick_Sort_UnRecursive(SortDataType* arr, size_t size)
 		if (left < right)
 		{
 			Swap(&arr[left + (rand() % (right - left + 1))], &arr[right]);
-			Quick_Sort_Partition(arr, left, right, &keyLeft, &keyRight);
+			Partition(arr, left, right, &keyLeft, &keyRight);
 			Push_Stack(&help, left);
 			Push_Stack(&help, keyLeft - 1);
 			Push_Stack(&help, keyRight + 1);
@@ -271,4 +296,101 @@ void Quick_Sort_UnRecursive(SortDataType* arr, size_t size)
 		}
 	}
 	Destroy_Stack(&help);
+}
+
+//计数排序
+void Count_Sort(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	SortDataType max = arr[0];
+	for (size_t i = 0; i < size; ++i)
+	{
+		max = arr[i] > max ? arr[i] : max;
+	}
+	SortDataType* help = (SortDataType*)calloc(max + 1, sizeof(SortDataType));
+	for (int i = 0; i < size; ++i)
+	{
+		help[arr[i]]++;
+	}
+	for (int i = 0, j = 0; i < max + 1; ++i)
+	{
+		while (help[i]-- > 0)
+		{
+			arr[j++] = i;
+		}
+	}
+	free(help);
+}
+
+//获取数组中最大值的十进制位数
+size_t Get_Max_Decimal_Bits_Digit(const SortDataType* arr, size_t size)
+{
+	SortDataType max = arr[0];
+	for (size_t i = 0; i < size; ++i)
+	{
+		max = arr[i] > max ? arr[i] : max;
+	}
+	size_t digit = 0;
+	while (max != 0)
+	{
+		digit++;
+		max /= 10;
+	}
+	return digit;
+}
+
+//获取当前位数上的值(数字)
+SortDataType Get_Digit_Value(SortDataType num, size_t digit)
+{
+	while (--digit)
+	{
+		num /= 10;
+	}
+	return num % 10;
+}
+
+//基数排序核心函数
+void Radix(SortDataType* arr, int left, int right, size_t digit)
+{
+	const size_t radix = 10;
+	int i, j;
+	SortDataType* help = (SortDataType*)calloc(right - left + 1, sizeof(SortDataType));
+	for (size_t d = 1; d <= digit; ++d)
+	{
+		SortDataType* count = (SortDataType*)calloc(radix, sizeof(SortDataType));
+		for (i = left; i <= right; ++i)
+		{
+			j = Get_Digit_Value(arr[i], d);
+			count[j]++;
+		}
+		for (i = 1; i < radix; ++i)
+		{
+			count[i] = count[i] + count[i - 1];
+		}
+		for (i = right; i >= left; --i)
+		{
+			j = Get_Digit_Value(arr[i], d);
+			help[count[j] - 1] = arr[i];
+			count[j]--;
+		}
+		for (i = left, j = 0; i <= right; ++i, ++j)
+		{
+			arr[i] = help[j];
+		}
+		free(count);
+	}
+	free(help);
+}
+
+//基数排序
+void Radix_Sort(SortDataType* arr, size_t size)
+{
+	if (arr == NULL || size < 2)
+	{
+		return;
+	}
+	Radix(arr, 0, (int)size - 1, Get_Max_Decimal_Bits_Digit(arr, size));
 }

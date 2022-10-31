@@ -43,7 +43,7 @@ void Insertion_Sort(SortDataType* arr, size_t size);
  * 希尔排序(升序)
  * 1. 本项目中时间复杂度为：O(N ^ 1.5)，空间复杂度为：O(1)。(其中"^"符号表示次方)
  * 2. 希尔排序的时间复杂度与增量序列的选取有关，本项目中使用的增量序列为：{ ((3 ^ K) - 1) / 2 }，其中"K"为正整数。
- * 3. 本项目使用的增量序列源自于Donald Knuth和Vaughan Pratt。
+ * 3. 本项目使用的增量序列源自于Donald Knuth和Vaughan Pratt，详细：https://oeis.org/A003462。
  * 4. 稳定性：不稳定排序。
  */
 

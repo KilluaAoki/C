@@ -1447,3 +1447,40 @@
 //	Inorder_Traversals(Reconstruct(arr));
 //	return 0;
 //}
+
+////排序数组：https://leetcode-cn.com/problems/sort-an-array/。
+//void Swap(int* ptr1, int* ptr2)
+//{
+//	(*ptr1 ^ *ptr2) && (*ptr2 ^= *ptr1 ^= *ptr2, *ptr1 ^= *ptr2);
+//}
+//
+//void Shell_Sort(int* arr, size_t size)
+//{
+//	if (arr == NULL || size < 2)
+//	{
+//		return;
+//	}
+//	size_t gap = 1;
+//	while (gap < size / 3)
+//	{
+//		gap = 3 * gap + 1;
+//	}
+//	while (gap >= 1)
+//	{
+//		for (size_t i = gap; i < size; ++i)
+//		{
+//			for (size_t j = i; j >= gap && arr[j] < arr[j - gap]; j -= gap)
+//			{
+//				Swap(&arr[j], &arr[j - gap]);
+//			}
+//		}
+//		gap /= 3;
+//	}
+//}
+//
+//int* sortArray(int* nums, int numsSize, int* returnSize)
+//{
+//	Shell_Sort(nums, numsSize);
+//	*returnSize = numsSize;
+//	return nums;
+//}

@@ -21,12 +21,18 @@ void Bubble_Sort(SortDataType* arr, size_t size)
 	}
 	for (size_t i = size - 1; i >= 1; --i)
 	{
+		bool flag = false;
 		for (size_t j = 0; j < i; ++j)
 		{
 			if (arr[j] > arr[j + 1])
 			{
+				flag = true;
 				Swap(&arr[j], &arr[j + 1]);
 			}
+		}
+		if (!flag)
+		{
+			break;
 		}
 	}
 }
@@ -58,10 +64,13 @@ void Insertion_Sort(SortDataType* arr, size_t size)
 	}
 	for (size_t i = 1; i < size; ++i)
 	{
-		for (size_t j = i; j > 0 && arr[j] < arr[j - 1]; --j)
+		size_t j = i;
+		SortDataType tmp = arr[i];
+		for (; j > 0 && tmp < arr[j - 1]; --j)
 		{
-			Swap(&arr[j], &arr[j - 1]);
+			arr[j] = arr[j - 1];
 		}
+		arr[j] = tmp;
 	}
 }
 
@@ -131,7 +140,7 @@ void Heap_Sort(SortDataType* arr, size_t size)
 //归并排序核心函数
 void Merge(SortDataType* arr, size_t left, size_t middle, size_t right)
 {
-	SortDataType* help = malloc(sizeof(SortDataType) * (right - left + 1));
+	SortDataType* help = (SortDataType*)malloc(sizeof(SortDataType) * (right - left + 1));
 	size_t i = 0;
 	size_t p1 = left, p2 = middle + 1;
 	while (p1 <= middle && p2 <= right)

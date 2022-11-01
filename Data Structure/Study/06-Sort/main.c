@@ -15,14 +15,14 @@ void Test_Sort_01()
 		SortDataType* arr = Generate_Integer_Random_Array(size);
 		SortDataType* arr1 = Copy_Array(arr, size);
 		SortDataType* arr2 = Copy_Array(arr, size);
-		Shell_Sort(arr1, size);
+		Quick_Sort_UnRecursive(arr1, size);
 		Contrast(arr2, size, Compare_Int);
 		if (!Is_Equal(arr1, arr2, size))
 		{
 			succeed = false;
 			for (int j = 0; j < size; j++)
 			{
-				printf("%d ", arr1[j]);
+				printf("%d ", arr[j]);
 			}
 			printf("\n");
 			break;
@@ -42,7 +42,7 @@ void Test_Sort_02()
 
 	srand((unsigned int)time(NULL));
 
-	size_t size = 50000;
+	size_t size = 100000;
 	SortDataType* arr1 = Generate_Integer_Random_Array(size);
 	SortDataType* arr2 = Copy_Array(arr1, size);
 	SortDataType* arr3 = Copy_Array(arr1, size);
@@ -103,7 +103,7 @@ void Test_Sort_03()
 			succeed = false;
 			for (int j = 0; j < size; j++)
 			{
-				printf("%d ", arr1[j]);
+				printf("%d ", arr[j]);
 			}
 			printf("\n");
 			break;

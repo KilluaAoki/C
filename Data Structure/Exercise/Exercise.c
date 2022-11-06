@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 ////轮转数组：https://leetcode-cn.com/problems/rotate-array/。(使用额外数组的方法)
 //void rotate(int* nums, int numsSize, int k)
@@ -1380,10 +1381,6 @@
 //}
 
 ////二叉树遍历：https://www.nowcoder.com/practice/4b91205483694f449f94c179883c1fef。
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <string.h>
-//
 //typedef char BTDataType;
 //
 //typedef struct BinaryTreeNode

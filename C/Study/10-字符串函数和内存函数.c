@@ -449,9 +449,9 @@
 ////使用"strstr"函数示例
 //int main()
 //{
-//	char arr1[]="XXXXXXAoki";
-//	char arr2[]="Aoki";
-//	printf("%s\n", strstr(arr1,arr2));
+//	char arr1[] = "XXXXXXAoki";
+//	char arr2[] = "Aoki";
+//	printf("%s\n", strstr(arr1, arr2));
 //	return 0;
 //}
 
@@ -485,9 +485,9 @@
 //
 //int main()
 //{
-//	char arr1[]="XXXXXXAoki";
-//	char arr2[]="Aoki";
-//	printf("%s\n", My_Strstr(arr1,arr2));
+//	char arr1[] = "XXXXXXAoki";
+//	char arr2[] = "Aoki";
+//	printf("%s\n", My_Strstr(arr1, arr2));
 //	return 0;
 //}
 

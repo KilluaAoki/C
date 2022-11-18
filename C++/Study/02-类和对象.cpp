@@ -984,3 +984,263 @@
 //
 //	return 0;
 //}
+
+/**
+	拷贝赋值运算符
+		1.运算符重载：即为用户定义类型的操作数定制C++运算符，其将重载的概念扩展到运算符上，允许赋予C++运算符多重含义。
+			a.实际上很多C++(包括C语言)运算符已经被重载，例如：将"*"运算符用于地址，将得到存储在该地址处的值，但将它用于两个操作数时，则是执行乘法运算。
+			b.重载运算符的语法格式(重载的运算符是具有特殊的函数名的函数)：
+				返回值类型 operator 运算符(形参表)
+				{
+					函数体
+				}
+			c.运算符重载的限制(不完全列举)
+				a'.运算符重载不能创建一个新的运算符。
+				b'.重载的运算符至少有一个操作数拥有类类型或枚举类型。
+				c'.不能重载特殊的运算符，如："::"作用域解析运算符、"."成员访问运算符、".*"成员指针运算符、"?:"三元条件运算符等。
+				d'.重载后的运算符的优先级、结合方向或操作数的数量不会变化。
+			d.可以将运算符重载为类的成员函数，也可以将运算符重载为非成员函数。
+				a'.作为类的成员函数重载时，其重载的运算符的形参表中至少有一个形参是类的对象，因为其包含了隐含的"this"指针，故至少有一个形参是类的对象。
+				b'.作为非成员函数重载时，若要访问类中的私有成员，需要将其声明为友元函数。
+			e.运算符重载的形参与返回值类型
+				a'.当运算符重载的形参为值语义时(非引用类型)时，会发生复制初始化，即调用拷贝构造函数。
+				b'.当运算符重载的返回值类型为引用时，需要注意引用的对象是否会被销毁，如果会被销毁，那么返回的引用就会指向一个无效的内存地址。
+		2.拷贝赋值运算符
+*/
+
+////运算符重载示例一：运算符重载作为类的成员函数重载。
+//class A
+//{
+//public:
+//	A()
+//	{
+//		x_ = y_ = 0;
+//	}
+//
+//	A(int x, int y)
+//	{
+//		x_ = x;
+//		y_ = y;
+//	}
+//
+//	//重载运算符"+"，使其可以对两个"A"类型的对象进行相加运算。(在类体中定义)
+//	A operator+(const A& a) const//此处的"const"限定符将在本章的"12"小节介绍，此处只需知道其作用是保证该函数不会修改类的成员变量即可。
+//	{
+//		A temp;//一个局部的对象，当函数执行完毕后，该对象会被销毁。
+//		temp.x_ = x_ + a.x_;
+//		temp.y_ = y_ + a.y_;
+//		return temp;//该函数的返回值为"A"类型，值返回会生成临时变量，然后将局部对象的值拷贝到临时变量中。
+//	}
+//
+//	//重载运算符"-"，使其可以对两个"A"类型的对象进行相减运算。(在类体中声明，但在类体外定义)
+//	A operator-(const A& a) const;
+//
+//	void print()
+//	{
+//		std::cout << "x_ = " << x_ << ", y_ = " << y_ << std::endl;
+//	}
+//
+//private://注意此时的成员变量为私有的。
+//	int x_, y_;
+//};
+//
+//A A::operator-(const A& a) const//作为类的成员函数，即使在类体外定义，也可以访问类中的私有成员。
+//{
+//	A temp;
+//	temp.x_ = x_ - a.x_;
+//	temp.y_ = y_ - a.y_;
+//	return temp;
+//}
+//
+//int main()
+//{
+//	A a1(1, 2);
+//	A a2(3, 4);
+//
+//	(a1 + a2).print();
+//	(a1 - a2).print();
+//
+//	return 0;
+//}
+
+////运算符重载示例二：运算符重载作为非成员函数重载。
+//class A
+//{
+//public:
+//	A()
+//	{
+//		x_ = y_ = 0;
+//	}
+//
+//	A(int x, int y)
+//	{
+//		x_ = x;
+//		y_ = y;
+//	}
+//
+//	void print()
+//	{
+//		std::cout << "x_ = " << x_ << ", y_ = " << y_ << std::endl;
+//	}
+//
+//	int x_, y_;//注意此时的成员变量为公有的，如果将其改为私有的，那么下面的运算符重载函数就无法访问了，这种情况下，只能将运算符重载函数直接定义为类的成员函数或友元函数。
+//};
+//
+////重载运算符"=="，使其可以对两个"A"类型的对象比较是否相等。
+//bool operator==(const A& a, const A& b)//注意此时不会有隐含的"this"指针，因为该函数不是类的成员函数。
+//{
+//	return (a.x_ == b.x_) && (a.y_ == b.y_);
+//}
+//
+//int main()
+//{
+//	A a1(1, 2);
+//	A a2(3, 4);
+//	A a3(1, 2);
+//
+//	std::cout << (a1 == a2) << std::endl;
+//	std::cout << (a1 == a3) << std::endl;
+//
+//	return 0;
+//}
+
+////运算符重载示例三：创建一个"Time"类，其具有秒表类似的功能，能够对两个对象的时间进行相加和相减运算。
+//class Time
+//{
+//public:
+//	//无参构造函数(用于初始化为默认值)
+//	Time()
+//	{
+//		hour_ = 0, minute_ = 0, second_ = 0;
+//	}
+//
+//	//带参构造函数(用于初始化为设置的时间)
+//	Time(int hour, int minute, int second)
+//	{
+//		hour_ = hour, minute_ = minute, second_ = second;
+//	}
+//
+//	//添加秒数
+//	void Add_Second(int second)
+//	{
+//		second_ += second;
+//		if (second_ >= 60)
+//		{
+//			minute_ += second_ / 60;
+//			second_ %= 60;
+//		}
+//		if (minute_ >= 60)
+//		{
+//			hour_ += minute_ / 60;
+//			minute_ %= 60;
+//		}
+//	}
+//
+//	//添加分钟数
+//	void Add_Minute(int minute)
+//	{
+//		minute_ += minute;
+//		if (minute_ >= 60)
+//		{
+//			hour_ += minute_ / 60;
+//			minute_ %= 60;
+//		}
+//	}
+//
+//	//添加小时数
+//	void Add_Hour(int hour)
+//	{
+//		hour_ += hour;
+//	}
+//
+//	//两个对象的时间相加(重载运算符"+")
+//	Time operator+(const Time& t) const
+//	{
+//		Time temp;
+//		temp.hour_ = hour_ + t.hour_;
+//		temp.minute_ = minute_ + t.minute_;
+//		temp.second_ = second_ + t.second_;
+//		if (temp.second_ >= 60)
+//		{
+//			temp.minute_ += temp.second_ / 60;
+//			temp.second_ %= 60;
+//		}
+//		if (temp.minute_ >= 60)
+//		{
+//			temp.hour_ += temp.minute_ / 60;
+//			temp.minute_ %= 60;
+//		}
+//		return temp;
+//	}
+//
+//	//两个对象的时间相减(重载运算符"-")
+//	Time operator-(const Time& t) const
+//	{
+//		Time temp;
+//		int total_second1 = hour_ * 3600 + minute_ * 60 + second_;
+//		int total_second2 = t.hour_ * 3600 + t.minute_ * 60 + t.second_;
+//		temp.second_ = total_second1 - total_second2;
+//		temp.minute_ = temp.second_ / 60;
+//		temp.second_ %= 60;
+//		temp.hour_ = temp.minute_ / 60;
+//		temp.minute_ %= 60;
+//		return temp;
+//	}
+//
+//	//重置时间
+//	void Reset(int hour, int minute, int second)
+//	{
+//		hour_ = hour, minute_ = minute, second_ = second;
+//	}
+//
+//	//显示时间
+//	void Show() const
+//	{
+//		std::cout << hour_ << ":" << minute_ << ":" << second_ << std::endl;
+//	}
+//
+//private:
+//	int hour_;
+//	int minute_;
+//	int second_;
+//};
+//
+//int main()
+//{
+//	Time cooking_time(1, 30, 0);
+//	std::cout << "Cooking time = ";
+//	cooking_time.Show();
+//
+//	Time eating_time(0, 30, 0);
+//	std::cout << "Eating time = ";
+//	eating_time.Show();
+//
+//	Time sleep_time(9, 0, 0);
+//	std::cout << "Sleep time = ";
+//	sleep_time.Show();
+//
+//	Time study_time(10, 0, 0);
+//	std::cout << "Study time = ";
+//	study_time.Show();
+//
+//	Time play_time(3, 0, 0);
+//	std::cout << "Play time = ";
+//	play_time.Show();
+//
+//	//计算一天的总时间并显示
+//	Time total_time = cooking_time + eating_time + sleep_time + study_time + play_time;
+//	std::cout << "Total time = ";
+//	total_time.Show();
+//
+//	//计算学习时间和玩耍时间的差值并显示
+//	Time difference_time = study_time - play_time;
+//	std::cout << "Difference time = ";
+//	difference_time.Show();
+//
+//	//计算吃饭时间和睡觉时间的差值并显示
+//	difference_time = eating_time - sleep_time;
+//	std::cout << "Difference time = ";
+//	difference_time.Show();
+//
+//	return 0;
+//}

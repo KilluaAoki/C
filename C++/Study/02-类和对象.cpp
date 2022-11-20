@@ -12,7 +12,7 @@
 		08.构造函数
 		09.析构函数
 		10.拷贝构造函数
-		11.拷贝赋值运算符
+		11.运算符重载和拷贝赋值运算符
 		12."const"成员函数
 		13.取地址及"const"取地址操作符重载
 		14.再谈构造函数
@@ -730,7 +730,21 @@
 			e.由编译器隐式生成的默认拷贝构造函数，只会进行简单的内存拷贝，也就是浅拷贝。
 				a'.复制实参的每个标量子对象(递归地包含子对象的子对象，以此类推)，且不进行其他动作，不过不需要复制填充字节，甚至只要它们的值相同，每个复制的子对象的对象表示也不必相同，不允许在对象拷贝的过程中做任何额外的操作。
 				b'.即通过简单地复制原始对象的所有变量的数据来创建一个对象，若是含有指针，则只会复制指针的值，而不会复制指针所指向的内存空间。
-		3.文档：https://zh.cppreference.com/w/cpp/language/copy_constructor。
+		3."Copy elision"策略和"Return Value Optimization"优化(简称"RVO")(拓展)
+			a."Copy elision"策略：复制省略，即省略不必要的复制的策略，是C++语言标准中定义的编译优化技术。
+				a'.主要发生在两个场景：函数返回的是值语义时和函数参数是值语义时。
+				b'.省略拷贝及移动构造函数，导致零复制的按值传递语义。
+			b."RVO"：返回值优化，即避免返回的过程中触发拷贝及移动构造函数，根据返回的值是否为匿名对象，分成具名返回值优化"NRVO"和匿名返回值优化"URVO"。
+				a'."RVO"优化针对的是自定义类型，而不是内置类型。
+				b'."RVO"优化是一种编译器优化，涉及消除为保存函数的返回值而创造的临时对象。
+				c'.从函数返回内置类型几乎没有开销，但返回更大的类类型对象成本较高，为了避免这种情况，"RVO"实现可能会在调用者的栈帧中创建一个隐藏对象，并将该对象的地址传递给函数，然后将函数的返回值复制到隐藏对象中。
+				d'.当你发现应当调用拷贝及移动构造函数，但实际上没有调用时，就是"RVO"优化发生了。
+				e'."RVO"优化可禁用，具体方法是在编译时加上"-fno-elide-constructors"参数(各编译器上可能不同)。
+			c.文档
+				a'.https://zh.cppreference.com/w/cpp/language/copy_elision。
+				b'.https://szza.github.io/2021/03/03/C++/RVO/。
+				c'.https://en.wikipedia.org/wiki/Copy_elision。
+		4.文档：https://zh.cppreference.com/w/cpp/language/copy_constructor。
 */
 
 ////拷贝构造函数示例一：在类中显式定义拷贝构造函数。
@@ -949,7 +963,7 @@
 //	return 0;//此时对象"a1"和对象"a2"的生命周期结束，会调用各自的析构函数，而析构函数中的"free"函数会分别释放堆内存，但对象"a2"中的成员变量"px_"的值与对象"a1"中的成员变量"px_"的值相同，因此会造成重复释放的错误。
 //}
 
-////拷贝构造函数示例七：关于拷贝构造函数示例五的正确示例。
+////拷贝构造函数示例七：关于拷贝构造函数示例六的正确示例。
 //struct A
 //{
 //	A()
@@ -980,17 +994,19 @@
 //	A a2(a1);
 //
 //	std::cout << "a1.x_ = " << a1.x_ << '\n'
-//			  << "a1.y_ = " << a1.px_ << '\n'
+//			  << "a1.px_ = " << a1.px_ << '\n'
 //			  << "a2.x_ = " << a2.x_ << '\n'
-//			  << "a2.y_ = " << a2.px_ << '\n' << std::endl;
+//			  << "a2.px_ = " << a2.px_ << '\n' << std::endl;
 //
 //	return 0;
 //}
 
 /**
-	拷贝赋值运算符
+	运算符重载和拷贝赋值运算符
 		1.运算符重载
 		2.拷贝赋值运算符
+		3.前后置运算符重载
+		4.流提取与流插入运算符重载
 */
 
 /***
@@ -1249,6 +1265,543 @@
 //	difference_time = eating_time - sleep_time;
 //	std::cout << "Difference time = ";
 //	difference_time.Show();
+//
+//	return 0;
+//}
+
+/***
+	拷贝赋值运算符：又称为复制赋值运算符，即将"="赋值符号进行运算符重载，是名为"operator="的非模板非静态成员函数。
+		1.拷贝赋值运算符的函数常见语法格式：类名& operator=(const 类名& 标识符)。(此处是在不采用复制交换法时的典型声明(拓展))
+			a.拷贝赋值运算符接收一个以类类型为参数或以类的引用类型为参数的形参。(均可由"const"和"volatile"修饰括号内的类名)
+			b.拷贝赋值运算符的返回值类型一般是引用类型。
+				a'.拷贝赋值运算符的左操作数对应着"this"指针，因其作为非静态成员函数的第一个隐式形参，并出现在第一个实际参数前。
+				b'.为了支持连续赋值，拷贝赋值运算符的返回值类型一般使用引用类型，以提升效率，若是以值语义返回，产生临时对象并调用拷贝构造函数，开销大、效率低。
+				c'.拷贝赋值运算符通常返回的是左操作数的引用，若是返回右操作的引用可能会出现意想不到的结果，比如：(a = b) = c，本意是让"a"被赋值为"c"，但实际上是让"b"被赋值为"c"。
+			c.此小节只演示常见的拷贝赋值运算符的声明。
+		2.拷贝赋值运算符的特性
+			a.拷贝赋值运算符必须是一个类的非模板非静态成员函数。(暂时忽略非模板)
+			b.当类没有显式定义任何拷贝赋值运算符函数时，编译器会自动为其隐式生成一个默认拷贝赋值运算符函数，而如果当类显式定义了默认拷贝赋值运算符函数时，编译器将不再为其生成。
+			c.若拷贝赋值运算符在类外声明并定义，即以非成员函数的形式重载，那么会与编译器在类中隐式生成的拷贝赋值运算符发生冲突，故不能在类外声明并定义拷贝赋值运算符函数。
+			d.由编译器隐式生成的拷贝赋值运算符函数是一个内联并且具有公有访问权限的成员函数。
+			e.由编译器隐式生成的默认拷贝赋值运算符函数的特性与默认拷贝构造函数函数的特性相同，就不再赘述了，但需要注意的是拷贝赋值运算符函数还可能会造成内存泄漏。
+			f.要避免拷贝赋值运算符函数的自我赋值，这会导致一些潜在的问题。
+			g.要正确区分拷贝构造函数和拷贝赋值运算符函数，其特性相似，但是功能不同。
+				a.拷贝构造函数是使用一个已存在的对象来初始化一个新对象，而拷贝赋值运算符函数是将一个已存在的对象赋值给另一个已存在的对象。
+		3.文档：https://zh.cppreference.com/w/cpp/language/copy_assignment。
+*/
+
+////拷贝赋值运算符示例一：创建拷贝赋值运算符函数以及连续赋值。
+//class Time
+//{
+//public:
+//	Time(int hour, int minute, int second)
+//	{
+//		hour_ = hour;
+//		minute_ = minute;
+//		second_ = second;
+//	}
+//
+//	void Show() const
+//	{
+//		std::cout << hour_ << ":" << minute_ << ":" << second_ << std::endl;
+//	}
+//
+//	Time& operator=(const Time& time)
+//	{
+//		hour_ = time.hour_;
+//		minute_ = time.minute_;
+//		second_ = time.second_;
+//		return *this;//此处返回的是解引用的"this"指针，也就是传递过来的对象本身，而返回值类型是类的引用类型，所以返回的是对象的引用，即对象的别名。
+//	}
+//
+//private:
+//	int hour_ = 0;
+//	int minute_ = 0;
+//	int second_ = 0;
+//};
+//
+//int main()
+//{
+//	Time time1(12, 0, 0);
+//	Time time2(0, 0, 0);
+//	Time time3(0, 0, 0);
+//
+//	time2 = time1;//两个对象进行赋值，调用类中的拷贝赋值运算符函数，经过拷贝赋值运算符函数的处理，两个对象内各个成员变量的值都将相同。
+//
+//	std::cout << "time1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	time1 = time2 = time3;//见下面的分析：
+//	//连续赋值，根据赋值运算符的结合性，先执行"time2 = time3"，再执行"time1 = time2"。
+//	//执行"time2 = time3"时，调用类中的拷贝赋值运算符函数，其"this"指针指向的是"time2"对象，将两个对象处理后，将"time2"对象的引用返回。
+//	//"time2 = time3"表达式的值是"time2"对象的引用，实际就是"time2"对象的别名，再将其赋值给"time1"对象，即执行"time1 = time2"。
+//	//执行"time1 = time2"时，调用类中的拷贝赋值运算符函数，其"this"指针指向的是"time1"对象，将两个对象处理后，将"time1"对象的引用返回。
+//	//执行完毕后，"time1"、"time2"、"time3"三个对象内各个成员变量的值都将相同。
+//
+//	std::cout << "\ntime1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例二：编译器自动为类生成的隐式默认拷贝赋值运算符函数，若在类外声明并定义拷贝赋值运算符函数，编译器依旧会生成，导致冲突，此处不演示错误示例。
+//class Time
+//{
+//public:
+//	Time(int hour, int minute, int second)
+//	{
+//		hour_ = hour;
+//		minute_ = minute;
+//		second_ = second;
+//	}
+//
+//	void Show() const
+//	{
+//		std::cout << hour_ << ":" << minute_ << ":" << second_ << std::endl;
+//	}
+//
+//private:
+//	int hour_ = 0;
+//	int minute_ = 0;
+//	int second_ = 0;
+//};
+//
+//int main()
+//{
+//	Time time1(12, 0, 0);
+//	Time time2(0, 0, 0);
+//	Time time3(0, 0, 0);
+//
+//	time2 = time1;//此处调用的是由编译器自动生成的隐式默认拷贝赋值运算符函数，将"time1"对象的各个成员变量的值赋值给"time2"对象的各个成员变量。
+//
+//	std::cout << "time1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	time1 = time2 = time3;//由编译器自动生成的隐式默认拷贝赋值运算符函数也支持连续赋值。
+//
+//	std::cout << "\ntime1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例三：区分拷贝构造函数和拷贝赋值运算符函数。
+//class Time
+//{
+//public:
+//	Time(int hour, int minute, int second)
+//	{
+//		hour_ = hour;
+//		minute_ = minute;
+//		second_ = second;
+//	}
+//
+//	void Show() const
+//	{
+//		std::cout << hour_ << ":" << minute_ << ":" << second_ << std::endl;
+//	}
+//
+//	//拷贝构造函数
+//	Time(const Time& time)
+//	{
+//		hour_ = time.hour_;
+//		minute_ = time.minute_;
+//		second_ = time.second_;
+//		std::cout << "拷贝构造函数被调用" << std::endl;
+//	}
+//
+//	//拷贝赋值运算符函数
+//	Time& operator=(const Time& time)
+//	{
+//		hour_ = time.hour_;
+//		minute_ = time.minute_;
+//		second_ = time.second_;
+//		std::cout << "拷贝赋值运算符函数被调用" << std::endl;
+//		return *this;
+//	}
+//
+//private:
+//	int hour_ = 0;
+//	int minute_ = 0;
+//	int second_ = 0;
+//};
+//
+//int main()
+//{
+//	Time time1(12, 0, 0);
+//	Time time2(0, 0, 0);
+//	Time time3 = time1;//此处调用的是拷贝构造函数，将"time1"对象的各个成员变量的值赋值给"time3"对象的各个成员变量。
+//
+//	std::cout << "time1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	time2 = time1;//此处调用的是拷贝赋值运算符函数，将"time1"对象的各个成员变量的值赋值给"time2"对象的各个成员变量。
+//
+//	std::cout << "time1 = ";
+//	time1.Show();
+//	std::cout << "time2 = ";
+//	time2.Show();
+//	std::cout << "time3 = ";
+//	time3.Show();
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例四：编译器自动为类生成的隐式默认拷贝赋值运算符函数，并且类中有指针成员变量，且指针成员变量指向的是堆内存，造成重复释放和内存泄漏的错误。(错误示例)
+//struct A
+//{
+//	A()
+//	{
+//		x_ = 10;
+//		px_ = (int*)malloc(sizeof(int) * x_);
+//		for (int i = 0; i < x_; i++)
+//		{
+//			px_[i] = i;
+//		}
+//	}
+//
+//	~A()
+//	{
+//		free(px_);
+//	}
+//
+//	int x_;
+//	int* px_;
+//};
+//
+//int main()
+//{
+//	A a1, a2;//调用构造函数，并为每个对象的"px_"成员变量分配了堆内存。
+//
+//	int* tmp = a2.px_;//记录"a2"对象的"px_"成员变量的值。
+//
+//	//打印各个对象中"px_"成员变量和"tmp"指针的值。
+//	std::cout << "a1.px_ = " << a1.px_ << '\n'
+//			  << "a2.px_ = " << a2.px_ << '\n'
+//			  << "tmp = " << tmp << '\n' << std::endl;
+//
+//	//打印"a1"对象中"px_"成员变量指向的堆内存中的值。
+//	for (int i = 0; i < a1.x_; i++)
+//	{
+//		std::cout << "a1.px_[" << i << "] = " << a1.px_[i] << '\n';
+//	}
+//	std::cout << std::endl;
+//
+//	//打印"a3"对象中"px_"成员变量指向的堆内存中的值。
+//	for (int i = 0; i < a2.x_; i++)
+//	{
+//		std::cout << "a2.px_[" << i << "] = " << a2.px_[i] << '\n';
+//	}
+//	std::cout << std::endl;
+//
+//	a2 = a1;//见下面的分析：
+//	//调用由编译器生成的默认拷贝赋值运算符函数，将"a1"对象的各个成员变量的值赋值给"a2"对象的各个成员变量。
+//	//"a1"对象中"px_"成员变量的值被直接赋值给"a2"对象中"px_"成员变量，即"a2"对象中"px_"成员变量指向的是"a1"对象中"px_"成员变量指向的堆内存(浅拷贝)。
+//	//但"a1"对象中"px_"成员变量指向的堆内存并没有被释放，造成内存泄漏的错误。
+//
+//	//打印"tmp"指向的堆内存中的值，发现依旧是"a2"对象中"px_"成员变量指向的堆内存中的值，并没有被释放。
+//	for (int i = 0; i < a2.x_; ++i)
+//	{
+//		std::cout << "tmp[" << i << "] = " << tmp[i] << '\n';
+//	}
+//	std::cout << std::endl;
+//
+//	//打印各个对象中"px_"成员变量和"tmp"指针的值，发现"a2"对象中"px_"成员变量的值被改变为了"a1"对象中"px_"成员变量的值。
+//	std::cout << "a1.px_ = " << a1.px_ << '\n'
+//			  << "a2.px_ = " << a2.px_ << '\n'
+//			  << "tmp = " << tmp << '\n' << std::endl;
+//
+//	return 0;//此时对象"a1"和对象"a2"的生命周期结束，调用各自的析构函数，释放"a1"对象和"a2"中"px_"成员变量指向的堆内存，导致堆内存被释放两次，造成重复释放的错误，导致程序崩溃。
+//}
+
+////拷贝赋值运算符示例五：关于拷贝赋值运算符示例四的正确示例。
+//struct A
+//{
+//	A()
+//	{
+//		x_ = 10;
+//		px_ = (int*)malloc(sizeof(int) * x_);
+//		for (int i = 0; i < x_; i++)
+//		{
+//			px_[i] = i;
+//		}
+//	}
+//
+//	A& operator=(const A& a)
+//	{
+//		free(px_);
+//		std::cout << px_ << std::endl;
+//		x_ = a.x_;
+//		px_ = (int*)malloc(sizeof(int) * x_);
+//		memcpy(px_, a.px_, sizeof(int) * x_);
+//		return *this;
+//	}
+//
+//	~A()
+//	{
+//		free(px_);
+//	}
+//
+//	int x_;
+//	int* px_;
+//};
+//
+//int main()
+//{
+//	A a1, a2;
+//
+//	std::cout << "a1.px_ = " << a1.px_ << '\n'
+//			  << "a2.px_ = " << a2.px_ << std::endl;
+//
+//	for (int i = 0; i < a1.x_; i++)
+//	{
+//		std::cout << "a1.px_[" << i << "] = " << a1.px_[i] << '\n';
+//	}
+//	std::cout << std::endl;
+//
+//	for (int i = 0; i < a2.x_; i++)
+//	{
+//		std::cout << "a2.px_[" << i << "] = " << a2.px_[i] << '\n';
+//	}
+//	std::cout << std::endl;
+//
+//	a2 = a1;
+//
+//	std::cout << "a1.px_ = " << a1.px_ << '\n'
+//			  << "a2.px_ = " << a2.px_ << std::endl;
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例六：拷贝赋值运算符的自赋值问题。
+//class Array
+//{
+//private:
+//	int* ptr_;
+//	int size_;
+//public:
+//	Array(int size)
+//	{
+//		size_ = size;
+//		ptr_ = (int*)malloc(sizeof(int) * size_);
+//		for (int i = 0; i < size_; i++)
+//		{
+//			ptr_[i] = i;
+//		}
+//	}
+//
+//	Array& operator=(const Array& rhs)
+//	{
+//		//释放当前对象中的堆内存
+//		free(ptr_);
+//
+//		//重新分配堆内存
+//		ptr_ = (int*)malloc(sizeof(int) * rhs.size_);
+//
+//		//拷贝数据
+//		size_ = rhs.size_;
+//		for (int i = 0; i < size_; i++)
+//			ptr_[i] = rhs.ptr_[i];
+//
+//		return *this;
+//	}
+//
+//	void print()
+//	{
+//		for (int i = 0; i < size_; i++)
+//		{
+//			std::cout << "ptr_[" << i << "] = " << ptr_[i] << '\n';
+//		}
+//		std::cout << std::endl;
+//	}
+//};
+//
+//int main()
+//{
+//	Array a1(10);
+//
+//	a1.print();
+//
+//	a1 = a1;//出现自我赋值的情况，调用拷贝赋值运算符函数，直接把"a1"对象中"ptr_"指针指向的堆内存给释放了，后续的拷贝数据属于未定义行为。
+//
+//	a1.print();//此时"a1"对象中的"ptr_"指针指向的堆内存已经被释放，再进行访问则是未定义行为。
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例七：关于拷贝赋值运算符示例六的正确示例。
+//class Array
+//{
+//private:
+//	int* ptr_;
+//	int size_;
+//public:
+//	Array(int size)
+//	{
+//		size_ = size;
+//		ptr_ = (int*)malloc(sizeof(int) * size_);
+//		for (int i = 0; i < size_; i++)
+//		{
+//			ptr_[i] = i;
+//		}
+//	}
+//
+//	Array& operator=(const Array& rhs)
+//	{
+//		//防止自我赋值
+//		if (this == &rhs)
+//			return *this;
+//
+//		//释放当前对象中的堆内存
+//		free(ptr_);
+//
+//		//重新分配堆内存
+//		ptr_ = (int*)malloc(sizeof(int) * rhs.size_);
+//
+//		//拷贝数据
+//		size_ = rhs.size_;
+//		for (int i = 0; i < size_; i++)
+//			ptr_[i] = rhs.ptr_[i];
+//
+//		return *this;
+//	}
+//
+//	void print()
+//	{
+//		for (int i = 0; i < size_; i++)
+//		{
+//			std::cout << "ptr_[" << i << "] = " << ptr_[i] << '\n';
+//		}
+//		std::cout << std::endl;
+//	}
+//};
+//
+//int main()
+//{
+//	Array a1(10);
+//
+//	a1.print();
+//
+//	a1 = a1;
+//
+//	a1.print();
+//
+//	return 0;
+//}
+
+////拷贝赋值运算符示例八：拷贝构造函数和拷贝赋值运算符函数的综合示例。
+//struct Test
+//{
+//	int x_;
+//
+//	Test()
+//	{
+//		std::cout << "构造函数" << '\n';
+//		x_ = 0;
+//	}
+//
+//	Test(const Test& t)
+//	{
+//		std::cout << "拷贝构造函数" << '\n';
+//		x_ = t.x_;
+//	}
+//
+//	Test& operator=(const Test& t)
+//	{
+//		std::cout << "拷贝赋值运算符函数" << '\n';
+//		x_ = t.x_;
+//		std::cout << "this = " << this << '\n';
+//		return *this;
+//	}
+//};
+//
+//void Func1(Test x)//按值传递，复制初始化，从另一个对象初始化对象会调用拷贝构造函数。
+//{
+//	std::cout << "Func1\n";//完成拷贝构造后，才会打印此句。
+//}
+//
+//void Func2(Test& x)//按引用传递，"x"就是调用此函数传递过来的参数的别名，也就不涉及拷贝构造函数的事情。
+//{
+//	std::cout << "Func2\n";//直接打印此句。
+//}
+//
+//Test Func3(Test& x)
+//{
+//	std::cout << "Func3\n";//直接打印此句。
+//	Test tmp;//此处会调用构造函数。
+//	std::cout << "&tmp = " << &tmp << '\n';
+//	return tmp;//以值语义的形式返回，会生成一个临时对象以存储"tmp"对象，若是以此值初始化则会调用拷贝构造函数，而若是以此值赋值给另一已存在对象则会调用拷贝赋值运算符函数。(编译器可能会进行"RVO"优化)
+//}
+//
+//Test& Func4(Test& x)
+//{
+//	std::cout << "Func4\n";//直接打印此句。
+//	return x;//"x"是一个对象的引用，即对象的别名，此处返回值类型是类的引用类型，返回"x"十分合理。
+//}
+//
+//////错误的"Func4"函数
+////Test& Func4()
+////{
+////	std::cout << "Func4\n";//直接打印此句。
+////	Test tmp;//此处会调用构造函数。
+////	return tmp;//编译器会报警告或错误，因为此时的"tmp"对象是个局部对象，这个对象在离开此函数会被销毁，返回的引用就会指向一个无效的内存地址。
+////}
+//
+//int main()
+//{
+//	Test t1, t2, t3, t4;//调用四次构造函数。
+//
+//	//分别调用按值传递的函数和按引用传递的函数
+//	std::cout << std::endl;
+//	Func1(t1);//调用"Func1"函数。
+//	Func2(t2);//调用"Func2"函数。
+//
+//	//分别调用以值语义返回的函数和以引用返回的函数
+//	std::cout << std::endl;
+//	Func3(t3);//调用"Func3"函数。
+//	Func4(t4);//调用"Func4"函数。
+//
+//	//调用"Func3"函数和"Func4"函数，并以其返回值初始化对象。
+//	std::cout << std::endl;
+//	Test t5 = Func3(t3);//调用"Func3"函数，返回后会调用拷贝构造函数(编译器可能会进行"RVO"优化，导致不会调用拷贝构造函数)。
+//	Test t6 = Func4(t3);//调用"Func4"函数，返回后会调用拷贝构造函数，因为此处返回的是"t3"对象的引用，实际就是"t3"对象的别名，再以其初始化"t6"对象。
+//
+//	//调用"Func3"函数和"Func4"函数，并以其返回值赋值给已存在的对象，并探究拷贝赋值运算符函数中的"this"指针是否是左操作数的地址。
+//	std::cout << std::endl;
+//	std::cout << "&t1 = " << &t1 << '\n';
+//	t1 = t4;//调用拷贝赋值运算符函数。
+//	std::cout << "&t2 = " << &t2 << '\n';
+//	t2 = t4;//调用拷贝赋值运算符函数。
+//	//可以发现"this"指针指向的就是拷贝赋值运算符的左操作数的地址。
+//
+//	//连续赋值，通过改动拷贝赋值运算符函数的形参列表以及返回值类型，观察程序运行的变化。
+//	std::cout << std::endl;
+//	t1 = t2 = t3 = t4;
+//
+//	//"RVO"优化观察("Func3"函数应属于"NRVO"优化)
+//	std::cout << std::endl;
+//	const Test& rx = Func3(t5);//若编译器进行了"RVO"优化，此处引用的就是"Func3"函数中的"tmp"对象，否则引用的就是"Func3"函数返回时生成的临时对象。
+//	std::cout << "&rx = " << &rx << '\n';
 //
 //	return 0;
 //}

@@ -788,10 +788,10 @@
 		3.内联函数的注意事项
 			a.内联函数通常将整个定义放在头文件中，若内联函数的声明和定义分离，则会导致链接错误。
 			b.内联函数不能用于块作用域内(函数内部)的函数声明。
-			c.文档：https://zh.cppreference.com/w/cpp/language/inline。(包含C++17对于"inline"关键词添加的新特性)
 		4.内联函数和宏
 			a.内联函数是C++新增的新特性，C语言中使用预处理语句"#define"来提供宏。
 			b.尽量以"const"关键词、"enum"关键词、"inline"关键词去替换"#define"的相关用法。
+		5.文档：https://zh.cppreference.com/w/cpp/language/inline。(包含C++17对于"inline"关键词添加的新特性)
 */
 
 ////内联函数创建和使用示例

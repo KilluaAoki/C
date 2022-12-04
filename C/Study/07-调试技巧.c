@@ -113,7 +113,7 @@
 ////"const"关键字例题一：模拟实现"strcpy"函数。(https://zh.cppreference.com/w/c/string/byte/strcpy)
 //char* MyStrcpy(char* dest, const char* src)//使用"const"修饰"*src"保证指针指向的内容不能通过指针来改变(具体见"const"解析)。
 //{
-//	assert(dest != NULL && src != NULL);//"assert"函数：意为断言，若表达式为假便会终止程序并报错，当表达式为真则继续执行程序。
+//	assert(dest != NULL && src != NULL);//"assert"宏：意为断言，若表达式为假便会终止程序并报错，当表达式为真则继续执行程序。
 //	char* tmp = dest;//使用临时指针变量记录下"dest"的起始地址。
 //	while (*dest++ = *src++);//当"*src"为"\0"时，将"\0"赋值给"*dest"，同时表达式的结果为假，循环会停止。
 //	return tmp;//返回目标空间的起始地址。

@@ -7,7 +7,10 @@
 		1.计算机中表达字符的方式
 		2.关于C/C++的字符串字面量和字符串
 		3.C++字符串库介绍
-		4."string"模板类
+		4."string"模板类的介绍与使用
+		5."string"模板类对象的元素访问
+		6."string"模板类中与容量相关的成员函数
+		7."string"模板类中与操作相关的成员函数
 */
 
 /**
@@ -106,7 +109,7 @@
 */
 
 /**
-	"string"模板类：来自于"basic_string"模板类对于"char"类型的特化，定义于头文件"string"中，简称为"string"类。
+	"string"模板类的介绍与使用：来自于"basic_string"模板类对于"char"类型的特化，定义于头文件"string"中，简称为"string"类。
 		1."string"类的定义："string"类使用"typedef"关键词进行了重定义，即"typedef basic_string<char> string;"(此处忽略了命名空间)，故"string"类的定义实际上为"basic_string<char>"。
 		2."string"类的常见构造函数的函数原型(以下函数原型忽略命名空间、分号以及分配器等)
 			a."string()"：构造空"string"，由此构造函数构造出的对象拥有零大小和未指定的容量。
@@ -126,23 +129,9 @@
 				b'."npos"为特殊值，是"basic_string"类中的静态成员常变量，类型为"size_type"，其用于表示"size_type"类型的最大值，即"-1"。
 				c'.若"count"与"npos"相等或未指定"count"，或请求的子串越过了此字符串的结尾(越过结尾表示越过字符串的长度减一所对应的位置)，则产生的子串的位置区间为"[pos, other.size())"。
 				d'.复杂度与"count"成线性级别。
-		3."string"类对象的元素访问以及遍历方式
-			a."[]"下标成员访问运算符：用于访问"string"类对象中指定位置的字符，内部是关于"operator[]"的运算符重载函数。
-				a'.函数原型(C++20前)
-					a''.reference operator[]( size_type pos );。
-					b''.const_reference operator[]( size_type pos ) const;。(注意此处的构造函数被"const"限定符修饰)
-				b'.参数"pos"表示要访问以及返回的字符位置，位置从零开始。
-				c'.返回值"reference"表示对字符的引用，而"const_reference"表示对字符的常引用。(以下所指的字符串大小是不包括空终止符的)
-					a''.被引用的对象的类型根据模板类"basic_string"所特化的类型而定，对于"string"模板类而言，其引用类型为"char&"和"const char&"。
-					b''.在"pos"位置小于对应字符串的大小时，返回到位于指定位置"pos"的字符的引用(实际上是"*(begin() + pos)"，"begin"函数将在之后的迭代器进行介绍)。
-					c''.在"pos"位置等于对于字符串的大小时，返回空字符的引用，不进行边界检查。
-						a'''.C++11前，对于函数原型"a''"，如果"pos"位置等于对应字符串的大小，那么行为未定义。
-						b'''.C++11起，对于函数原型"a''"，如果"pos"位置等于对应字符串的大小，若对返回的引用指代的对象被修改成空字符以外的值时，那么行为未定义。
-					d''.在"pos"位置大于对应字符串的大小时，行为未定义。
-				d'.复杂度为常数级别。
 */
 
-////"string"模板类示例一：使用"string"模板类。
+////"string"模板类的介绍与使用示例一：使用"string"模板类。
 //int main()
 //{
 //	std::string s1("Hello World!");//使用此模板类需包含"string"头文件，此处等价于"std::basic_string<char> s1("Hello World!");"。
@@ -155,7 +144,7 @@
 //	return 0;
 //}
 
-////"string"模板类示例二：使用"string"模板类的常见构造函数。
+////"string"模板类的介绍与使用示例二：使用"string"模板类的常见构造函数。
 //int main()
 //{
 //	std::string s1;//调用默认构造函数。
@@ -196,3 +185,319 @@
 //
 //	return 0;
 //}
+
+/**
+	"string"模板类对象的元素访问(仅介绍常见的元素访问相关函数)
+		1."[]"下标成员访问运算符：访问指定字符，内部是关于"operator[]"的运算符重载函数。
+			a.函数原型(C++20前)
+				a'.reference operator[]( size_type pos );。
+				b'.const_reference operator[]( size_type pos ) const;。(注意此处的构造函数被"const"限定符修饰)
+			b.参数"pos"表示要访问以及返回的字符位置，位置从零开始。
+			c.返回值"reference"表示对字符的引用，而"const_reference"表示对字符的常引用。(以下所指的字符串大小是不包括空终止符的)
+				a'.被引用的对象的类型根据模板类"basic_string"所特化的类型而定，对于"string"模板类而言，其引用类型为"char&"和"const char&"。
+				b'.在"pos"位置小于对应字符串的大小时，返回到位于指定位置"pos"的字符的引用(实际上是"*(begin() + pos)"，"begin"函数将在之后的迭代器进行介绍)。
+				c'.在"pos"位置等于对于字符串的大小时，返回空字符的引用，不进行边界检查。
+					a''.C++11前，对于函数原型"a''"，如果"pos"位置等于对应字符串的大小，那么行为未定义。
+					b''.C++11起，对于函数原型"a''"，如果"pos"位置等于对应字符串的大小，若对返回的引用指代的对象被修改成空字符以外的值时，那么行为未定义。
+				d'.在"pos"位置大于对应字符串的大小时，行为未定义。
+			d.复杂度为常数级别。
+		2."at"成员函数：访问指定字符，有边界检查，返回到位于指定位置的字符的引用。
+			a.函数原型(C++20前)
+				a'.reference at( size_type pos );。
+				b'.const_reference at( size_type pos ) const;。
+			b.进行边界检查，非法访问时会抛出异常：当"pos"位置大于或等于对应字符串的大小时，抛出异常。
+			c.复杂度为常数级别。
+		3."front"成员函数和"back"成员函数：C++11起支持，分别用于访问首字符和最后的字符。
+			a.函数原型(C++20前)
+				a'.char& front();。("front"成员函数)
+				b'.const char& front() const;。("front"成员函数)
+				c'.char& back();。("back"成员函数)
+				d'.const char& back() const;。("back"成员函数)
+			b.返回值"char&"表示对字符的引用，而"const char&"表示对字符的常引用。
+			c.对于"front"成员函数，返回到字符串中首字符的引用，对于"back"成员函数，返回字符串中的末字符的引用。
+			d.若字符串为空，则行为未定义。
+			e.复杂度为常数级别。
+		4."data"成员函数：返回指向字符串首字符的指针，即返回指向作为字符存储工作的底层数组的指针。(了解)
+			a.函数原型
+				a'.C++11前：const char* data() const;。
+				b'.C++20起：constexpr char* data() noexcept;。
+			b.返回的指针满足对应的范围，且其中的值对应存储于字符串的值。
+				a'.C++11前：[data(); data() + size())，为合法范围。
+				b'.C++11起：[data(); data() + size()]，为合法范围。
+			c.C++11前，不要求返回的数组是空终止的，若字符串为空，则指针指向不应解引用的非空指针。
+			d.C++11起，返回的数组是空终止的(与"c_str"成员函数相同)，若字符串为空，则指针指向单个空字符。
+			e.复杂度为常数级别。
+		5."c_str"成员函数：返回字符串的不可修改的C字符数组版本，即返回指向拥有数据等价于存储于字符串中的空终止字符数组的指针。(了解)
+			a.函数原型(C++11前)：const char* c_str() const;。
+			b.该指针有范围"[c_str(); c_str() + size()]"为合法，且其中的值对应存储于字符串的值，且在最后位置有个附加的空终止字符。
+			c.通过"c_str"写入字符数组是未定义行为。
+			d.从"c_str"获得的指针可以只当做一个指向空终止字符串的指针，若"string"对象不含其他空字符。
+			e.复杂度为常数级别。
+		6.适用于"string"模板类的迭代器
+			a.初步了解迭代器
+				a'.迭代器是指向容器内元素的对象，类似于指针，它可以遍历C++标准库容器中的元素并提供对单个位置的元素进行访问。
+				b'.C++标准库容器都提供迭代器，以便算法可以以标准方式访问它们的元素，而不必关心元素存储在的容器类型，它是一种通用的访问机制。
+				c'.迭代器通常的使用形式类似于指针，指针可以指向数组中的元素，并可以使用自增运算符遍历它们，但需要注意的是，并非所有迭代器都具有与指针类似的功能。
+			b.使用"string"模板类中的迭代器
+				a'."begin"成员函数：返回指向起始的迭代器。
+					a''.函数原型(C++11前)
+						a'''.iterator begin();。
+						b'''.const_iterator begin() const;。
+					b''.返回类型为"iterator"或"const_iterator"("string"模板类中的配套类型(迭代器类型))，代表返回指向字符串首字符的迭代器。
+					c''."begin"成员函数可以返回可变的或不可变的迭代器，取决于调用它的对象是否具有常性(即取决于"this"指针指向的对象是否具有常性)。
+					d''.复杂度为常数级别。
+				b'."end"成员函数：返回指向末尾的迭代器。
+					a''.函数原型(C++11前)
+						a'''.iterator end();。
+						b'''.const_iterator end() const;。
+					b''.返回指向后随字符串末字符的字符的迭代器(即字符串最后一个字符的下一个字符)，此字符表现为占位符，试图访问它导致未定义行为。
+					c''.复杂度为常数级别。
+				c'."rbegin"成员函数：返回指向起始的逆向迭代器。
+					a''.函数原型(C++11前)
+						a'''.reverse_iterator rbegin();。
+						b'''.const_reverse_iterator rbegin() const;。
+					b''.返回类型为"reverse_iterator"或"const_reverse_iterator"("string"模板类中的配套类型(逆向迭代器类型))。
+					c''.返回指向逆转字符串首字符的逆向迭代器，它对应非逆向字符串的末字符(即非逆向的字符串的最后一个字符)。
+					d''.复杂度为常数级别，也代表着实际上字符串没有被逆转，只是返回的逆向迭代器指向了字符串的末字符(对于"rbegin"成员函数而言)。
+				d'."rend"成员函数：返回指向末尾的逆向迭代器。
+					a''.函数原型(C++11前)
+						a'''.reverse_iterator rend();。
+						b'''.const_reverse_iterator rend() const;。
+					b''.返回指向后随逆向字符串末字符的字符的逆向迭代器(即逆向字符串的最后一个字符的下一个字符)，它对应前驱非逆向字符串首字符的字符(即非逆向的字符串的首字符的前一个字符)，此字符表现为占位符，试图访问它会导致未定义行为。
+					c''.复杂度为常数级别，同样代表着实际上字符串没有被逆转，只是返回的逆向迭代器指向了字符串的首字符的前一个字符(对于"rend"成员函数而言)，也就是占位符。
+				e'.C++11起支持的"cbegin"成员函数和"cend"成员函数以及"crbegin"成员函数和"crend"成员函数：除成员函数名不相同外，等价分别对应于没有"c"前缀的返回不可变的迭代器的成员函数(如："cbegin"成员函数等价于返回不可变的迭代器的"begin"成员函数)。
+*/
+
+////"string"模板类对象的元素访问示例一：通过下标成员访问运算符遍历字符串中的字符。
+//int main()
+//{
+//	std::string str = "Hello World!";
+//	for (int i = 0; i < str.size(); i++)
+//	{
+//		std::cout << str[i] << " ";
+//	}
+//	std::cout << std::endl;
+//	return 0;
+//}
+
+////"string"模板类对象的元素访问示例二：通过基于范围的"for"循环遍历字符串中的字符。
+//int main()
+//{
+//	std::string str = "Hello World!";
+//	for (auto c: str)
+//	{
+//		std::cout << c << " ";
+//	}
+//	std::cout << std::endl;
+//	return 0;
+//}
+
+////"string"模板类对象的元素访问示例三：使用"at"成员函数遍历字符串中的字符。
+//int main()
+//{
+//	std::string str = "Hello World!";
+//	for (int i = 0; i < str.size(); i++)
+//	{
+//		std::cout << str.at(i) << " ";
+//	}
+//	return 0;
+//}
+
+////"string"模板类对象的元素访问示例四：使用"front"成员函数和"back"成员函数。(C++11)
+//int main()
+//{
+//	std::string str = "Hello World!";
+//	std::cout << str.front() << std::endl;
+//	std::cout << str.back() << std::endl;
+//	return 0;
+//}
+
+////"string"模板类对象的元素访问示例五：使用迭代器遍历字符串中的字符(正向与逆向)。
+//int main()
+//{
+//	std::string str = "Hello World!";
+//
+//	//正向遍历
+//	for (auto it = str.begin(); it != str.end(); it++)
+//	{
+//		std::cout << *it << " ";
+//	}
+//	std::cout << std::endl;
+//
+//	//逆向遍历
+//	for (auto it = str.rbegin(); it != str.rend(); it++)
+//	{
+//		std::cout << *it << " ";
+//	}
+//	std::cout << std::endl;
+//
+//	return 0;
+//}
+
+/**
+	"string"模板类中与容量相关的成员函数
+		1."empty"成员函数：检查字符串是否为空。
+			a.函数原型(C++11前)：bool empty() const;。
+			b.用于检查字符串是否无字符，即"begin() == end()"。
+			c.返回值为布尔类型，当字符串为空时返回"true"，否则返回"false"。
+			d.复杂度为常数级别。
+		2."size"成员函数和"length"成员函数：返回字符数。
+			a.函数原型(C++11前)
+				a'.size_type size() const;。("size"成员函数)
+				b'.size_type length() const;。("length"成员函数)
+			b."size"成员函数和"length"成员函数没有区别，两者为同义词，并且等价。
+				a'.在引入STL之前，"length"作为"string"模板类的唯一用于返回字符数的成员函数。
+				b'.在引入STL之后，为了兼容其他容器库，又引入了"size"成员函数。
+			c.返回字符串中的"char"类型的元素数(若编码格式为多字节编码，则它与字符不同)。
+			d.复杂度在C++11前是未指定的，而在C++11起为常数级别。
+		3."max_size"成员函数：返回字符数的最大值。
+			a.函数原型(C++11前)：size_type max_size() const;。
+			b.返回"string"由于保有系统或库实现限制所能保有的最大元素数。
+			c.复杂度为常数级别。
+		4."reserve"成员函数：保留存储(请求更改容量)。
+			a.函数原型(C++20前)：void reserve( size_type new_cap = 0 );。
+				a'.函数头"void"表示此函数不返回任何值。
+				b'.函数参数"size_type"：将无符号整型类型作为参数；在此函数中意为"string"的新容量。
+			b.告知"string"类对象大小的有计划更改，使得它能准确地管理存储分配。
+				a'.若"new_cap"大于当前"capacity"函数的返回值，则分配新存储，并令容量大于或等于"new_cap"。
+				b'.若"new_cap"小于当前"capacity"函数的返回值，则这是非强制的收缩请求。(C++20前)
+				c'.若"new_cap"小于当前"capacity"函数的返回值，则这是非强制的收缩到适合请求(，等价于"shrink_to_fit"函数的返回值(C++11起))。(C++20前)
+				d'.若"new_cap"小于或等于当前"capacity"函数的返回值，则无效果。(C++20起)
+				e'.若发生对象的容量("capacity")发生了更改，则非法化所有迭代器与引用，包含尾后迭代器。
+			c.若"new_cap"大于当前"max_size"函数的返回值，则抛出异常。
+			d.复杂度至多与当前对象的大小("size")成线性级别。
+		5."capacity"成员函数：返回当前对象分配的存储空间能保存的字符数量。
+			a.函数原型(C++11前)：size_type capacity() const;。
+			b.用于返回当前已为字符串分配的存储空间的字符数(当前分配的存储空间为可用于存储元素的存储的容量)。
+			c.从分配器获得，但不可用于存储任何元素的内存位置不计入分配的存储，注意空终止符不是"basic_string"模板类的元素。(暂忽略分配器)
+			c.复杂度为常数级别。
+		6."shrink_to_fit"成员函数：通过释放不使用的内存，减少内存的使用，即请求移除未使用的容量。(C++11)
+			a.函数原型(C++11前)：void shrink_to_fit();。
+			b.这是减少容量("capacity")到大小("size")的非强制请求。
+			c.若"capacity"函数的返回值小于或等于"size"函数的返回值，则无效果。
+			d.当(且仅当)发生重分配是，则非法化所有指针、引用和迭代器。
+			e.复杂度在C++17前是未指定的，而在C++17起至多与当前对象的大小("size")成线性级别。
+*/
+
+////"string"模板类中与容量相关的成员函数示例一：使用"empty"成员函数。
+//int main()
+//{
+//	std::string s;
+//	std::cout << "s.empty()：" << s.empty() << "\t s：\"" << s << "\"\n";
+//	s = "Exemplar";
+//	std::cout << "s.empty()：" << s.empty() << "\t s：\"" << s << "\"\n";
+//	s = "";
+//	std::cout << "s.empty()：" << s.empty() << "\t s：\"" << s << "\"\n";
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例二：使用"size"成员函数和"length"成员函数。
+//int main()
+//{
+//	std::string s;
+//	std::cout << "s = \"" << s << "\"\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.length() = " << s.length() << "\n\n";
+//	s = "Exemplar";
+//	std::cout << "s = \"" << s << "\"\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.length() = " << s.length() << "\n\n";
+//	s = "";
+//	std::cout << "s = \"" << s << "\"\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.length() = " << s.length() << "\n\n";
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例三：使用"max_size"成员函数。
+//int main()
+//{
+//	std::string s;
+//	std::cout << "Maximum size of a string is " << s.max_size() << "\n";
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例四：使用"reserve"成员函数和"capacity"成员函数。
+//int main()
+//{
+//	std::string s;
+//
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.capacity() = " << s.capacity() << "\n\n";
+//
+//	s.reserve(100);
+//	std::cout << "s.reserve(100)" << "\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.capacity() = " << s.capacity() << "\n\n";
+//
+//	s.reserve(10);
+//	std::cout << "s.reserve(10)" << "\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.capacity() = " << s.capacity() << "\n\n";
+//
+//	s.reserve(1000);
+//	std::cout << "s.reserve(1000)" << "\n";
+//	std::cout << "s.size() = " << s.size() << "\n";
+//	std::cout << "s.capacity() = " << s.capacity() << "\n\n";
+//
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例五：测试容量的增长策略。
+//int main()
+//{
+//	std::string s;
+//	size_t capacity = s.capacity();
+//	std::cout << "making s grow:\n";
+//	for (int i = 0; i < 2000; ++i)
+//	{
+//		s.push_back('c');//后附字符到结尾，将会在之后进行详细讲解。
+//		if (capacity != s.capacity())
+//		{
+//			capacity = s.capacity();
+//			std::cout << "\tcapacity changed: " << capacity << '\n';
+//		}
+//	}
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例六：利用"reserve"成员函数提高插入数据的效率，避免增容带来的开销。
+//int main()
+//{
+//	std::string s;
+//	s.reserve(1000);//预留足够的空间，避免增容带来的开销。
+//	size_t capacity = s.capacity();
+//	std::cout << "making s grow:\n";
+//	for (int i = 0; i < 2000; ++i)
+//	{
+//		s.push_back('c');
+//		if (capacity != s.capacity())
+//		{
+//			capacity = s.capacity();
+//			std::cout << "\tcapacity changed: " << capacity << '\n';//显著减少了增容的次数。
+//		}
+//	}
+//	return 0;
+//}
+
+////"string"模板类中与容量相关的成员函数示例七：使用"shrink_to_fit"成员函数。
+//int main()
+//{
+//	std::string s;
+//	s.reserve(1000);
+//	std::cout << "s.capacity() = " << s.capacity() << "\n";
+//	s.shrink_to_fit();
+//	std::cout << "s.shrink_to_fit()\n";
+//	std::cout << "s.capacity() = " << s.capacity() << "\n";//释放不使用的内存，减少内存的使用。
+//	return 0;
+//}
+
+/**
+	"string"模板类中与操作相关的成员函数(仅介绍常见的与操作相关的成员函数)
+		1."clear"成员函数：清除内容。
+			a.函数原型：void clear();。
+			b.从字符串中移除所有字符。
+			c.非法化所有指针、引用及迭代器。
+			d.字符串的大小在调用此函数后被清零，需要注意的是标准中不显式要求此函数改变容量。
+			e.复杂度与当前对象的大小成线性(存在实现在常数时间内的操作)。
+*/

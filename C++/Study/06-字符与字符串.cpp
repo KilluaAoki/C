@@ -114,18 +114,18 @@
 		2."string"类的常见构造函数的函数原型(以下函数原型忽略命名空间、分号以及分配器等)
 			a."string()"：构造空"string"，由此构造函数构造出的对象拥有零大小和未指定的容量。
 				a'.复杂度为常数级别。
-			b."string(const char* s)"：以"s"所指向的空终止字符串的副本所初始化的内容构造"string"，并以首个空终止符确定字符串的长度。
+			b."string(const char* s)"：以"s"所指向的空终止字符串的副本所初始化的内容构造"string"类对象，并以首个空终止符确定字符串的长度。
 				a'.若区间"[s, s + char_traits<char>::length(s))"不是合法范围(例如当"s"是空指针时，则不是合法范围)，则行为未定义。("char_traits<char>::length(s)"表示"s"所指向的空终止字符串的长度，暂时不用理解)
 				b'.复杂度与"s"的长度成线性级别。
-			c."string(const char* s, size_type count)"：以"s"所指向的字符串的首"count"个字符构造"string"，并且"s"可能含有空终止符，"string"的长度为"count"。
+			c."string(const char* s, size_type count)"：以"s"所指向的字符串的首"count"个字符构造"string"类对象，并且"s"可能含有空终止符，"string"类对象的长度为"count"。
 				a'.若区间"[s, s + count)"不是合法范围，则行为未定义。
 				b'.复杂度与"count"成线性级别。
-			d."string(size_type count, char ch)"：构造拥有字符"ch"的"count"个副本的"string"。
+			d."string(size_type count, char ch)"：构造拥有字符"ch"的"count"个副本的"string"类对象。
 				a'.复杂度与"count"成线性级别。
-			e."string(const string& other)"：拷贝构造函数，用于构造拥有"other"内容副本的"string"，即构造出的"string"与"other"相同。
+			e."string(const string& other)"：拷贝构造函数，用于构造拥有"other"对象的内容副本的"string"类对象，即构造出的"string"类对象与"other"对象相同。
 				a'.复杂度与"other"的大小(长度)成线性级别。
-			f."string(const string& other, size_type pos, size_type count = npos)"：以"other"的位置区间"[pos, pos + count)"所对应的子串构造"string"。
-				a'."pos"代表的是位置，是要包含的首字符位置，位置从零开始，而"count"代表的是个数，是产生的"string"长度，个数从一开始，注意区分两者。
+			f."string(const string& other, size_type pos, size_type count = npos)"：以"other"的位置区间"[pos, pos + count)"所对应的子串构造"string"类对象。
+				a'."pos"代表的是位置，是要包含的首字符位置，位置从零开始，而"count"代表的是个数，是产生的字符串(对象)的长度，个数从一开始，注意区分两者。
 				b'."npos"为特殊值，是"basic_string"类中的静态成员常变量，类型为"size_type"，其用于表示"size_type"类型的最大值，即"-1"。
 				c'.若"count"与"npos"相等或未指定"count"，或请求的子串越过了此字符串的结尾(越过结尾表示越过字符串的长度减一所对应的位置)，则产生的子串的位置区间为"[pos, other.size())"。
 				d'.复杂度与"count"成线性级别。
@@ -359,12 +359,12 @@
 				a'.函数头"void"表示此函数不返回任何值。
 				b'.函数参数"size_type"：将无符号整型类型作为参数；在此函数中意为"string"的新容量。
 			b.告知"string"类对象大小的有计划更改，使得它能准确地管理存储分配。
-				a'.若"new_cap"大于当前"capacity"函数的返回值，则分配新存储，并令容量大于或等于"new_cap"。
-				b'.若"new_cap"小于当前"capacity"函数的返回值，则这是非强制的收缩请求。(C++20前)
-				c'.若"new_cap"小于当前"capacity"函数的返回值，则这是非强制的收缩到适合请求(，等价于"shrink_to_fit"函数的返回值(C++11起))。(C++20前)
-				d'.若"new_cap"小于或等于当前"capacity"函数的返回值，则无效果。(C++20起)
+				a'.若"new_cap"大于当前"capacity"成员函数的返回值，则分配新存储，并令容量大于或等于"new_cap"。
+				b'.若"new_cap"小于当前"capacity"成员函数的返回值，则这是非强制的收缩请求。(C++20前)
+				c'.若"new_cap"小于当前"capacity"成员函数的返回值，则这是非强制的收缩到适合请求(，等价于"shrink_to_fit"成员函数的返回值(C++11起))。(C++20前)
+				d'.若"new_cap"小于或等于当前"capacity"成员函数的返回值，则无效果。(C++20起)
 				e'.若发生对象的容量("capacity")发生了更改，则非法化所有迭代器与引用，包含尾后迭代器。
-			c.若"new_cap"大于当前"max_size"函数的返回值，则抛出异常。
+			c.若"new_cap"大于当前"max_size"成员函数的返回值，则抛出异常。
 			d.复杂度至多与当前对象的大小("size")成线性级别。
 		5."capacity"成员函数：返回当前对象分配的存储空间能保存的字符数量。
 			a.函数原型(C++11前)：size_type capacity() const;。
@@ -374,7 +374,7 @@
 		6."shrink_to_fit"成员函数：通过释放不使用的内存，减少内存的使用，即请求移除未使用的容量。(C++11)
 			a.函数原型(C++11前)：void shrink_to_fit();。
 			b.这是减少容量("capacity")到大小("size")的非强制请求。
-			c.若"capacity"函数的返回值小于或等于"size"函数的返回值，则无效果。
+			c.若"capacity"成员函数的返回值小于或等于"size"成员函数的返回值，则无效果。
 			d.当(且仅当)发生重分配是，则非法化所有指针、引用和迭代器。
 			e.复杂度在C++17前是未指定的，而在C++17起至多与当前对象的大小("size")成线性级别。
 */
@@ -494,10 +494,174 @@
 
 /**
 	"string"模板类中与操作相关的成员函数(仅介绍常见的与操作相关的成员函数)
-		1."clear"成员函数：清除内容。
+		01."clear"成员函数：清除内容。
 			a.函数原型：void clear();。
 			b.从字符串中移除所有字符。
 			c.非法化所有指针、引用及迭代器。
 			d.字符串的大小在调用此函数后被清零，需要注意的是标准中不显式要求此函数改变容量。
 			e.复杂度与当前对象的大小成线性(存在实现在常数时间内的操作)。
+		02."insert"成员函数：插入字符。
+			a.常见函数原型
+				a'.string& insert( size_type index, size_type count, char ch );。(C++20前)
+					a''.在"index"位置插入"count"个"ch"字符的副本。
+					b''.返回值：*this。
+				b'.string& insert( size_type index, const char* s );。(C++20前)
+					a''. 在"index"位置插入"s"所指向的空终止字符串，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+					b''. 返回值：*this。
+				c'.string& insert( size_type index, const char* s, size_type count );。(C++20前)
+					a''.在"index"位置插入范围"[s, s + count)"中的字符，范围能含有空字符。
+					b''.返回值：*this。
+				d'.string& insert( size_type index, const string& str );。(C++20前)
+					a''.在"index"位置插入字符串"str"，注意"str"是一个"string"模板类的对象的引用，而不是一个指针，不同于"const char* s"指代的C风格的字符串。
+					b''.返回值：*this。
+				e'.string& insert( size_type index, const string& str, size_type index_str, size_type count );。(C++14前)
+					a''.在"index"位置插入由"str.substr(index_str, count)"获得的字符串。
+					b''.插入"str"的子字符串的副本，而子字符串是"str"的一部分，它从"index"字符位置开始并跨越"count"个字符。
+					c''.在C++14起直至C++20前，此函数的原型为：string& insert( size_type index, const string& str, size_type index_str, size_type count = npos );。
+					d''.默认值"count = npos"表示当"count"未指定或"count"与"npos"值相等，或请求的子字符串超出了"str"的结尾时，那么将直到"str"的结尾为止。
+					e''.返回值：*this。
+				f'.iterator insert( iterator pos, char ch );。(C++11前)
+					a''.在"pos"所指向的字符前插入字符"ch"。
+					b''.在C++11起直至C++20前，此函数的原型为：iterator insert( const_iterator pos, char ch );。
+					c''.注意"pos"的类型是"iterator"(C++11前)或"const_iterator"(C++11起)，而不是"reverse_iterator"，即正向迭代器。
+					b''.返回值：指代被插入字符的迭代器，即返回一个指向插入的字符的迭代器。
+				g'.void insert( iterator pos, size_type count, char ch );。(C++11前)
+					a''.在"pos"所指向的元素(如果存在)前插入"count"个字符"ch"的副本。
+					b''.在C++11起直至C++20前，此函数的原型为：iterator insert( const_iterator pos, size_type count, char ch );。
+					c''.在C++11前，此函数不返回任何值，而在C++11起直至C++20前，此函数返回一个指向插入的第一个字符的迭代器，当未插入任何字符时("count"为零)，返回"pos"。
+			b.关于"insert"成员函数的常见函数原型中的异常处理
+				a'.常见函数原型中的"a'"、"b'"、"c'"、"d'"会在"index"位置大于被插入字符串的大小时抛出异常。
+				b'.常见函数原型中的"e'"会在在"index"位置大于被插入字符串的大小或"index_str"大于"str"的大小时抛出异常。
+				c'.在所有情况下，在被插入字符串的大小与将要插入的字符数("count")之和大于字符串的"max_size"时，都会抛出异常。
+				d'.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		03."erase"成员函数：移除字符，即从字符串移除指定的字符。
+			a.常见函数原型
+				a'.string& erase( size_type index = 0, size_type count = npos );。(C++20前)
+					a''.移除从"index"位置开始的"count"或此字符串的大小减去"index"位置个字符(两者取较小值)。
+					b''.返回值：*this。
+					c''.当"index"位置大于此字符串的大小时抛出异常。
+				b'.iterator erase( iterator position );。(C++11前)
+					a''.移除位于"position"的字符，"position"是指向要移除的字符的迭代器。
+					b''.返回指向立即后随被擦除字符的迭代器，或者在不存在这种字符的情况下返回"end"成员函数的返回值。
+					c''.不抛出异常。
+				c'.iterator erase( iterator first, iterator last );。(C++11前)
+					a''.移除范围"[first, last)"中的字符，"first"是指向要移除的首个字符的迭代器，而"last"是指向后随字符串末字符的字符的迭代器。
+					b''.返回指向擦除前"last"指向的字符的迭代器，或者在不存在这种字符的情况下返回"end"成员函数的返回值。
+					c''.不抛出异常。
+			b.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		04."push_back"成员函数：后附字符到结尾，即后附给定的字符到字符串尾。
+			a.函数原型(C++20前)：void push_back( char ch );。
+			b.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+			c.如果操作会导致当前字符串的大小大于当前"max_size"成员函数的返回值，则抛出异常。
+			d.均摊复杂度为常数级别。
+		05."pop_back"成员函数：移除末尾字符，即从字符串移除末字符。(C++11)
+			a.函数原型(C++20前)：void pop_back();。
+			b.调用此函数等价于调用"erase(end() - 1, 1)"，若字符串为空则行为未定义。
+			c.不抛出异常。
+			d.复杂度为常数级别。
+		06."append"成员函数：后附字符到结尾，即后附额外字符到字符串。
+			a.常见的函数原型
+				a'.string& append( size_type count, char ch );。(C++20前)
+					a''.后附"count"个字符"ch"的副本。
+				b'.string& append( const string& str );。(C++20前)
+					a''.后附字符串"str"。
+				c'.string& append( const string& str, size_type pos, size_type count );。(C++14前)
+					a''.后附"str"的子串，要后附的首个字符下标为"pos"，要后附的字符数为"count"，后附的子串的范围为"[pos, pos + count)"。
+					b''.在C++14起直至C++20前，此函数的原型为：string& append( const string& str, size_type pos, size_type count = npos );。
+					c''.若请求的子串越过当前字符串结尾，或当"count == npos"时(C++14起)，则后附的子串的范围为"[pos, size())"。
+					d''.若"pos > str.size()"，则抛出异常。
+				d'.string& append( const char* s, size_type count );。(C++20前)
+					a''.后附范围为"[s, s + count)"中的字符，此范围能含有空字符。
+				e'.string& append( const char* s );。(C++20前)
+					a''.后附"s"所指向的空终止字符串，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+			b.返回值：*this。
+			c.如果操作会导致当前字符串的大小大于当前"max_size"成员函数的返回值，则抛出异常。
+			d.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		07."+="加法赋值运算符：后附字符到结尾(对于"string"类(类对象)而言)，即后附额外字符到字符串，内部是关于"operator+="的运算符重载函数。
+			a.常见的函数原型(C++20前)
+				a'.string& operator+=( const string& str );。
+					a''.后附字符串"str"。
+				b'.string& operator+=( char ch );。
+					a''.后附字符"ch"。
+					b''.能接收任何可隐式类型转换为"char"的类型。
+					c''.对于通过"char"类型特化的"string"模板类，其可接受类型的集合包含任何算术类型，这会导致一些非意图的效果。
+				c'.string& operator+=( const char* s );。
+					a''.后附"s"所指向的空终止字符串。
+			b.返回值：*this。
+			c.如果操作会导致当前字符串的大小大于当前"max_size"成员函数的返回值，则抛出异常。
+			d.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		08."compare"成员函数：比较二个字符串，即比较两个字符序列。
+			a.常见的函数原型
+				a'.int compare( const string& str ) const;。(C++11前)
+					a''.比较此字符串与"str"。
+				b'.int compare( size_type pos1, size_type count1, const string& str ) const;。(C++20前)
+					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与"str"。
+					b''."pos1"指此字符串中要比较的首字符的位置，"count1"指此字符串要比较的字符数。
+					c''.如果"count1 > size() - pos1"，那么子串的范围是"[pos1, size())"。
+				c'.int compare( size_type pos1, size_type count1, const string& str, size_type pos2, size_type count2 ) const;。(C++14前)
+					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与"str"范围为"[pos2, pos2 + count2)"的子串。
+					b''."pos2"指给定字符串的要比较的首字符位置，"count2"指给定字符串要比较的字符数。
+					c''.对于此字符串而言，如果"count1 > size() - pos1"，那么子串的范围是"[pos1, size())"。
+					d''.对于要比较的另一字符串("str")而言，如果"count2 > str.size() - pos2"，那么子串的范围是"[pos2, str.size())"。
+					e''.在C++14起直至C++20前，此函数的原型为：int compare( size_type pos1, size_type count1, const string& str, size_type pos2, size_type count2 = npos ) const;。
+				d'.int compare( const char* s ) const;。(C++20前)
+					a''.比较此字符串与始于"s"所指向字符的长度为"char_traits<char>::length(s)"的空终止字符序列。
+				e'.int compare( size_type pos1, size_type count1, const char* s ) const;。(C++20前)
+					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与始于"s"所指向字符的长度为"char_traits<char>::length(s)"的空终止字符序列。
+					b''.如果"count1 > size() - pos1"，那么子串的范围是"[pos1, size())"。
+				f'.int compare( size_type pos1, size_type count1, const CharT* s, size_type count2 ) const;。(C++20前)
+					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与"s"范围为"[s, s + count2)"中的字符。
+					b''."s"范围为"[s, s + count2)"中的字符可包含空字符。
+			b.比较两个字符串以字符字典序(实际实现可能分为多个函数进行)
+				a'.获取要比较的字符串(称为"s1"和"s2")，以及要比较来自"s1"与"s2"的字符数(称为"count1"和"count2")，计算并比较字符串"s1"与"s2"的首"count"个字节，比较按字典序进行。
+					a''.即比较始于"data1"的"count1"个字符组成的字符序列与始于"data2"的"count2"个字符组成的字符序列。
+					b''.计算要比较的字符数"count"：求出"count1"和"count2"中较小的一个。
+				b'.若"count"为"0"或比较完"count"个字符均相等，则继续比对"s1"与"s2"的大小，若依旧相等则返回"0"，若不相等则通过"s1"与"s2"的大小差得出结论。
+					a''.若"size1 < size2"则认为"s1 < s2"，返回负值。
+					b''.若"size1 > size2"则认为"s1 > s2"，返回正值。
+				c'.若进行比较字典序的过程中出现不相等的字符，则直接得出结论而不再比较大小。
+					a''.若"s1[i] < s2[i]"则认为"s1 < s2"，返回负值。
+					b''.若"s1[i] > s2[i]"则认为"s1 > s2"，返回正值。
+		09."replace"成员函数：替换字符串的指定部分，即以新字符串替换"[pos, pos + count)"或"[first, last)"所指示的"string"类(类对象)部分。
+			a.常见的函数原型
+				a'.string& replace( size_type pos, size_type count, const string& str );、string& replace( const_iterator first, const_iterator last, const string& str );。(C++20前)
+					a''.新字符串是"str"。
+				b'.string& replace( size_type pos, size_type count, const string& str, size_type pos2, size_type count2 );。(C++14前)
+					a''.在C++14起直至C++20前，此函数的原型为：string& replace( size_type pos, size_type count, const string& str, size_type pos2, size_type count2 = npos );。
+					b''.新字符串是"str"的子串，"str"的范围为"[pos2, pos2 + count2)"，但若"count2 == npos"或若它可能越过"str"的大小时(C++14起)，则使用"[pos2, str.size())"范围。
+				c'.string& replace( size_type pos, size_type count, const char* cstr, size_type count2 );、string& replace( const_iterator first, const_iterator last, const char* cstr, size_type count2 );。(C++20前)
+					a''.新字符串是"cstr"的子串，"cstr"的范围为"[cstr, cstr + count2)"。
+				d'.string& replace( size_type pos, size_type count, const char* cstr );、string& replace( const_iterator first, const_iterator last, const char* cstr );。(C++20前)
+					a''.新字符串是"cstr"范围为"[cstr, cstr + char_traits<char>::length(cstr))"中的字符。
+				e.string& replace( size_type pos, size_type count, size_type count2, char ch );、string& replace( const_iterator first, const_iterator last, size_type count2, char ch );。(C++20前)
+					a''.新字符串是"count2"个字符"ch"组成的字符串。
+			b.返回值：*this。
+			c.若"pos > length()"或"pos2 > str.length()"，则抛出异常。
+			d.若产生的字符串将超出最大可能的字符串长度("max_size() - 1")，则抛出异常。
+			e.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		10."substr"成员函数：返回子串。
+			a.函数原型(C++20前)：string substr( size_type pos = 0, size_type count = npos ) const;。
+			b.返回子串的范围为"[pos, pos + count)"，但若请求的子串越过当前字符串结尾，即"count"大于"size() - pos"时(例如当"count"等于"npos"以及"count"未指定时)，则返回的子串的范围为"[pos, size())"。
+			c.返回值：包含子串的"string"类(类对象)，子串范围为"[pos, pos + count)"或为"[pos, size())"。
+			d.若"pos > size()"，则抛出异常。
+			e.复杂度与"count"成线性级别。
+		11."copy"成员函数：复制字符。
+			a.函数原型(C++20前)：size_type copy( char* dest, size_type count, size_type pos = 0 ) const;。
+				a'.参数"dest"表示指向目标字符串的指针。
+			b.复制子串范围为"[pos, pos+count)"到"dest"所指向的字符串。
+			c.请求的子串越过当前字符串结尾，或若"count == npos"(生成子串时)，则复制的子串的范围为"[pos, size())"，产生的字符串不是空终止的。
+			d.若"pos > size()"，则抛出异常。
+		12."resize"成员函数：更改存储的字符数。
+			a.函数原型(C++20前)
+				a''.void resize( size_type count );。
+				b''.void resize( size_type count, char ch );。
+			b.重设当前字符串的大小以含有"count"个字符。
+			c.若当前字符串大小小于"count"，则后附额外的字符"ch"，若当前大小大于"count"，则缩减当前字符串到为其首"count"个元素。
+			d.若"count > max_size()"，则抛出异常。
+			e.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+		13."swap"成员函数：交换内容。
+			a.函数原型(C++17前)：void swap( string& other );。
+			b.交换当前字符串和"other"的内容。
+			c.可能会非法化所有迭代器和引用。
+			d.复杂度为常数。
 */

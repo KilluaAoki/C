@@ -556,7 +556,7 @@
 			d.均摊复杂度为常数级别。
 		05."pop_back"成员函数：移除末尾字符，即从字符串移除末字符。(C++11)
 			a.函数原型(C++20前)：void pop_back();。
-			b.调用此函数等价于调用"erase(end() - 1, 1)"，若字符串为空则行为未定义。
+			b.调用此函数等价于调用"erase(end() - 1)"(除两成员函数的返回值类型不相同)，若字符串为空则行为未定义。
 			c.不抛出异常。
 			d.复杂度为常数级别。
 		06."append"成员函数：后附字符到结尾，即后附额外字符到字符串。
@@ -665,3 +665,136 @@
 			c.可能会非法化所有迭代器和引用。
 			d.复杂度为常数。
 */
+
+////"string"模板类中与操作相关的成员函数示例一：使用"clear"成员函数。
+//int main()
+//{
+//	std::string s{ "Exemplar" };
+//	std::string::size_type const capacity = s.capacity();
+//	s.clear();
+//	assert(s.capacity() == capacity);
+//	assert(s.empty());
+//	assert(s.size() == 0);
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例二：使用"insert"成员函数。
+//int main()
+//{
+//	std::string s1 = "KilluaAoki";
+//	std::cout << "s1 = " << s1 << std::endl;
+//	s1.insert(10, 1, '!');
+//	std::cout << "s1 = " << s1 << std::endl << std::endl;
+//
+//	std::string s2 = "Killua";
+//	std::cout << "s2 = " << s2 << std::endl;
+//	s2.insert(6, "Aoki!");
+//	std::cout << "s2 = " << s2 << std::endl << std::endl;
+//
+//	std::string s3 = "Killua";
+//	std::cout << "s3 = " << s3 << std::endl;
+//	s3.insert(6, "Aoki!", 4);//"Aoki!"中的"!"不会被插入。
+//	std::cout << "s3 = " << s3 << std::endl << std::endl;
+//
+//	std::string s4 = "->!";
+//	std::cout << "s4 = " << s4 << std::endl;
+//	s4.insert(2, s3);
+//	std::cout << "s4 = " << s4 << std::endl << std::endl;
+//
+//	std::string s5 = "Killua";
+//	std::cout << "s5 = " << s5 << std::endl;
+//	s5.insert(6, s3, 6, 5);
+//	std::cout << "s5 = " << s5 << std::endl << std::endl;
+//
+//	std::string s6 = "Killua";
+//	std::cout << "s6 = " << s6 << std::endl;
+//	s6.insert(s6.end(), '!');
+//	std::cout << "s6 = " << s6 << std::endl << std::endl;
+//
+//	std::string s7 = "Killua";
+//	std::cout << "s7 = " << s7 << std::endl;
+//	s7.insert(s7.end(), 5, '!');
+//	std::cout << "s7 = " << s7 << std::endl << std::endl;
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例三：使用"erase"成员函数。
+//int main()
+//{
+//	std::string s1 = "KilluaAoki";
+//	std::cout << "s1 = " << s1 << std::endl;
+//	s1.erase(6, 4);
+//	std::cout << "s1 = " << s1 << std::endl << std::endl;
+//
+//	std::string s2 = "KilluaAoki!";
+//	std::cout << "s2 = " << s2 << std::endl;
+//	s2.erase(s2.end() - 1);
+//	std::cout << "s2 = " << s2 << std::endl << std::endl;
+//
+//	std::string s3 = "KilluaAoki!";
+//	std::cout << "s3 = " << s3 << std::endl;
+//	s3.erase(s3.begin() + 6, s3.end() - 1);
+//	std::cout << "s3 = " << s3 << std::endl << std::endl;
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例四：使用"push_back"成员函数。
+//int main()
+//{
+//	std::string s = "KilluaAoki";
+//	std::cout << "s = " << s << std::endl;
+//	s.push_back('!');
+//	std::cout << "s = " << s << std::endl << std::endl;
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例五：使用"pop_back"成员函数(C++11)。
+//int main()
+//{
+//	std::string s1 = "KilluaAoki!";
+//	std::cout << "s1 = " << s1 << std::endl;
+//	s1.pop_back();//等价于"s1.erase(s.end() - 1)"(除两成员函数的返回值类型不相同)。
+//	std::cout << "s = " << s1 << std::endl << std::endl;
+//
+//	std::string s2 = "KilluaAoki!";
+//	std::cout << "s2 = " << s2 << std::endl;
+//	s2.erase(s2.end() - 1);
+//	std::cout << "s2 = " << s2 << std::endl << std::endl;
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例六：使用"append"成员函数。
+//int main()
+//{
+//	std::string str = "string";
+//	const char* cptr = "C-string";
+//	const char carr[] = "Two and one";
+//	std::string output;
+//
+//	//后附一个"char"类型的字符，共附加"3"个，调用的对应函数原型为：string& append( size_type count, char ch )。
+//	output.append(3, '*');
+//	std::cout << output << std::endl << std::endl;
+//
+//	//后附整个字符串("string"类型的对象)，调用的对应函数原型为：string& append( const string& str )。
+//	output.append(str);
+//	std::cout << output << std::endl << std::endl;
+//
+//	//后附字符串的一部分，调用的对应函数原型为：string& append( const string& str, size_type pos, size_type count )。
+//	output.append(str, 3, 3);
+//	std::cout << output << std::endl << std::endl;
+//
+//	//后附C风格字符串的一部分，调用的对应函数原型为：string& append( const char* s, size_type count )。
+//	output.append(1, ' ').append(carr, 4);//链式调用，因为"append"成员函数的返回值为"*this"。
+//	std::cout << output << std::endl << std::endl;
+//
+//	//后附整个C风格字符串，调用的对应函数原型为：string& append( const char* s )。
+//	output.append(cptr);
+//	std::cout << output << std::endl << std::endl;
+//
+//	return 0;
+//}
+
+//"string"模板类中与操作相关的成员函数示例七：对"string"类对象使用"+="加法赋值运算符。

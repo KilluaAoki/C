@@ -609,7 +609,7 @@
 				e'.int compare( size_type pos1, size_type count1, const char* s ) const;。(C++20前)
 					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与始于"s"所指向字符的长度为"char_traits<char>::length(s)"的空终止字符序列。
 					b''.如果"count1 > size() - pos1"，那么子串的范围是"[pos1, size())"。
-				f'.int compare( size_type pos1, size_type count1, const CharT* s, size_type count2 ) const;。(C++20前)
+				f'.int compare( size_type pos1, size_type count1, const char* s, size_type count2 ) const;。(C++20前)
 					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与"s"范围为"[s, s + count2)"中的字符。
 					b''."s"范围为"[s, s + count2)"中的字符可包含空字符。
 			b.比较两个字符串以字符字典序(实际实现可能分为多个函数进行)
@@ -648,7 +648,7 @@
 		11."copy"成员函数：复制字符。
 			a.函数原型(C++20前)：size_type copy( char* dest, size_type count, size_type pos = 0 ) const;。
 				a'.参数"dest"表示指向目标字符串的指针。
-			b.复制子串范围为"[pos, pos+count)"到"dest"所指向的字符串。
+			b.复制子串范围为"[pos, pos + count)"到"dest"所指向的字符串。
 			c.请求的子串越过当前字符串结尾，或若"count == npos"(生成子串时)，则复制的子串的范围为"[pos, size())"，产生的字符串不是空终止的。
 			d.若"pos > size()"，则抛出异常。
 		12."resize"成员函数：更改存储的字符数。
@@ -797,4 +797,203 @@
 //	return 0;
 //}
 
-//"string"模板类中与操作相关的成员函数示例七：对"string"类对象使用"+="加法赋值运算符。
+////"string"模板类中与操作相关的成员函数示例七：对"string"类对象使用"+="加法赋值运算符。
+//int main()
+//{
+//	std::string str;
+//
+//	std::cout << str << std::endl;
+//
+//	str += "Killua";
+//
+//	std::cout << str << std::endl;
+//
+//	std::string str_tmp = "Aoki";
+//
+//	str += str_tmp;
+//
+//	std::cout << str << std::endl;
+//
+//	str += '!';
+//
+//	std::cout << str << std::endl;
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例八：使用"replace"成员函数。
+//int main()
+//{
+//	int compare_result = 0;
+//	std::string batman = "Batman";
+//	std::string superman = "Superman";
+//
+//	//与另一字符串比较，调用的对应函数原型为：int compare( const string& str ) const。
+//	compare_result = batman.compare(superman);
+//	std::cout << (compare_result < 0 ? "Batman 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 Batman 前面。\n"
+//																						 : "Superman 和 Batman 一样。\n");
+//
+//	//与另一字符串比较子串，调用的对应函数原型为：int compare( size_type pos1, size_type count1, const string& str ) const。
+//	compare_result = batman.compare(3, 3, superman);
+//	std::cout << (compare_result < 0 ? "man 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 man 前面。\n"
+//																					  : "man 和 Superman 一样。\n");
+//
+//	//与另一子串比较子串，调用的对应函数原型为：int compare( size_type pos1, size_type count1, const string& str, size_type pos2, size_type count2 ) const。
+//	compare_result = batman.compare(3, 3, superman, 5, 3);
+//	std::cout << (compare_result < 0 ? "man 在 man 前面。\n" : compare_result > 0 ? "man 在 man 前面。\n"
+//																				 : "man 和 man 一样。\n");
+//
+//	//与另一子串比较子串，调用的对应函数原型为：int compare( size_type pos1, size_type count1, const string& str, size_type pos2, size_type count2 = npos ) const。(在C++14起直至C++20)
+//	assert(compare_result == batman.compare(3, 3, superman, 5));//默认到"superman"的末尾。
+//
+//	//与另一"char"指针比较，调用的对应函数原型为：int compare( const char* s ) const。
+//	compare_result = batman.compare("Superman");
+//	std::cout << (compare_result < 0 ? "Batman 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 Batman 前面。\n"
+//																						 : "Superman 和 Batman 一样。\n");
+//
+//	//与另一"char"指针比较子串，调用的对应函数原型为：int compare( size_type pos1, size_type count1, const char* s ) const。
+//	compare_result = batman.compare(3, 3, "Superman");
+//	std::cout << (compare_result < 0 ? "man 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 man 前面。\n"
+//																					  : "man 和 Superman 一样。\n");
+//
+//	//与另一"char"指针子串比较子串，调用的对应函数原型为：int compare( size_type pos1, size_type count1, const char* s, size_type count2 ) const。
+//	compare_result = batman.compare(0, 3, "Superman", 5);
+//	std::cout << (compare_result < 0 ? "Bat 在 Super 前面。\n" : compare_result > 0 ? "Super 在 Bat 前面。\n"
+//																				   : "Super 和 Bat 一样。\n");
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例九：使用"replace"成员函数。
+//int main()
+//{
+//	std::string batman("Batman");
+//	std::string superman("Superman");
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, const string& str )。
+//	batman.replace(3, 3, superman);
+//	std::cout << batman << std::endl << std::endl;
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, const string& str, size_type pos2, size_type count2 )。
+//	batman.replace(0, -1, superman, 0, -1);
+//	std::cout << batman << std::endl << std::endl;
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, const string& str, size_type pos2, size_type count2 = npos )。
+//	superman.clear();
+//	std::cout << superman << std::endl;
+//	superman.replace(0, -1, batman, 0);
+//	std::cout << superman << std::endl << std::endl;
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, const char* cstr, size_type count2 )。
+//	batman.replace(0, 8, "BatSuperman", 11);
+//	std::cout << batman << std::endl << std::endl;
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, const char* cstr )。
+//	batman.replace(0, 8, "Batman");
+//	std::cout << batman << std::endl << std::endl;
+//
+//	//替换子串，调用的对应函数原型为：string& replace( size_type pos, size_type count, size_type count2, char ch )。
+//	std::cout << batman.replace(6, 3, 1, '!') << std::endl << std::endl;
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例十：使用"substr"成员函数。
+//int main()
+//{
+//	std::string a = "0123456789abcdefghij";
+//
+//	std::string sub1 = a.substr(10);//"count"为"npos"，返回的子串的范围为"[pos, size())"。
+//	std::cout << sub1 << '\n';
+//
+//	std::string sub2 = a.substr(10, 3);//"count"为"3"，返回的子串的范围为"[pos, pos + count)"。
+//	std::cout << sub2 << '\n';
+//
+//	std::string sub3 = a.substr(a.size() - 3, 50);//等价于"a.substr(17, 3)"，返回的子串的范围为"[pos, size())"。
+//	std::cout << sub3 << '\n';
+//	std::string sub4 = a.substr(17, 3);
+//	std::cout << sub3 << '\n';
+//
+//	//抛出异常示例
+//	try
+//	{
+//		std::string sub5 = a.substr(a.size() + 3, 50);//若"pos > size()"，则抛出异常。
+//		std::cout << sub5 << '\n';//不会执行到这里，因为上一行抛出异常。
+//	}
+//	catch (const std::out_of_range& e)
+//	{
+//		std::cout << "pos exceeds string size\n";//输出"pos exceeds string size"。
+//	}
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例十一：使用"copy"成员函数。
+//int main()
+//{
+//	std::string a = "KilluaAoki!!";
+//	char b[10] = { 0 };
+//
+//	a.copy(b, 6, 0);//将"a"中的子串"[0, 6)"复制到"b"中。
+//	std::cout << b << std::endl;
+//
+//	a.copy(b, -1, 6);//生成子串时，"count == npos"，则将"a"中的子串"[6, size())"复制到"b"中。
+//	std::cout << b << std::endl;//原来的"b"中的内容被覆盖。
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例十二：使用"resize"成员函数。
+//int main()
+//{
+//	std::cout << "Basic functionality:\n";
+//	{
+//		std::string::size_type desired_length = 8;
+//		std::string long_string("Where is the end?");
+//		std::string short_string("Ha");
+//
+//		//缩短
+//		std::cout << "Before: \"" << long_string << "\"\n";
+//		long_string.resize(desired_length);
+//		std::cout << "After: \"" << long_string << "\"\n";
+//
+//		//加长
+//		std::cout << "Before: \"" << short_string << "\"\n";
+//		short_string.resize(desired_length, 'a');
+//		std::cout << "After: \"" << short_string << "\"\n\n";
+//	}
+//
+//	std::cout << "Errors:\n";
+//	{
+//		std::string s;
+//		try
+//		{
+//			s.resize(s.max_size() + 1, 'x');//"count > max_size()"，抛出异常。
+//		}
+//		catch (const std::length_error&)
+//		{
+//			std::cout << "length error\n";
+//		}
+//	}
+//
+//	return 0;
+//}
+
+////"string"模板类中与操作相关的成员函数示例十三：使用"swap"成员函数。
+//int main()
+//{
+//	std::string a = "AAA";
+//	std::string b = "BBB";
+//
+//	std::cout << "before swap" << '\n';
+//	std::cout << "a: " << a << '\n';
+//	std::cout << "b: " << b << '\n';
+//
+//	a.swap(b);
+//
+//	std::cout << "after swap" << '\n';
+//	std::cout << "a: " << a << '\n';
+//	std::cout << "b: " << b << '\n';
+//
+//	return 0;
+//}

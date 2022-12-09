@@ -11,6 +11,8 @@
 		5."string"模板类对象的元素访问
 		6."string"模板类中与容量相关的成员函数
 		7."string"模板类中与操作相关的成员函数
+		8."string"模板类中与查找相关的成员函数
+		9."string"模板类相关的非成员函数
 */
 
 /**
@@ -129,6 +131,43 @@
 				b'."npos"为特殊值，是"basic_string"类中的静态成员常变量，类型为"size_type"，其用于表示"size_type"类型的最大值，即"-1"。
 				c'.若"count"与"npos"相等或未指定"count"，或请求的子串越过了此字符串的结尾(越过结尾表示越过字符串的长度减一所对应的位置)，则产生的子串的位置区间为"[pos, other.size())"。
 				d'.复杂度与"count"成线性级别。
+		3."string"类赋值相关成员函数
+			a."operator="成员函数：拷贝赋值运算符，替换字符串的内容。
+				a'.常见函数原型(C++20前)
+					a''.string& operator=( const string& str );。
+						a'''.以"str"的副本替换内容。
+						b'''.若"*this"与"str"为同一对象，则此函数无效果。
+						c'''.复杂度与"str"的大小(长度)成线性级别。
+					b''.string& operator=( const char* s );。
+						a'''.以"s"所指向的空终止字符串的内容替换内容。
+						b'''.复杂度与"s"的大小(长度)成线性级别。
+					c''.string& operator=( char ch );。
+						a'''.以字符 ch 的内容替换内容。
+						b'''.复杂度为常数级别。
+				b'.返回值：*this。
+				c'.若操作将导致字符串的大小大于当前的字符串的最大所能保有的最大元素数，则抛出异常。
+				d'.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
+			b."assign"成员函数：替换字符串的内容。
+				a'.常见函数原型
+					a''.string& assign( size_type count, char ch );。(C++20前)
+						a'''.以"count"个"ch"的副本替换内容。
+						b'''.复杂度与"count"成线性级别。
+					b''.string& assign( const string& str );。(C++20前)
+						a'''.以"str"的副本替换内容，等价于"*this = str"。
+						b'''.复杂度与"str"的大小(长度)成线性级别。
+					c''.string& assign( const string& str, size_type pos, size_type count );。(C++14前)
+						a'''.以"str"的位置区间"[pos, pos + count)"所对应的子串替换内容。
+						b'''.在C++14起直至C++20前，此函数的原型为：string& assign( const string& str, size_type pos, size_type count = npos);。
+						c'''.若"count"与"npos"相等或未指定"count"(C++14起)，或请求的子串越过了此字符串的结尾，则产生的子串的位置区间为"[pos, str.size())"。
+						d'''.若"pos > str.size()"，则抛出异常。
+						e'''.复杂度与"count"成线性级别。
+					d''.string& assign( const char* s, size_type count );。(C++20前)
+						a'''.以范围"[s, s + count)"中的字符的副本替换内容，此范围能含空字符。
+						b'''.复杂度与"count"成线性级别。
+					e''.string& assign( const char* s );。(C++20前)
+						a'''.以"s"所指向的空终止字符串的内容替换内容，字符串的长度通过"char_traits<char>::length(s)"确定。
+						b'''.复杂度与"s"的大小(长度)成线性级别。
+		4."string"类的析构函数：销毁字符串，若使用内部存储则解分配它。
 */
 
 ////"string"模板类的介绍与使用示例一：使用"string"模板类。
@@ -182,6 +221,52 @@
 //	std::cout << other5.size() << '\n';//输出字符串中的字符个数，输出"11"。
 //	std::string s9(other5, 0, -1);//调用的构造函数原型为："string(const string& other, size_type pos, size_type count = npos)"，此处"count"与"npos"的值相同。
 //	std::cout << s9 << '\n';//"count"与"npos"相等，产生的子串的位置区间为"[pos, other.size())"，即"[0, 11)"，故生成的范围区间是对应"other3"对象的位置区间"[0, 10]"。
+//
+//	return 0;
+//}
+
+////"string"模板类的介绍与使用示例三：使用拷贝赋值运算符。
+//int main()
+//{
+//	std::string str1;
+//	std::string str2 = "alpha";
+//
+//	str1 = str2;//调用的赋值运算符的函数原型为："string& operator=(const string& other)"。
+//	std::cout << "str1 = " << str1 << '\n';//输出"alpha"，"str1"对象与"str2"对象相同。
+//	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
+//
+//	str1 = "bata";//调用的赋值运算符的函数原型为："string& operator=(const char* s)"。
+//	std::cout << "str1 = " << str1 << '\n';//输出"bata"。
+//	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
+//
+//	str1 = 'c';//调用的赋值运算符的函数原型为："string& operator=(char c)"。
+//	std::cout << "str1 = " << str1 << '\n';//输出"c"。
+//	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
+//
+//	return 0;
+//}
+
+////"string"模板类的介绍与使用示例四：使用"assign"成员函数。
+//int main()
+//{
+//	std::string s;
+//	s.assign(4, '=');//调用的对应函数原型为："string& assign(size_type count, char c)"。
+//	std::cout << s << '\n';//输出"===="。
+//
+//	std::string s1 = "alpha";
+//	s.assign(s1);//调用的对应函数原型为："string& assign(const string& str)"。
+//	std::cout << s << '\n';//输出"alpha"。
+//
+//	std::string s2 = "bata";
+//	s.assign(s2, 0,
+//			-1);//调用的对应函数原型为："string& assign(const string& str, size_type pos, size_type count = npos)"，此处"count"与"npos"的值相同。
+//	std::cout << s << '\n';//输出"bata"。
+//
+//	s.assign("gamma", 1);//调用的对应函数原型为："string& assign(const char* s, size_type count)"。
+//	std::cout << s << '\n';//输出"gamma"。
+//
+//	s.assign("delta", 0, 5);//调用的对应函数原型为："string& assign(const char* s, size_type pos, size_type count)"。
+//	std::cout << s << '\n';//输出"delta"。
 //
 //	return 0;
 //}
@@ -821,7 +906,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例八：使用"replace"成员函数。
+////"string"模板类中与操作相关的成员函数示例八：使用"compare"成员函数。
 //int main()
 //{
 //	int compare_result = 0;
@@ -994,6 +1079,412 @@
 //	std::cout << "after swap" << '\n';
 //	std::cout << "a: " << a << '\n';
 //	std::cout << "b: " << b << '\n';
+//
+//	return 0;
+//}
+
+/**
+	"string"模板类中与查找相关的成员函数
+		1."find"成员函数：于字符串中寻找字符。
+			a.常见函数原型
+				a'.size_type find( const string& str, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找等于"str"的首个子串。
+				b'.size_type find( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找等于范围"[s, s + count)"的首个子串，此范围能含空字符。
+				c'.size_type find( const char* s, size_type pos = 0 ) const;。(C++20前)
+					a''.寻找等于"s"所指向的字符串的首个子串，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type find( char ch, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找首个字符"ch"。
+			b.即寻找首个等于给定字符序列的子串，搜索始于"pos"，即找到的子串必须不始于"pos"之前的位置。
+			c.若下列条件全部为"true"，则说明在字符串中的位置"xpos"找到子串"str"。
+				a'."xpos >= pos"。
+				b'."xpos + str.size() <= size()"。
+				c'.对于"str"中所有位置"i"，"operator[](xpos + i) == str[i]"(类似)。
+			d.关于"c."的隐含意义
+				a'.仅若"pos <= size() - str.size()"才能找到子串。
+				b'.在"pos"找到空子串，若且唯若"pos <= size()"。
+				c'.对于非空子串，若"pos >= size()"，则函数始终返回"npos"。
+			e.返回值为找到的子串的首字符位置，或若找不到这种子串则为"npos"。
+		2."rfind"成员函数：寻找子串的最后一次出现。
+			a.常见函数原型
+				a'.size_type rfind( const string& str, size_type pos = npos ) const;。(C++11前)
+					a''.寻找等于"str"的最后一次出现的子串。
+				b'.size_type rfind( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找等于范围"[s, s + count)"的最后一次出现的子串，此范围能含空字符。
+				c'.size_type rfind( const char* s, size_type pos = npos ) const;。(C++20前)
+					a''.寻找等于"s"所指向的字符串的最后一次出现的子串，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type rfind( char ch, size_type pos = npos ) const;。(C++11前)
+					a''.寻找等于最后一次出现的字符"ch"。
+			b.即寻找等于给定字符序列的最后子串，搜索始于"pos"，即找到的子串必须不始于"pos"后的位置，即反向搜索。
+			c.若将"npos"或任何不小于"size() - 1"的值作为"pos"传递，则在整个字符串中搜索。
+			d.返回值为找到的子串的首字符位置，或若找不到这种子串则为"npos"，注意这是从字符串开始的位置，而非末尾的偏移。
+			e.若搜索任何空字符串，则返回"pos"(立即找到空字符串)，除非"pos > size()"(包括"pos == npos"的情况)，该情况下返回"size()"。
+			f.若"size()"为零，则始终返回"npos"。
+		3."find_first_of"成员函数：寻找字符的首次出现，即寻找等于给定字符序列中字符之一的首个字符。(了解)
+			a.常见函数原型
+				a'.	size_type find_first_of( const string& str, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找等于"str"中字符之一的首个字符。
+					b''."pos"表示搜索开始的位置。
+				b'.size_type find_first_of( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找等于范围"[s, s + count)"中字符之一的首个字符，此范围能含空字符。
+				c'.size_type find_first_of( const char* s, size_type pos = 0 ) const;。(C++20前)
+					a''.寻找等于"s"所指向的字符串中字符之一的首个字符，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type find_first_of( char ch, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找等于首次出现的字符"ch"。
+			b.返回值为找到的字符的位置，或若找不到这种字符则为"npos"。
+			c.搜索只考虑区间"[pos, size())"中的字符，若区间中不存在字符，则返回"npos"。
+		4."find_first_not_of"成员函数：寻找字符的首次缺失，即寻找不等于给定字符序列中任何字符的首个字符。(了解)
+			a.常见函数原型
+				a'.size_type find_first_not_of( const string& str, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找不等于"str"中任何字符的首个字符。
+					b''."pos"表示搜索开始的位置。
+				b'.size_type find_first_not_of( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找不等于范围"[s, s + count)"中任何字符的首个字符，此范围能含空字符。
+				c'.size_type find_first_not_of( const char* s, size_type pos = 0 ) const;。(C++20前)
+					a''.寻找不等于"s"所指向的字符串中任何字符的首个字符，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type find_first_not_of( char ch, size_type pos = 0 ) const;。(C++11前)
+					a''.寻找不等于首次出现的字符"ch"。
+			b.返回值为找到的字符的位置，或若找不到这种字符则为"npos"。
+			c.搜索只考虑区间"[pos, size())"，若区间中不存在字符，则将返回"npos"。
+		5."find_last_of"成员函数：寻找字符的最后一次出现，即寻找等于给定字符序列中字符之一的最后一个字符。(了解)
+			a.常见函数原型
+				a'.size_type find_last_of( const string& str, size_type pos = npos ) const;。(C++11前)
+					a''.寻找等于"str"中字符之一的最后一个字符。
+					b''."pos"表示搜索结束的位置。
+				b'.size_type find_last_of( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找等于范围"[s, s + count)"中字符之一的最后一个字符，此范围能含空字符。
+				c'.size_type find_last_of( const char* s, size_type pos = npos ) const;。(C++20前)
+					a''.寻找等于"s"所指向的字符串中字符之一的最后一个字符，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type find_last_of( char ch, size_type pos = npos ) const;。(C++11前)
+					a''.寻找等于最后一次出现的字符"ch"。
+			b.返回值为找到的字符的位置，或若找不到这种字符则为"npos"。
+			c.搜索只考虑区间"[0, pos]"，如果区间中不存在这种字符，那么返回"npos"。
+		6."find_last_not_of"成员函数：寻找字符的最后一次缺失，即寻找不等于给定字符序列中任何字符的最后字符。(了解)
+			a.常见函数原型
+				a'.size_type find_last_not_of( const string& str, size_type pos = npos ) const;。(C++11前)
+					a''.寻找不等于"str"中任何字符的最后一个字符。
+					b''."pos"表示搜索结束的位置。
+				b'.size_type find_last_not_of( const char* s, size_type pos, size_type count ) const;。(C++20前)
+					a''.寻找不等于范围"[s, s + count)"中任何字符的最后一个字符，此范围能含空字符。
+				c'.size_type find_last_not_of( const char* s, size_type pos = npos ) const;。(C++20前)
+					a''.寻找不等于"s"所指向的字符串中任何字符的最后一个字符，字符串的长度由首个空字符通过"char_traits<char>::length(s)"确定。
+				d'.size_type find_last_not_of( char ch, size_type pos = npos ) const;。(C++11前)
+					a''.寻找不等于最后一次出现的字符"ch"。
+			b.返回值为找到的字符的位置，或若找不到这种字符则为"npos"。
+			c.搜索只考虑区间"[0, pos]"，如果区间中不存在这种字符，那么返回"npos"。
+*/
+
+////"string"模板类中与查找相关的成员函数示例一：使用"find"成员函数。
+//void print(std::string::size_type n, std::string const& s)
+//{
+//	if (n == std::string::npos)
+//	{
+//		std::cout << "not found\n";
+//	}
+//	else
+//	{
+//		std::cout << "found: " << s.substr(n) << '\n';
+//	}
+//}
+//
+//int main()
+//{
+//	std::string::size_type n;
+//	std::string const s = "This is a string";
+//	std::string const f = "is";
+//
+//	n = s.find(f);//调用的对应函数原型为：size_type find( const string& str, size_type pos = 0 ) const;。
+//	print(n, s);
+//
+//	n = s.find("is", 3, 2);//调用的对应函数原型为：size_type find( const char* s, size_type pos, size_type count ) const;。
+//	print(n, s);
+//
+//	n = s.find("is");//调用的对应函数原型为：size_type find( const char* s, size_type pos = 0 ) const;。
+//	print(n, s);
+//
+//	n = s.find('.');//调用的对应函数原型为：size_type find( char ch, size_type pos = 0 ) const;。
+//	print(n, s);
+//
+//	return 0;
+//}
+
+////"string"模板类中与查找相关的成员函数示例二：使用"rfind"成员函数。
+//void print(std::string::size_type n, std::string const& s)
+//{
+//	if (n == std::string::npos)
+//	{
+//		std::cout << "not found\n";
+//	}
+//	else
+//	{
+//		std::cout << "found: \"" << s.substr(n) << "\" at " << n << '\n';
+//	}
+//}
+//
+//int main()
+//{
+//	std::string::size_type n;
+//	std::string const s = "This is a string";
+//	std::string const f = "is";
+//
+//	n = s.rfind(f);//调用的对应函数原型为：size_type rfind( const string& str, size_type pos = npos ) const;。
+//	print(n, s);
+//
+//	n = s.rfind("is", 3, 2);//调用的对应函数原型为：size_type rfind( const char* s, size_type pos, size_type count ) const;。
+//	print(n, s);
+//
+//	n = s.rfind("is");//调用的对应函数原型为：size_type rfind( const char* s, size_type pos = npos ) const;。
+//	print(n, s);
+//
+//	n = s.rfind('.');//调用的对应函数原型为：size_type rfind( char ch, size_type pos = npos ) const;。
+//	print(n, s);
+//
+//	return 0;
+//}
+
+////"string"模板类中与查找相关的成员函数示例三：使用"find_first_of"成员函数。
+//int main()
+//{
+//	//被搜索的字符串
+//	const std::string str = "Hello World!";
+//
+//	//要搜索的字符和字符串
+//	const std::string search_str = "o";
+//	const char* search_cstr = "Good Bye!";
+//
+//	//寻找字符的首次出现
+//	std::cout << str.find_first_of(search_str) << std::endl;
+//	std::cout << str.find_first_of(search_str, 5) << std::endl;
+//	std::cout << str.find_first_of(search_cstr) << std::endl;
+//	std::cout << str.find_first_of(search_cstr, 0, 4) << std::endl;
+//	std::cout << str.find_first_of('x') << '\n';//当字符不在"str"中时它将返回"npos"。
+//	return 0;
+//}
+
+////"string"模板类中与查找相关的成员函数示例四：使用"find_first_not_of"成员函数。
+//int main()
+//{
+//	std::string to_search = "Some data with %MACROS to substitute";
+//	std::cout << "Before: " << to_search << '\n';
+//	auto pos = std::string::npos;
+//	while ((pos = to_search.find('%')) != std::string::npos)
+//	{
+//		const auto after = to_search.find_first_not_of(
+//				"ABCDEFGHIJKLMNOPQRSTUVWXYZ""abcdefghijklmnopqrstuvwxyz""0123456789", pos + 1);
+//		if (after != std::string::npos)
+//		{
+//			to_search.replace(pos, after - pos, "some very nice macros");
+//		}
+//	}
+//	std::cout << "After: " << to_search << '\n';
+//	return 0;
+//}
+
+////"string"模板类中与查找相关的成员函数示例五：使用"find_last_of"成员函数。
+//int main()
+//{
+//	const std::string path = "/root/config";
+//	auto const pos = path.find_last_of('/');
+//	const auto leaf = path.substr(pos + 1);
+//	std::cout << leaf << '\n';
+//	return 0;
+//}
+
+////"string"模板类中与查找相关的成员函数示例六：使用"find_last_not_of"成员函数。
+//void show_pos(const std::string& str, std::string::size_type found)
+//{
+//	if (found != std::string::npos)
+//		std::cout << "[" << found << "] = \'" << str[found] << "\'\n";
+//	else
+//		std::cout << "没有找到" "\n";
+//}
+//
+//int main()
+//{
+//	std::string str = "abc_123";
+//	const char* skip_set = "0123456789";
+//
+//	show_pos(str, str.find_last_not_of(skip_set));
+//
+//	show_pos(str, str.find_last_not_of(skip_set, 2));
+//
+//	show_pos(str, str.find_last_not_of('c', 2));
+//
+//	show_pos(str, str.find_last_not_of(skip_set, 2, 4));
+//
+//	return 0;
+//}
+
+/**
+	"string"模板类相关的非成员函数
+		1."operator+"非成员函数：连接两个字符串或者一个字符串和一个字符。(函数模板)(C++11前)
+			a.函数原型(忽略模板声明、分配器和命名空间等细节)
+				a'.string& operator+(const string& lhs, const string& rhs);。
+				b'.string& operator+(const string& lhs, const char* rhs);。
+				c'.string& operator+(const string& lhs, char rhs);。
+				d'.string& operator+(const char* lhs, const string& rhs);。
+				e'.string& operator+(char lhs, const string& rhs);。
+			b.参数
+				a'."lhs"："string"、字符或指向空终止字符序列首字符的指针，代表左操作数。
+				b'."rhs"："string"、字符或指向空终止字符序列首字符的指针，代表右操作数。
+			c.返回含有来自"lhs"的字符后随来自"rhs"的字符的字符串。
+		2.以字典序比较两个字符串的相关函数(函数模板)
+			a.将各个用于比较的运算符进行重载，以便于使用"string"模板类的对象进行比较。
+			b.常见函数原型(省略了模板声明、分配器和命名空间等细节)
+				a'."operator=="函数原型
+					a''.bool operator==(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator==(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator==(const char* lhs, const string& rhs);。(C++20前)
+				b'."operator!="函数原型
+					a''.bool operator!=(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator!=(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator!=(const char* lhs, const string& rhs);。(C++20前)
+				c'."operator<"函数原型
+					a''.bool operator<(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator<(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator<(const char* lhs, const string& rhs);。(C++20前)
+				d'."operator>"函数原型
+					a''.bool operator>(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator>(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator>(const char* lhs, const string& rhs);。(C++20前)
+				e'."operator<="函数原型
+					a''.bool operator<=(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator<=(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator<=(const char* lhs, const string& rhs);。(C++20前)
+				f'."operator>="函数原型
+					a''.bool operator>=(const string& lhs, const string& rhs);。(C++11前)
+					b''.bool operator>=(const string& lhs, const char* rhs);。(C++20前)
+					c''.bool operator>=(const char* lhs, const string& rhs);。(C++20前)
+			c.比较"string"与另一"string"或"char"的空终止数组的内容。
+			d."lhs"、"rhs"参数：表示要比较内容的字符串。
+			e.若对应比较关系成立则为"true"，否则为"false"。
+			f.所有比较通过"compare"成员函数进行，故复杂度与字符串的大小成线性级别("O(N)")。
+		3."swap"非成员函数：标准算法库中的"swap"函数模板对"basic_string"模板类的特化，用于交换两个"string"对象的内容。(函数模板)
+			a.常见函数原型：void swap(string& lhs, string& rhs);。(C++17前)
+			b."lhs"、"rhs"参数：要交换内容的"string"对象。
+			c.等价于"lhs.swap(rhs)"。
+		4.流提取和流插入：即"operator>>"和"operator<<"的重载，用于从流中提取或插入"string"对象。(函数模板)
+			a.函数原型(省略了模板声明、分配器和命名空间等细节)
+				a'."operator>>"函数原型：istream& operator>>(istream& is, const string& str);。
+					a''.从输入流中提取一个字符串，将序列存储在"str"中，并且覆盖其原有的值。
+					b''.提取的字符串以空白字符为分隔符，空白字符不被提取。
+					c''.当遇到空白字符或到达流的末尾时，将提取的字符存入"str"中。
+					d''.若提取成功，则返回"is"对象。
+				b'."operator<<"函数原型：ostream& operator<<(ostream& os, const string& str);。
+					a''.将字符串"str"插入到输出流中。
+			b."is"、"os"参数：分别表示字符输入流和字符输出流。
+			c.返回值：若提取或插入成功，将返回"is"或"os"对象。
+		5."getline"非成员函数：从"I/O"流中读取数据到字符串，直到遇到换行符为止。(函数模板)
+			a.常见函数原型(省略了模板声明、分配器和命名空间等细节)
+				a'.istream& getline(istream& input, string& str, char delim);。
+				b'.istream& getline(istream& input, string& str);。
+			b.从输入流读取字符并将它们放进字符串，默认分隔符是换行符，但也可以通过"delim"参数指定其他分隔符。
+			c.返回值：若读取成功，将返回"input"对象。
+		6.数值转换相关函数(C++11起)(了解)
+			a.转换字符串为有符号整数："stoi"函数、"stol"函数、"stoll"函数。
+				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/stol。
+			b.转换字符串为无符号整数："stoul"函数、"stoull"函数。
+				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/stoul。
+			c.转换字符串为浮点数："stof"函数、"stod"函数、"stold"函数。
+				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/stof。
+			d.转换整数或浮点值为"string"："to_stri"函数。
+				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/to_string。
+			e.转换整数或浮点值为"wstring"："to_wstri"函数。
+				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/to_wstring。
+*/
+
+////"string"模板类相关的非成员函数示例一：使用"operator+"。
+//int main()
+//{
+//	std::string s1 = "Hello";
+//	std::string s2 = "World";
+//	std::cout << s1 + ' ' + s2 + "!\n";
+//	return 0;
+//}
+
+////"string"模板类相关的非成员函数示例二：使用比较运算符对字符串进行比较。
+//int main()
+//{
+//	std::string s1 = "Hello";
+//	std::string s2 = "World";
+//	char cstr[] = "Hello World!";
+//
+//	std::cout << "s1 == s2: " << (s1 == s2) << '\n';
+//	std::cout << "s1 != s2: " << (s1 != s2) << '\n';
+//	std::cout << "s1 < s2: " << (s1 < s2) << '\n';
+//	std::cout << "s1 <= s2: " << (s1 <= s2) << '\n';
+//	std::cout << "s1 > s2: " << (s1 > s2) << '\n';
+//	std::cout << "s1 >= s2: " << (s1 >= s2) << '\n' << '\n';
+//
+//	std::cout << "s1 == cstr: " << (s1 == cstr) << '\n';
+//	std::cout << "s1 != cstr: " << (s1 != cstr) << '\n';
+//	std::cout << "s1 < cstr: " << (s1 < cstr) << '\n';
+//	std::cout << "s1 <= cstr: " << (s1 <= cstr) << '\n';
+//	std::cout << "s1 > cstr: " << (s1 > cstr) << '\n';
+//	std::cout << "s1 >= cstr: " << (s1 >= cstr) << '\n' << '\n';
+//
+//	std::cout << "cstr == s2: " << (cstr == s2) << '\n';
+//	std::cout << "cstr != s2: " << (cstr != s2) << '\n';
+//	std::cout << "cstr < s2: " << (cstr < s2) << '\n';
+//	std::cout << "cstr <= s2: " << (cstr <= s2) << '\n';
+//	std::cout << "cstr > s2: " << (cstr > s2) << '\n';
+//	std::cout << "cstr >= s2: " << (cstr >= s2) << '\n' << '\n';
+//
+//	return 0;
+//}
+
+////"string"模板类相关的非成员函数示例三：使用"swap"非成员函数。
+//int main()
+//{
+//	std::string s1 = "Hello";
+//	std::string s2 = "World";
+//
+//	std::cout << "s1: " << s1 << '\n';
+//	std::cout << "s2: " << s2 << '\n' << '\n';
+//
+//	std::swap(s1, s2);//等价于"s1.swap(s2)"。
+//
+//	std::cout << "s1: " << s1 << '\n';
+//	std::cout << "s2: " << s2 << '\n' << '\n';
+//
+//	return 0;
+//}
+
+////"string"模板类相关的非成员函数示例四：使用流提取和流插入于字符串。
+//int main()
+//{
+//	std::string s1 = "Hello";
+//	std::string s2 = "World";
+//	std::string s3;
+//
+//	std::cout << "s1: " << s1 << '\n';
+//	std::cout << "s2: " << s2 << '\n';
+//
+//	std::cout << "s3: " << s3;
+//	std::cin >> s3;//从标准输入流中读取字符串，直到遇到空白字符为止。
+//	std::cout << "s3: " << s3 << '\n';
+//
+//	return 0;
+//}
+
+////"string"模板类相关的非成员函数示例五：使用"getline"函数。
+//int main()
+//{
+//	std::string s1 = "Hello";
+//	std::string s2 = "World";
+//	std::string s3;
+//	std::string s4;
+//
+//	std::cout << "s1: " << s1 << '\n';
+//	std::cout << "s2: " << s2 << '\n';
+//
+//	std::cout << "s3: " << s3;
+//	std::getline(std::cin, s3);//从标准输入流中读取字符串，直到遇到换行符为止。
+//	std::cout << "s3: " << s3 << '\n';
+//
+//	std::cout << "s4: " << s4;
+//	std::getline(std::cin, s4, ' ');//根据指定的分隔符从标准输入流中读取字符串。
+//	std::cout << "s4: " << s4 << '\n';
 //
 //	return 0;
 //}

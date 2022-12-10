@@ -628,11 +628,13 @@
 				b'.iterator erase( iterator position );。(C++11前)
 					a''.移除位于"position"的字符，"position"是指向要移除的字符的迭代器。
 					b''.返回指向立即后随被擦除字符的迭代器，或者在不存在这种字符的情况下返回"end"成员函数的返回值。
-					c''.不抛出异常。
+					c''.在C++11起直至C++20前，此函数的原型为：iterator erase( const_iterator position );。
+					d''.不抛出异常。
 				c'.iterator erase( iterator first, iterator last );。(C++11前)
 					a''.移除范围"[first, last)"中的字符，"first"是指向要移除的首个字符的迭代器，而"last"是指向后随字符串末字符的字符的迭代器。
 					b''.返回指向擦除前"last"指向的字符的迭代器，或者在不存在这种字符的情况下返回"end"成员函数的返回值。
-					c''.不抛出异常。
+					c''.在C++11起直至C++20前，此函数的原型为：iterator erase( const_iterator first, const_iterator last );。
+					d''.不抛出异常。
 			b.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
 		04."push_back"成员函数：后附字符到结尾，即后附给定的字符到字符串尾。
 			a.函数原型(C++20前)：void push_back( char ch );。

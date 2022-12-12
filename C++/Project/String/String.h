@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-#include <cstring>
+#include <cstring>          //使用"strlen"函数。
+#include <cassert>          //以断言宏检查错误(替代异常)。
 
 namespace Aoki
 {
@@ -19,15 +20,15 @@ namespace Aoki
 		//构造函数和析构函数
 		String();
 
-		String(const char* str);
+		String(size_type count, char ch);
+
+		String(const String& other, size_type pos, size_type count = npos);
 
 		String(const char* str, size_type count);
 
-		String(size_type count, char ch);
+		String(const char* str);
 
 		String(const String& other);
-
-		String(const String& other, size_type pos, size_type count = npos);
 
 		~String();
 
@@ -43,11 +44,11 @@ namespace Aoki
 
 		String& assign(const String& str);
 
-		String& assign(const char& str, size_type pos, size_type count = npos);
+		String& assign(const String& str, size_type pos, size_type count = npos);
 
-		String& assign(const char* str, size_type count);
+		String& assign(const char* s, size_type count);
 
-		String& assign(const char* str);
+		String& assign(const char* s);
 
 		//元素访问
 		reference operator[](size_type pos);
@@ -91,6 +92,8 @@ namespace Aoki
 		void reserve(size_type new_cap = 0);
 
 		size_type capacity() const;
+
+		void shrink_to_fit();
 
 		//操作
 		void clear();

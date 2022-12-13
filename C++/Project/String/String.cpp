@@ -33,7 +33,7 @@ Aoki::String::String(const String& other, size_type pos, size_type count)
 	}
 }
 
-Aoki::String::String(const char* str, size_type count)
+Aoki::String::String(const char* s, size_type count)
 {
 	assert(count <= max_size());
 	str_ = new char[count + 1];
@@ -41,16 +41,16 @@ Aoki::String::String(const char* str, size_type count)
 	size_ = capacity_ = count;
 	while (count--)
 	{
-		*(str_ + count) = *(str + count);
+		*(str_ + count) = *(s + count);
 	}
 }
 
-Aoki::String::String(const char* str)
+Aoki::String::String(const char* s)
 {
-	capacity_ = size_ = (size_type)std::strlen(str);
+	capacity_ = size_ = (size_type)std::strlen(s);
 	str_ = new char[capacity_ + 1];
 	auto p = str_;
-	while ((*p++ = *str++) != '\0');
+	while ((*p++ = *s++) != '\0');
 }
 
 Aoki::String::String(const String& other)
@@ -434,14 +434,14 @@ Aoki::String& Aoki::String::insert(size_type index, const String& str, size_type
 
 Aoki::String::iterator Aoki::String::insert(const_iterator pos, char ch)
 {
-	auto index = pos - begin();
+	size_type index = pos - begin();
 	insert(index, 1, ch);
 	return begin() + index;
 }
 
 Aoki::String::iterator Aoki::String::insert(const_iterator pos, size_type count, char ch)
 {
-	auto index = pos - begin();
+	size_type index = pos - begin();
 	insert(index, count, ch);
 	return begin() + index;
 }
@@ -449,7 +449,7 @@ Aoki::String::iterator Aoki::String::insert(const_iterator pos, size_type count,
 Aoki::String& Aoki::String::erase(size_type index, size_type count)
 {
 	assert(index <= size_);
-	count = std::min(count, size_ - index);
+	count = count > size_ - index ? size_ - index : count;
 	for (size_type i = index; i < size_ - count; ++i)
 	{
 		str_[i] = str_[i + count];
@@ -474,19 +474,20 @@ Aoki::String::iterator Aoki::String::erase(const_iterator first, const_iterator 
 	return begin() + index;
 }
 
-void Aoki::String::pust_back(char ch)
+void Aoki::String::push_back(char ch)
 {
 	assert(size_ + 1 <= max_size());
 	if (size_ == capacity_)
 	{
-		auto tmp = new char[capacity_ + 1 + 1];
+		size_type newCapacity = capacity_ == 0 ? 1 : capacity_ * 2;
+		auto tmp = new char[newCapacity + 1];
 		for (size_type i = 0; i < size_; ++i)
 		{
 			tmp[i] = str_[i];
 		}
 		delete[] str_;
 		str_ = tmp;
-		capacity_ += 1;
+		capacity_ = newCapacity;
 	}
 	str_[size_] = ch;
 	str_[++size_] = '\0';
@@ -495,6 +496,102 @@ void Aoki::String::pust_back(char ch)
 void Aoki::String::pop_back()
 {
 	str_[--size_] = '\0';
+}
+
+Aoki::String& Aoki::String::append(size_type count, char ch)
+{
+	assert(size_ + count <= max_size());
+	if (size_ + count > capacity_)
+	{
+		reserve(size_ + count);
+	}
+	while (count--)
+	{
+		str_[size_++] = ch;
+	}
+	str_[size_] = '\0';
+	return *this;
+}
+
+Aoki::String& Aoki::String::append(const String& str)
+{
+	assert(size_ + str.size_ <= max_size());
+	if (size_ + str.size_ > capacity_)
+	{
+		reserve(size_ + str.size_);
+	}
+	for (size_type i = 0; i < str.size_; ++i)
+	{
+		str_[size_++] = str[i];
+	}
+	str_[size_] = '\0';
+	return *this;
+}
+
+Aoki::String& Aoki::String::append(const String& str, size_type pos, size_type count)
+{
+	assert(pos <= str.size_);
+	if (count == npos || pos + count > str.size_)
+	{
+		count = str.size_;
+	}
+	assert(size_ + count <= max_size());
+	if (size_ + count > capacity_)
+	{
+		reserve(size_ + count);
+	}
+	while (count--)
+	{
+		str_[size_++] = str[pos++];
+	}
+	str_[size_] = '\0';
+	return *this;
+}
+
+Aoki::String& Aoki::String::append(const char* s, size_type count)
+{
+	assert(size_ + count <= max_size());
+	if (size_ + count > capacity_)
+	{
+		reserve(size_ + count);
+	}
+	while (count--)
+	{
+		str_[size_++] = *s++;
+	}
+	str_[size_] = '\0';
+	return *this;
+}
+
+Aoki::String& Aoki::String::append(const char* s)
+{
+	auto count = (size_type)std::strlen(s);
+	assert(size_ + count <= max_size());
+	if (size_ + count > capacity_)
+	{
+		reserve(size_ + count);
+	}
+	while (count--)
+	{
+		str_[size_++] = *s++;
+	}
+	str_[size_] = '\0';
+	return *this;
+}
+
+Aoki::String& Aoki::String::operator+=(const String& str)
+{
+	return append(str);
+}
+
+Aoki::String& Aoki::String::operator+=(char ch)
+{
+	return append(1, ch);
+}
+
+Aoki::String& Aoki::String::operator+=(const char* s)
+{
+	return append(s);
 }
 
 Aoki::String Aoki::String::substr(size_type pos, size_type count) const

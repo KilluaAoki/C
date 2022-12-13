@@ -24,9 +24,9 @@ namespace Aoki
 
 		String(const String& other, size_type pos, size_type count = npos);
 
-		String(const char* str, size_type count);
+		String(const char* s, size_type count);
 
-		String(const char* str);
+		String(const char* s);
 
 		String(const String& other);
 
@@ -40,6 +40,7 @@ namespace Aoki
 		String& operator=(char ch);
 
 		//赋值操作
+
 		String& assign(size_type count, char ch);
 
 		String& assign(const String& str);
@@ -118,7 +119,7 @@ namespace Aoki
 
 		iterator erase(const_iterator first, const_iterator last);
 
-		void pust_back(char ch);
+		void push_back(char ch);
 
 		void pop_back();
 
@@ -126,7 +127,7 @@ namespace Aoki
 
 		String& append(const String& str);
 
-		String& append(const String& str, size_type pos, size_type count);
+		String& append(const String& str, size_type pos, size_type count = npos);
 
 		String& append(const char* s, size_type count);
 

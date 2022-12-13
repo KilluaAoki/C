@@ -231,7 +231,7 @@
 //	std::string str1;
 //	std::string str2 = "alpha";
 //
-//	str1 = str2;//调用的赋值运算符的函数原型为："string& operator=(const string& other)"。
+//	str1 = str2;//调用的赋值运算符的函数原型为："string& operator=(const string& str)"。
 //	std::cout << "str1 = " << str1 << '\n';//输出"alpha"，"str1"对象与"str2"对象相同。
 //	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
 //

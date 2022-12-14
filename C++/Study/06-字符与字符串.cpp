@@ -698,6 +698,8 @@
 				f'.int compare( size_type pos1, size_type count1, const char* s, size_type count2 ) const;。(C++20前)
 					a''.比较此字符串范围为"[pos1, pos1 + count1)"的子串与"s"范围为"[s, s + count2)"中的字符。
 					b''."s"范围为"[s, s + count2)"中的字符可包含空字符。
+					c''.如果"count1 > size() - pos1"，那么子串的范围是"[pos1, size())"。
+					d''.若"[s, s + count2)"范围不是有效范围，则行为未定义。
 			b.比较两个字符串以字符字典序(实际实现可能分为多个函数进行)
 				a'.获取要比较的字符串(称为"s1"和"s2")，以及要比较来自"s1"与"s2"的字符数(称为"count1"和"count2")，计算并比较字符串"s1"与"s2"的首"count"个字节，比较按字典序进行。
 					a''.即比较始于"data1"的"count1"个字符组成的字符序列与始于"data2"的"count2"个字符组成的字符序列。
@@ -723,7 +725,7 @@
 					a''.新字符串是"count2"个字符"ch"组成的字符串。
 			b.返回值：*this。
 			c.若"pos > length()"或"pos2 > str.length()"，则抛出异常。
-			d.若产生的字符串将超出最大可能的字符串长度("max_size() - 1")，则抛出异常。
+			d.若产生的字符串将超出最大可能的字符串长度("max_size()")，则抛出异常。
 			e.C++11起，在任何情况下，如果因为任何原因抛出异常，那么此函数无效果(强异常保证)。
 		10."substr"成员函数：返回子串。
 			a.函数原型(C++20前)：string substr( size_type pos = 0, size_type count = npos ) const;。
@@ -1366,7 +1368,7 @@
 			c.等价于"lhs.swap(rhs)"。
 		4.流提取和流插入：即"operator>>"和"operator<<"的重载，用于从流中提取或插入"string"对象。(函数模板)
 			a.函数原型(省略了模板声明、分配器和命名空间等细节)
-				a'."operator>>"函数原型：istream& operator>>(istream& is, const string& str);。
+				a'."operator>>"函数原型：istream& operator>>(istream& is, string& str);。
 					a''.从输入流中提取一个字符串，将序列存储在"str"中，并且覆盖其原有的值。
 					b''.提取的字符串以空白字符为分隔符，空白字符不被提取。
 					c''.当遇到空白字符或到达流的末尾时，将提取的字符存入"str"中。

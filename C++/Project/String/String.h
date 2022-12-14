@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <cstring>          //使用"strlen"函数。
+#include <cstring>          //使用"strlen"函数和"strcmp"函数。
 #include <cassert>          //以断言宏检查错误(替代异常)。
 
 namespace Aoki

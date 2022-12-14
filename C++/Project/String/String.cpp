@@ -594,6 +594,214 @@ Aoki::String& Aoki::String::operator+=(const char* s)
 	return append(s);
 }
 
+int Aoki::String::compare(const String& str) const
+{
+	auto count = size_ < str.size_ ? size_ : str.size_;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[i] < str.str_[i])
+		{
+			return -1;
+		}
+		else if (str_[i] > str.str_[i])
+		{
+			return 1;
+		}
+	}
+	if (size_ < str.size_)
+	{
+		return -1;
+	}
+	else if (size_ > str.size_)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int Aoki::String::compare(size_type pos1, size_type count1, const String& str) const
+{
+	if (count1 > size_ - pos1)
+	{
+		count1 = size_ - pos1;
+	}
+	auto count = count1 < str.size_ ? count1 : str.size_;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[pos1 + i] < str.str_[i])
+		{
+			return -1;
+		}
+		else if (str_[pos1 + i] > str.str_[i])
+		{
+			return 1;
+		}
+	}
+	if (count1 < str.size_)
+	{
+		return -1;
+	}
+	else if (count1 > str.size_)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int Aoki::String::compare(size_type pos1, size_type count1, const String& str, size_type pos2, size_type count2) const
+{
+	if (count1 > size_ - pos1)
+	{
+		count1 = size_ - pos1;
+	}
+	if (count2 > str.size_ - pos2)
+	{
+		count2 = str.size_ - pos2;
+	}
+	auto count = count1 < count2 ? count1 : count2;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[pos1 + i] < str.str_[pos2 + i])
+		{
+			return -1;
+		}
+		else if (str_[pos1 + i] > str.str_[pos2 + i])
+		{
+			return 1;
+		}
+	}
+	if (count1 < count2)
+	{
+		return -1;
+	}
+	else if (count1 > count2)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int Aoki::String::compare(const char* s) const
+{
+	auto sLen = (size_type)std::strlen(s);
+	auto count = size_ < sLen ? size_ : sLen;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[i] < s[i])
+		{
+			return -1;
+		}
+		else if (str_[i] > s[i])
+		{
+			return 1;
+		}
+	}
+	if (size_ < sLen)
+	{
+		return -1;
+	}
+	else if (size_ > sLen)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int Aoki::String::compare(size_type pos1, size_type count1, const char* s) const
+{
+	if (count1 > size_ - pos1)
+	{
+		count1 = size_ - pos1;
+	}
+	auto sLen = (size_type)std::strlen(s);
+	auto count = count1 < sLen ? count1 : sLen;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[pos1 + i] < s[i])
+		{
+			return -1;
+		}
+		else if (str_[pos1 + i] > s[i])
+		{
+			return 1;
+		}
+	}
+	if (count1 < sLen)
+	{
+		return -1;
+	}
+	else if (count1 > sLen)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+int Aoki::String::compare(size_type pos1, size_type count1, const char* s, size_type count2) const
+{
+	if (count1 > size_ - pos1)
+	{
+		count1 = size_ - pos1;
+	}
+	auto count = count1 < count2 ? count1 : count2;
+	for (size_type i = 0; i < count; ++i)
+	{
+		if (str_[pos1 + i] < s[i])
+		{
+			return -1;
+		}
+		else if (str_[pos1 + i] > s[i])
+		{
+			return 1;
+		}
+	}
+	if (count1 < count2)
+	{
+		return -1;
+	}
+	else if (count1 > count2)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+Aoki::String& Aoki::String::replace(size_type pos, size_type count, const String& str)
+{
+}
+
+Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const String& str)
+{
+}
+
+Aoki::String& Aoki::String::replace(size_type pos, size_type count, const String& str, size_type pos2, size_type count2)
+{
+}
+
+Aoki::String& Aoki::String::replace(size_type pos, size_type count, const char* cstr, size_type count2)
+{
+}
+
+Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const char* cstr, size_type count2)
+{
+}
+
+Aoki::String& Aoki::String::replace(Aoki::String::size_type pos, Aoki::String::size_type count, const char* cstr)
+{
+}
+
+Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const char* cstr)
+{
+}
+
+Aoki::String& Aoki::String::replace(size_type pos, size_type count, size_type count2, char ch)
+{
+}
+
+Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, size_type count2, char ch)
+{
+}
+
 Aoki::String Aoki::String::substr(size_type pos, size_type count) const
 {
 	assert(pos <= size_);

@@ -1,4 +1,5 @@
 #include "String.h"
+#include <string>
 
 void Test_String_01()
 {
@@ -499,6 +500,20 @@ void Test_String_08()
 	printf("*****************************EXIT*****************************\n\n");
 }
 
+void Test_String_09()
+{
+	printf("******************************09******************************\n");
+
+	std::string s1("Killua");
+	std::string s2("Aoki");
+
+	s1.replace(6, 0, s2);
+
+	std::cout << "s1 = " << s1 << std::endl;
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
 int main()
 {
 	Test_String_01();
@@ -509,5 +524,6 @@ int main()
 	Test_String_06();
 	Test_String_07();
 	Test_String_08();
+	Test_String_09();
 	return 0;
 }

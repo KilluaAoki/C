@@ -1,5 +1,8 @@
 #include "String.h"
 #include <string>
+#include <cstdio>
+
+using std::printf;
 
 void Test_String_01()
 {
@@ -504,12 +507,217 @@ void Test_String_09()
 {
 	printf("******************************09******************************\n");
 
-	std::string s1("Killua");
-	std::string s2("Aoki");
+	int compare_result = 0;
+	Aoki::String batman = "Batman";
+	Aoki::String superman = "Superman";
 
-	s1.replace(6, 0, s2);
+	compare_result = batman.compare(superman);
+	std::cout << (compare_result < 0 ? "Batman 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 Batman 前面。\n"
+																						 : "Superman 和 Batman 一样。\n");
 
-	std::cout << "s1 = " << s1 << std::endl;
+	compare_result = batman.compare(3, 3, superman);
+	std::cout << (compare_result < 0 ? "man 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 man 前面。\n"
+																					  : "man 和 Superman 一样。\n");
+
+	compare_result = batman.compare(3, 3, superman, 5, 3);
+	std::cout << (compare_result < 0 ? "man 在 man 前面。\n" : compare_result > 0 ? "man 在 man 前面。\n"
+																				 : "man 和 man 一样。\n");
+
+	assert(compare_result == batman.compare(3, 3, superman, 5));
+
+	compare_result = batman.compare("Superman");
+	std::cout << (compare_result < 0 ? "Batman 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 Batman 前面。\n"
+																						 : "Superman 和 Batman 一样。\n");
+
+	compare_result = batman.compare(3, 3, "Superman");
+	std::cout << (compare_result < 0 ? "man 在 Superman 前面。\n" : compare_result > 0 ? "Superman 在 man 前面。\n"
+																					  : "man 和 Superman 一样。\n");
+
+	compare_result = batman.compare(0, 3, "Superman", 5);
+	std::cout << (compare_result < 0 ? "Bat 在 Super 前面。\n" : compare_result > 0 ? "Super 在 Bat 前面。\n"
+																				   : "Super 和 Bat 一样。\n");
+
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
+void Test_String_10()
+{
+	printf("******************************10******************************\n");
+
+	{
+		Aoki::String a = "0123456789abcdefghij";
+
+		Aoki::String sub1 = a.substr(10);
+		std::cout << sub1 << '\n';
+
+		Aoki::String sub2 = a.substr(10, 3);
+		std::cout << sub2 << '\n';
+
+		Aoki::String sub3 = a.substr(a.size() - 3, 50);
+		std::cout << sub3 << '\n';
+
+		Aoki::String sub4 = a.substr(17, 3);
+		std::cout << sub3 << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		Aoki::String b("KilluaAoki");
+		char cb[15] = { 0 };
+
+		b.copy(cb, 6, 0);
+		std::cout << cb << '\n';
+
+		b.copy(cb, -1, 6);
+		std::cout << cb << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		Aoki::String::size_type desired_length = 8;
+		Aoki::String long_string("Where is the end?");
+		Aoki::String short_string("Ha");
+
+		std::cout << "Before: \"" << long_string << "\"\n";
+		long_string.resize(desired_length);
+		std::cout << "After: \"" << long_string << "\"\n";
+
+		std::cout << "Before: \"" << short_string << "\"\n";
+		short_string.resize(desired_length, 'a');
+		std::cout << "After: \"" << short_string << "\"\n";
+	}
+
+	std::cout << '\n';
+
+	{
+		Aoki::String a = "AAA";
+		Aoki::String b = "BBB";
+
+		std::cout << "before swap" << '\n';
+		std::cout << "a: " << a << '\n';
+		std::cout << "b: " << b << '\n';
+
+		a.swap(b);
+
+		std::cout << "after swap" << '\n';
+		std::cout << "a: " << a << '\n';
+		std::cout << "b: " << b << '\n';
+	}
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
+void Test_String_11()
+{
+	printf("******************************11******************************\n");
+
+	Aoki::String::size_type n;
+	Aoki::String s1 = "This is a string";
+	Aoki::String s2 = "is";
+
+	n = s1.find(s2);
+	std::cout << "The first '" << s2 << "' is at: " << n << '\n';
+
+	n = s1.find("is", 3, 2);
+	std::cout << "The second '" << s2 << "' is at: " << n << '\n';
+
+	n = s1.find("is");
+	std::cout << "The third '" << s2 << "' is at: " << n << '\n';
+
+	n = s1.find('.');
+	std::cout << "The first 's' is at: " << n << '\n';
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
+void Test_String_12()
+{
+	printf("******************************12******************************\n");
+
+	Aoki::String s1("Killua");
+	Aoki::String s2("Aoki");
+
+	{
+		std::cout << s1 + s2 << '\n';
+
+		Aoki::String s3 = s1 + s2;
+		std::cout << s3 << '\n';
+
+		Aoki::String s4 = s1 + "Aoki";
+		std::cout << s4 << '\n';
+
+		Aoki::String s5 = "Killua" + s2;
+		std::cout << s5 << '\n';
+
+		Aoki::String s6 = '>' + s1;
+		std::cout << s6 << '\n';
+
+		Aoki::String s7 = s2 + '!';
+		std::cout << s7 << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		std::cout << s1 << '\n' << s2 << '\n';
+
+		std::cout << (s1 == s2) << '\n';
+		std::cout << (s1 == "Killua") << '\n';
+		std::cout << ("Killua" == s1) << '\n';
+
+		std::cout << (s1 != s2) << '\n';
+		std::cout << (s1 != "Killua") << '\n';
+		std::cout << ("Killua" != s1) << '\n';
+
+		std::cout << (s1 < s2) << '\n';
+		std::cout << (s1 < "Killua") << '\n';
+		std::cout << ("Killua" < s1) << '\n';
+
+		std::cout << (s1 > s2) << '\n';
+		std::cout << (s1 > "Killua") << '\n';
+		std::cout << ("Killua" > s1) << '\n';
+
+		std::cout << (s1 <= s2) << '\n';
+		std::cout << (s1 <= "Killua") << '\n';
+		std::cout << ("Killua" <= s1) << '\n';
+
+		std::cout << (s1 >= s2) << '\n';
+		std::cout << (s1 >= "Killua") << '\n';
+		std::cout << ("Killua" >= s1) << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		std::cout << s1 << '\n' << s2 << '\n';
+
+		Aoki::swap(s1, s2);
+
+		std::cout << s1 << '\n' << s2 << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		Aoki::String s8;
+
+		std::cin >> s8;
+
+		std::cout << s8 << '\n';
+	}
+
+	std::cout << '\n';
+
+	{
+		Aoki::String s9;
+
+		Aoki::getline(std::cin, s9);
+
+		std::cout << s9 << '\n';
+	}
 
 	printf("*****************************EXIT*****************************\n\n");
 }
@@ -525,5 +733,8 @@ int main()
 	Test_String_07();
 	Test_String_08();
 	Test_String_09();
+	Test_String_10();
+	Test_String_11();
+	Test_String_12();
 	return 0;
 }

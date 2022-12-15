@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include <cstring>          //使用"strlen"函数和"strcmp"函数。
+#include <cstring>          //使用"strlen"函数。
 #include <cassert>          //以断言宏检查错误(替代异常)。
 
 namespace Aoki
@@ -40,7 +40,6 @@ namespace Aoki
 		String& operator=(char ch);
 
 		//赋值操作
-
 		String& assign(size_type count, char ch);
 
 		String& assign(const String& str);
@@ -151,23 +150,23 @@ namespace Aoki
 
 		int compare(size_type pos1, size_type count1, const char* s, size_type count2) const;
 
-		String& replace(size_type pos, size_type count, const String& str);
+		//String& replace(size_type pos, size_type count, const String& str);
 
-		String& replace(const_iterator first, const_iterator last, const String& str);
+		//String& replace(const_iterator first, const_iterator last, const String& str);
 
-		String& replace(size_type pos, size_type count, const String& str, size_type pos2, size_type count2 = npos);
+		//String& replace(size_type pos, size_type count, const String& str, size_type pos2, size_type count2 = npos);
 
-		String& replace(size_type pos, size_type count, const char* cstr, size_type count2);
+		//String& replace(size_type pos, size_type count, const char* cstr, size_type count2);
 
-		String& replace(const_iterator first, const_iterator last, const char* cstr, size_type count2);
+		//String& replace(const_iterator first, const_iterator last, const char* cstr, size_type count2);
 
-		String& replace(size_type pos, size_type count, const char* cstr);
+		//String& replace(size_type pos, size_type count, const char* cstr);
 
-		String& replace(const_iterator first, const_iterator last, const char* cstr);
+		//String& replace(const_iterator first, const_iterator last, const char* cstr);
 
-		String& replace(size_type pos, size_type count, size_type count2, char ch);
+		//String& replace(size_type pos, size_type count, size_type count2, char ch);
 
-		String& replace(const_iterator first, const_iterator last, size_type count2, char ch);
+		//String& replace(const_iterator first, const_iterator last, size_type count2, char ch);
 
 		String substr(size_type pos = 0, size_type count = npos) const;
 
@@ -188,13 +187,30 @@ namespace Aoki
 
 		size_type find(char ch, size_type pos = 0) const;
 
-		size_type rfind(const String& str, size_type pos = npos) const;
+		//size_type rfind(const String& str, size_type pos = npos) const;
 
-		size_type rfind(const char* s, size_type pos, size_type count) const;
+		//size_type rfind(const char* s, size_type pos, size_type count) const;
 
-		size_type rfind(const char* s, size_type pos = npos) const;
+		//size_type rfind(const char* s, size_type pos = npos) const;
 
-		size_type rfind(char ch, size_type pos = npos) const;
+		//size_type rfind(char ch, size_type pos = npos) const;
+
+	private:
+		//帮手函数
+		/**
+		 * @brief search
+		 * @details 1. 当逐个元素比较时，搜索在范围 [first1, last1) 内找到与范围 [first2, last2) 相同的子序列。
+		 * @details 2. 此函数返回一个指向该子序列开始的迭代器，如果不存在这样的子序列，则返回 last1 。
+		 * @details 3. 类似C中的 strstr 函数，但 strstr 使用空终止符结尾的字符串，而此函数使用一个迭代器来指定一个字符串的结尾。
+		 * @return 返回在 [first1, last1 - (last2 - first2)] 范围内的第一个迭代器 i 使得对于小于 last2 - first2 的任何非负整数 n ，成立以下相应条件:
+		 * @return 1. *(i + n) == *(first2 + n) 。
+		 * @return 2. 若找不到这样的迭代器，则返回 last1 。
+		 * @Complexity O(N * M) ，其中 N 为 [first1, last1) 对应的范围，M 为 [first2, last2) 对应的范围。
+		 * @see 1. https://zh.cppreference.com/w/cpp/algorithm/search。
+		 * @see 2. https://eastl.docsforge.com/master/api/eastl/search/。
+		 */
+		const_iterator
+		search(const_iterator first1, const_iterator last1, const_iterator first2, const_iterator last2) const;
 
 	private:
 		//成员变量
@@ -205,15 +221,15 @@ namespace Aoki
 	};
 
 	//非成员函数
-	String& operator+(const String& lhs, const String& rhs);
+	String operator+(const String& lhs, const String& rhs);
 
-	String& operator+(const String& lhs, const char* rhs);
+	String operator+(const String& lhs, const char* rhs);
 
-	String& operator+(const String& lhs, char rhs);
+	String operator+(const String& lhs, char rhs);
 
-	String& operator+(const char* lhs, const String& rhs);
+	String operator+(const char* lhs, const String& rhs);
 
-	String& operator+(char lhs, const String& rhs);
+	String operator+(char lhs, const String& rhs);
 
 	bool operator==(const String& lhs, const String& rhs);
 
@@ -253,7 +269,7 @@ namespace Aoki
 
 	void swap(String& lhs, String& rhs);
 
-	std::istream& operator>>(std::istream& is, const String& str);
+	std::istream& operator>>(std::istream& is, String& str);
 
 	std::ostream& operator<<(std::ostream& os, const String& str);
 

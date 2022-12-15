@@ -766,42 +766,6 @@ int Aoki::String::compare(size_type pos1, size_type count1, const char* s, size_
 	return 0;
 }
 
-Aoki::String& Aoki::String::replace(size_type pos, size_type count, const String& str)
-{
-}
-
-Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const String& str)
-{
-}
-
-Aoki::String& Aoki::String::replace(size_type pos, size_type count, const String& str, size_type pos2, size_type count2)
-{
-}
-
-Aoki::String& Aoki::String::replace(size_type pos, size_type count, const char* cstr, size_type count2)
-{
-}
-
-Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const char* cstr, size_type count2)
-{
-}
-
-Aoki::String& Aoki::String::replace(Aoki::String::size_type pos, Aoki::String::size_type count, const char* cstr)
-{
-}
-
-Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, const char* cstr)
-{
-}
-
-Aoki::String& Aoki::String::replace(size_type pos, size_type count, size_type count2, char ch)
-{
-}
-
-Aoki::String& Aoki::String::replace(const_iterator first, const_iterator last, size_type count2, char ch)
-{
-}
-
 Aoki::String Aoki::String::substr(size_type pos, size_type count) const
 {
 	assert(pos <= size_);
@@ -886,12 +850,276 @@ void Aoki::String::swap(String& other)
 	other.capacity_ = tmp3;
 }
 
+//查找
+Aoki::String::size_type Aoki::String::find(const String& str, size_type pos) const
+{
+	return find(str.begin(), pos, str.size());
+}
+
+Aoki::String::size_type Aoki::String::find(const char* s, size_type pos, size_type count) const
+{
+	if (((npos - count) >= pos) && ((pos + count) <= size_))
+	{
+		auto ptr = search(begin() + pos, end(), s, s + count);
+		if (ptr != end() || count == 0)
+		{
+			return (size_type)(ptr - begin());
+		}
+	}
+	return npos;
+}
+
+Aoki::String::size_type Aoki::String::find(const char* s, size_type pos) const
+{
+	return find(s, pos, std::strlen(s));
+}
+
+Aoki::String::size_type Aoki::String::find(char ch, size_type pos) const
+{
+	if (pos < size_)
+	{
+		auto it = begin() + pos;
+		while ((it != end()) && *it != ch)
+		{
+			++it;
+		}
+		if (it != end())
+		{
+			return (size_type)(it - begin());
+		}
+	}
+	return npos;
+}
+
+//帮手函数
+Aoki::String::const_iterator
+Aoki::String::search(const_iterator first1, const_iterator last1, const_iterator first2, const_iterator last2) const
+{
+	if (first2 != last2)
+	{
+		const_iterator temp2(first2);
+		++temp2;
+		if (temp2 != last2)
+		{
+			const_iterator cur1(first1);
+			const_iterator p2;
+			while (first1 != last1)
+			{
+				while ((first1 != last1) && (*first1 != *first2))
+				{
+					++first1;
+				}
+				if (first1 != last1)
+				{
+					p2 = temp2;
+					cur1 = first1;
+					if (++cur1 != last1)
+					{
+						while (*cur1 == *p2)
+						{
+							if (++p2 == last2)
+							{
+								return first1;
+							}
+							if (++cur1 == last1)
+							{
+								return last1;
+							}
+						}
+						++first1;
+						continue;
+					}
+				}
+				return last1;
+			}
+		}
+		else
+		{
+			while ((first1 != last1) && (*first1 != *first2))
+			{
+				++first1;
+			}
+		}
+	}
+	return first1;
+}
+
 //非成员函数
-std::ostream& Aoki::operator<<(std::ostream& os, const String& str)
+Aoki::String Aoki::operator+(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	Aoki::String tmp;
+	tmp.append(lhs);
+	tmp.append(rhs);
+	return tmp;
+}
+
+Aoki::String Aoki::operator+(const Aoki::String& lhs, const char* rhs)
+{
+	Aoki::String tmp;
+	Aoki::String::size_type n = std::strlen(rhs);
+	tmp.append(lhs);
+	tmp.append(rhs);
+	return tmp;
+}
+
+Aoki::String Aoki::operator+(const Aoki::String& lhs, char rhs)
+{
+	Aoki::String tmp;
+	tmp.append(lhs);
+	tmp.push_back(rhs);
+	return tmp;
+}
+
+Aoki::String Aoki::operator+(const char* lhs, const Aoki::String& rhs)
+{
+	Aoki::String tmp;
+	Aoki::String::size_type n = std::strlen(lhs);
+	tmp.append(lhs);
+	tmp.append(rhs);
+	return tmp;
+}
+
+Aoki::String Aoki::operator+(char lhs, const Aoki::String& rhs)
+{
+	Aoki::String tmp;
+	tmp.push_back(lhs);
+	tmp.append(rhs);
+	return tmp;
+}
+
+bool Aoki::operator==(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return lhs.compare(rhs) == 0;
+}
+
+bool Aoki::operator==(const Aoki::String& lhs, const char* rhs)
+{
+	return lhs.compare(rhs) == 0;
+}
+
+bool Aoki::operator==(const char* lhs, const Aoki::String& rhs)
+{
+	return rhs.compare(lhs) == 0;
+}
+
+bool Aoki::operator!=(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool Aoki::operator!=(const Aoki::String& lhs, const char* rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool Aoki::operator!=(const char* lhs, const Aoki::String& rhs)
+{
+	return !(lhs == rhs);
+}
+
+bool Aoki::operator<(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return lhs.compare(rhs) < 0;
+}
+
+bool Aoki::operator<(const Aoki::String& lhs, const char* rhs)
+{
+	return lhs.compare(rhs) < 0;
+}
+
+bool Aoki::operator<(const char* lhs, const Aoki::String& rhs)
+{
+	return rhs.compare(lhs) > 0;
+}
+
+bool Aoki::operator>(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return rhs < lhs;
+}
+
+bool Aoki::operator>(const Aoki::String& lhs, const char* rhs)
+{
+	return rhs < lhs;
+}
+
+bool Aoki::operator>(const char* lhs, const Aoki::String& rhs)
+{
+	return rhs < lhs;
+}
+
+bool Aoki::operator<=(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return !(rhs < lhs);
+}
+
+bool Aoki::operator<=(const Aoki::String& lhs, const char* rhs)
+{
+	return !(rhs < lhs);
+}
+
+bool Aoki::operator<=(const char* lhs, const Aoki::String& rhs)
+{
+	return !(rhs < lhs);
+}
+
+bool Aoki::operator>=(const Aoki::String& lhs, const Aoki::String& rhs)
+{
+	return !(lhs < rhs);
+}
+
+bool Aoki::operator>=(const Aoki::String& lhs, const char* rhs)
+{
+	return !(lhs < rhs);
+}
+
+bool Aoki::operator>=(const char* lhs, const Aoki::String& rhs)
+{
+	return !(lhs < rhs);
+}
+
+void Aoki::swap(Aoki::String& lhs, Aoki::String& rhs)
+{
+	lhs.swap(rhs);
+}
+
+std::istream& Aoki::operator>>(std::istream& is, Aoki::String& str)
+{
+	str.clear();
+	char ch;
+	do
+	{
+		ch = is.get();
+		if (ch == ' ' || ch == '\n')
+			break;
+		str.push_back(ch);
+	} while (true);
+	return is;
+}
+
+std::ostream& Aoki::operator<<(std::ostream& os, const Aoki::String& str)
 {
 	for (Aoki::String::size_type i = 0; i < str.size(); ++i)
 	{
 		os << str[i];
 	}
 	return os;
+}
+
+std::istream& Aoki::getline(std::istream& input, Aoki::String& str, char delim)
+{
+	str.clear();
+	char ch;
+	do
+	{
+		ch = input.get();
+		if (ch == delim)
+			break;
+		str.push_back(ch);
+	} while (true);
+	return input;
+}
+
+std::istream& Aoki::getline(std::istream& input, Aoki::String& str)
+{
+	return Aoki::getline(input, str, '\n');
 }

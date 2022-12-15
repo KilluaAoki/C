@@ -999,6 +999,7 @@
 //
 //	std::string sub3 = a.substr(a.size() - 3, 50);//等价于"a.substr(17, 3)"，返回的子串的范围为"[pos, size())"。
 //	std::cout << sub3 << '\n';
+//
 //	std::string sub4 = a.substr(17, 3);
 //	std::cout << sub3 << '\n';
 //
@@ -1322,11 +1323,11 @@
 	"string"模板类相关的非成员函数
 		1."operator+"非成员函数：连接两个字符串或者一个字符串和一个字符。(函数模板)(C++11前)
 			a.函数原型(忽略模板声明、分配器和命名空间等细节)
-				a'.string& operator+(const string& lhs, const string& rhs);。
-				b'.string& operator+(const string& lhs, const char* rhs);。
-				c'.string& operator+(const string& lhs, char rhs);。
-				d'.string& operator+(const char* lhs, const string& rhs);。
-				e'.string& operator+(char lhs, const string& rhs);。
+				a'.string operator+(const string& lhs, const string& rhs);。
+				b'.string operator+(const string& lhs, const char* rhs);。
+				c'.string operator+(const string& lhs, char rhs);。
+				d'.string operator+(const char* lhs, const string& rhs);。
+				e'.string operator+(char lhs, const string& rhs);。
 			b.参数
 				a'."lhs"："string"、字符或指向空终止字符序列首字符的指针，代表左操作数。
 				b'."rhs"："string"、字符或指向空终止字符序列首字符的指针，代表右操作数。

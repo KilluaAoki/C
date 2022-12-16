@@ -7,12 +7,12 @@
 		1.计算机中表达字符的方式
 		2.关于C/C++的字符串字面量和字符串
 		3.C++字符串库介绍
-		4."string"模板类的介绍与使用
-		5."string"模板类对象的元素访问
-		6."string"模板类中与容量相关的成员函数
-		7."string"模板类中与操作相关的成员函数
-		8."string"模板类中与查找相关的成员函数
-		9."string"模板类相关的非成员函数
+		4."string"类模板的介绍与使用
+		5."string"类模板对象的元素访问
+		6."string"类模板中与容量相关的成员函数
+		7."string"类模板中与操作相关的成员函数
+		8."string"类模板中与查找相关的成员函数
+		9."string"类模板相关的非成员函数
 */
 
 /**
@@ -81,24 +81,24 @@
 		2.关于C/C++的字符串
 			a.C语言中的字符串可初始化或赋值给指针以及数组(类型不再赘述)，并且其包含了字符串的空终止符作为字符串的结束标志。
 			b.C语言中关于字符以及字符串的函数，详见：https://zh.cppreference.com/w/c/string/byte。
-			c.C++中的字符串通常指的是"string"模板类，是为操作任何字符类型的字符串设计的模板类。
+			c.C++中的字符串通常指的是"string"类模板，是为操作任何字符类型的字符串设计的类模板。
 			d.C++的"string"类中有着一个成员变量，用于指代字符串的长度，所以其可不需要像C语言中的字符串那样以空终止符作为字符串的结束标志(取决于标准与实现)。
 */
 
 /**
 	C++字符串库介绍
 		1.C++标准字符串库支持的三种通用字符串类型："basic_string"、"basic_string_view"(C++17起)、空终止字符串。
-			a."basic_string"：模板类，用于通用化字符序列的操作以及存储，即字符串的创建、操作及析构全部为便利的类方法集合与相关函数所处理，定义于头文件"string"中。
+			a."basic_string"：类模板，用于通用化字符序列的操作以及存储，即字符串的创建、操作及析构全部为便利的类方法集合与相关函数所处理，定义于头文件"string"中。
 				a'.标准库中提供了对于"basic_string"的多种对常用类型(详见"C++中对各大编码格式的支持")的数种特化，即某种特定类型下的具体实现，并使用"typedef"关键词进行了重定义。
-				b'.本章节主要介绍"basic_string"模板类中特化的"string"类，其定义为"basic_string<char>"。
+				b'.本章节主要介绍"basic_string"类模板中特化的"string"类，其定义为"basic_string<char>"。
 				c'.该类既不依赖字符类型，亦不依赖该类型上的原生操作。
-			b."basic_string_view"(C++17起)：模板类，提供一个轻量对象，它的接口类似于"basic_string"，提供对字符串一部分的只读访问，也提供了多种对常用类型的数种特化。
+			b."basic_string_view"(C++17起)：类模板，提供一个轻量对象，它的接口类似于"basic_string"，提供对字符串一部分的只读访问，也提供了多种对常用类型的数种特化。
 			c."空终止字符串"：以特殊的空字符终止的字符数组，包含"空终止字节字符串"、"空终止多字节字符串"和"空终止宽字符字符串"。
 				a'."空终止字节字符串"：以空终止字节终止的字节序列，即"char"类型数组，此字符串的每个字节都是一些字符集的编码("ASCII"编码)。
 				b'."空终止多字节字符串"：以空终止多字节终止的多字节序列，即"char"类型数组，但存储于该字符串中的每个字符可能占用多于一个字节，字符的编码是由本地环境限定的。
 				c'."空终止宽字符字符串"：以空终止宽字符终止的宽字符序列，即"wchar_t"类型数组，视本地环境而定，宽字符可能是两个或四个字节。
-		2.附加支持的"char_traits"模板类：为"basic_string"和"basic_string_view"(C++17起)定义类型和函数。(了解)
-		3."string"类与STL：最狭义的看法可能会认为"string"类不属于STL，因为尽管现在它属于"basic_string"模板类的特化，但它在C++有模板之前就出现了。
+		2.附加支持的"char_traits"类模板：为"basic_string"和"basic_string_view"(C++17起)定义类型和函数。(了解)
+		3."string"类与STL：最狭义的看法可能会认为"string"类不属于STL，因为尽管现在它属于"basic_string"类模板的特化，但它在C++有模板之前就出现了。
 		4.关于"size_t"类型和"size_type"类型
 			a."size_t"类型：无符号整数类型，是"sizeof"运算符、"sizeof..."运算符(C++11起)及"alignof"运算符(C++11起)的返回类型，通常用于表示对象的大小，是为了方便系统之间的移植而定义的。
 				a'."size_t"类型是根据实现进行"typedef"运算符对对应的类型进行重定义的(通常情况下，"32"位为"unsigned int"类型，"64"位为"unsigned long long"类型)，"size_t"类型的宽度不小于"16"位(C++11起)。
@@ -107,11 +107,11 @@
 			b."size_type"类型：无符号整数类型，是"string"、"vector"等C++容器中定义的数据类型(配套类型)，它的使用依赖于容器。
 				a'."size_type"类型同样是根据实现定义的，它与"size_t"一样都是使用"typedef"运算符对对应的类型进行重定义后的类型。
 				b'.在对诸如"string"、"vector"等C++容器进行索引操作时，正确的类型是该容器的成员中的"size_type"配套类型，而该类型通常被定义为与"size_t"相同。
-				c'.在"string"模板类中，"size_type"类型足以表示任何可能的字符串的大小。
+				c'.在"string"类模板中，"size_type"类型足以表示任何可能的字符串的大小。
 */
 
 /**
-	"string"模板类的介绍与使用：来自于"basic_string"模板类对于"char"类型的特化，定义于头文件"string"中，简称为"string"类。
+	"string"类模板的介绍与使用：来自于"basic_string"类模板对于"char"类型的特化，定义于头文件"string"中，简称为"string"类。
 		1."string"类的定义："string"类使用"typedef"关键词进行了重定义，即"typedef basic_string<char> string;"(此处忽略了命名空间)，故"string"类的定义实际上为"basic_string<char>"。
 		2."string"类的常见构造函数的函数原型(以下函数原型忽略命名空间、分号以及分配器等)
 			a."string()"：构造空"string"，由此构造函数构造出的对象拥有零大小和未指定的容量。
@@ -128,7 +128,7 @@
 				a'.复杂度与"other"的大小(长度)成线性级别。
 			f."string(const string& other, size_type pos, size_type count = npos)"：以"other"的位置区间"[pos, pos + count)"所对应的子串构造"string"类对象。
 				a'."pos"代表的是位置，是要包含的首字符位置，位置从零开始，而"count"代表的是个数，是产生的字符串(对象)的长度，个数从一开始，注意区分两者。
-				b'."npos"为特殊值，是"basic_string"类中的静态成员常变量，类型为"size_type"，其用于表示"size_type"类型的最大值，即"-1"。
+				b'."npos"为特殊值，是"basic_string"类模板中的静态成员常变量，类型为"size_type"，其用于表示"size_type"类型的最大值，即"-1"。
 				c'.若"count"与"npos"相等或未指定"count"，或请求的子串越过了此字符串的结尾(越过结尾表示越过字符串的长度减一所对应的位置)，则产生的子串的位置区间为"[pos, other.size())"。
 				d'.复杂度与"count"成线性级别。
 		3."string"类赋值相关成员函数
@@ -170,10 +170,10 @@
 		4."string"类的析构函数：销毁字符串，若使用内部存储则解分配它。
 */
 
-////"string"模板类的介绍与使用示例一：使用"string"模板类。
+////"string"类模板的介绍与使用示例一：使用"string"类模板。
 //int main()
 //{
-//	std::string s1("Hello World!");//使用此模板类需包含"string"头文件，此处等价于"std::basic_string<char> s1("Hello World!");"。
+//	std::string s1("Hello World!");//使用此类模板需包含"string"头文件，此处等价于"std::basic_string<char> s1("Hello World!");"。
 //	std::basic_string<char> s2("Hello World!");
 //
 //	std::cout << s1 << std::endl;
@@ -183,7 +183,7 @@
 //	return 0;
 //}
 
-////"string"模板类的介绍与使用示例二：使用"string"模板类的常见构造函数。
+////"string"类模板的介绍与使用示例二：使用"string"类模板的常见构造函数。
 //int main()
 //{
 //	std::string s1;//调用默认构造函数。
@@ -225,7 +225,7 @@
 //	return 0;
 //}
 
-////"string"模板类的介绍与使用示例三：使用拷贝赋值运算符。
+////"string"类模板的介绍与使用示例三：使用拷贝赋值运算符。
 //int main()
 //{
 //	std::string str1;
@@ -246,7 +246,7 @@
 //	return 0;
 //}
 
-////"string"模板类的介绍与使用示例四：使用"assign"成员函数。
+////"string"类模板的介绍与使用示例四：使用"assign"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -272,14 +272,14 @@
 //}
 
 /**
-	"string"模板类对象的元素访问(仅介绍常见的元素访问相关函数)
+	"string"类模板对象的元素访问(仅介绍常见的元素访问相关函数)
 		1."[]"下标成员访问运算符：访问指定字符，内部是关于"operator[]"的运算符重载函数。
 			a.函数原型(C++20前)
 				a'.reference operator[]( size_type pos );。
 				b'.const_reference operator[]( size_type pos ) const;。(注意此处的构造函数被"const"限定符修饰)
 			b.参数"pos"表示要访问以及返回的字符位置，位置从零开始。
 			c.返回值"reference"表示对字符的引用，而"const_reference"表示对字符的常引用。(以下所指的字符串大小是不包括空终止符的)
-				a'.被引用的对象的类型根据模板类"basic_string"所特化的类型而定，对于"string"模板类而言，其引用类型为"char&"和"const char&"。
+				a'.被引用的对象的类型根据类模板"basic_string"所特化的类型而定，对于"string"类模板而言，其引用类型为"char&"和"const char&"。
 				b'.在"pos"位置小于对应字符串的大小时，返回到位于指定位置"pos"的字符的引用(实际上是"*(begin() + pos)"，"begin"函数将在之后的迭代器进行介绍)。
 				c'.在"pos"位置等于对于字符串的大小时，返回空字符的引用，不进行边界检查。
 					a''.C++11前，对于函数原型"a''"，如果"pos"位置等于对应字符串的大小，那么行为未定义。
@@ -318,17 +318,17 @@
 			c.通过"c_str"写入字符数组是未定义行为。
 			d.从"c_str"获得的指针可以只当做一个指向空终止字符串的指针，若"string"对象不含其他空字符。
 			e.复杂度为常数级别。
-		6.适用于"string"模板类的迭代器
+		6.适用于"string"类模板的迭代器
 			a.初步了解迭代器
 				a'.迭代器是指向容器内元素的对象，类似于指针，它可以遍历C++标准库容器中的元素并提供对单个位置的元素进行访问。
 				b'.C++标准库容器都提供迭代器，以便算法可以以标准方式访问它们的元素，而不必关心元素存储在的容器类型，它是一种通用的访问机制。
 				c'.迭代器通常的使用形式类似于指针，指针可以指向数组中的元素，并可以使用自增运算符遍历它们，但需要注意的是，并非所有迭代器都具有与指针类似的功能。
-			b.使用"string"模板类中的迭代器
+			b.使用"string"类模板中的迭代器
 				a'."begin"成员函数：返回指向起始的迭代器。
 					a''.函数原型(C++11前)
 						a'''.iterator begin();。
 						b'''.const_iterator begin() const;。
-					b''.返回类型为"iterator"或"const_iterator"("string"模板类中的配套类型(迭代器类型))，代表返回指向字符串首字符的迭代器。
+					b''.返回类型为"iterator"或"const_iterator"("string"类模板中的配套类型(迭代器类型))，代表返回指向字符串首字符的迭代器。
 					c''."begin"成员函数可以返回可变的或不可变的迭代器，取决于调用它的对象是否具有常性(即取决于"this"指针指向的对象是否具有常性)。
 					d''.复杂度为常数级别。
 				b'."end"成员函数：返回指向末尾的迭代器。
@@ -341,7 +341,7 @@
 					a''.函数原型(C++11前)
 						a'''.reverse_iterator rbegin();。
 						b'''.const_reverse_iterator rbegin() const;。
-					b''.返回类型为"reverse_iterator"或"const_reverse_iterator"("string"模板类中的配套类型(逆向迭代器类型))。
+					b''.返回类型为"reverse_iterator"或"const_reverse_iterator"("string"类模板中的配套类型(逆向迭代器类型))。
 					c''.返回指向逆转字符串首字符的逆向迭代器，它对应非逆向字符串的末字符(即非逆向的字符串的最后一个字符)。
 					d''.复杂度为常数级别，也代表着实际上字符串没有被逆转，只是返回的逆向迭代器指向了字符串的末字符(对于"rbegin"成员函数而言)。
 				d'."rend"成员函数：返回指向末尾的逆向迭代器。
@@ -353,7 +353,7 @@
 				e'.C++11起支持的"cbegin"成员函数和"cend"成员函数以及"crbegin"成员函数和"crend"成员函数：除成员函数名不相同外，等价分别对应于没有"c"前缀的返回不可变的迭代器的成员函数(如："cbegin"成员函数等价于返回不可变的迭代器的"begin"成员函数)。
 */
 
-////"string"模板类对象的元素访问示例一：通过下标成员访问运算符遍历字符串中的字符。
+////"string"类模板对象的元素访问示例一：通过下标成员访问运算符遍历字符串中的字符。
 //int main()
 //{
 //	std::string str = "Hello World!";
@@ -365,7 +365,7 @@
 //	return 0;
 //}
 
-////"string"模板类对象的元素访问示例二：通过基于范围的"for"循环遍历字符串中的字符。
+////"string"类模板对象的元素访问示例二：通过基于范围的"for"循环遍历字符串中的字符。
 //int main()
 //{
 //	std::string str = "Hello World!";
@@ -377,7 +377,7 @@
 //	return 0;
 //}
 
-////"string"模板类对象的元素访问示例三：使用"at"成员函数遍历字符串中的字符。
+////"string"类模板对象的元素访问示例三：使用"at"成员函数遍历字符串中的字符。
 //int main()
 //{
 //	std::string str = "Hello World!";
@@ -388,7 +388,7 @@
 //	return 0;
 //}
 
-////"string"模板类对象的元素访问示例四：使用"front"成员函数和"back"成员函数。(C++11)
+////"string"类模板对象的元素访问示例四：使用"front"成员函数和"back"成员函数。(C++11)
 //int main()
 //{
 //	std::string str = "Hello World!";
@@ -397,7 +397,7 @@
 //	return 0;
 //}
 
-////"string"模板类对象的元素访问示例五：使用迭代器遍历字符串中的字符(正向与逆向)。
+////"string"类模板对象的元素访问示例五：使用迭代器遍历字符串中的字符(正向与逆向)。
 //int main()
 //{
 //	std::string str = "Hello World!";
@@ -420,7 +420,7 @@
 //}
 
 /**
-	"string"模板类中与容量相关的成员函数
+	"string"类模板中与容量相关的成员函数
 		1."empty"成员函数：检查字符串是否为空。
 			a.函数原型(C++11前)：bool empty() const;。
 			b.用于检查字符串是否无字符，即"begin() == end()"。
@@ -431,7 +431,7 @@
 				a'.size_type size() const;。("size"成员函数)
 				b'.size_type length() const;。("length"成员函数)
 			b."size"成员函数和"length"成员函数没有区别，两者为同义词，并且等价。
-				a'.在引入STL之前，"length"作为"string"模板类的唯一用于返回字符数的成员函数。
+				a'.在引入STL之前，"length"作为"string"类模板的唯一用于返回字符数的成员函数。
 				b'.在引入STL之后，为了兼容其他容器库，又引入了"size"成员函数。
 			c.返回字符串中的"char"类型的元素数(若编码格式为多字节编码，则它与字符不同)。
 			d.复杂度在C++11前是未指定的，而在C++11起为常数级别。
@@ -454,7 +454,7 @@
 		5."capacity"成员函数：返回当前对象分配的存储空间能保存的字符数量。
 			a.函数原型(C++11前)：size_type capacity() const;。
 			b.用于返回当前已为字符串分配的存储空间的字符数(当前分配的存储空间为可用于存储元素的存储的容量)。
-			c.从分配器获得，但不可用于存储任何元素的内存位置不计入分配的存储，注意空终止符不是"basic_string"模板类的元素。(暂忽略分配器)
+			c.从分配器获得，但不可用于存储任何元素的内存位置不计入分配的存储，注意空终止符不是"basic_string"类模板的元素。(暂忽略分配器)
 			c.复杂度为常数级别。
 		6."shrink_to_fit"成员函数：通过释放不使用的内存，减少内存的使用，即请求移除未使用的容量。(C++11)
 			a.函数原型(C++20前)：void shrink_to_fit();。
@@ -463,7 +463,7 @@
 			d.复杂度在C++17前是未指定的，而在C++17起至多与当前对象的大小("size")成线性级别。
 */
 
-////"string"模板类中与容量相关的成员函数示例一：使用"empty"成员函数。
+////"string"类模板中与容量相关的成员函数示例一：使用"empty"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -475,7 +475,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例二：使用"size"成员函数和"length"成员函数。
+////"string"类模板中与容量相关的成员函数示例二：使用"size"成员函数和"length"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -493,7 +493,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例三：使用"max_size"成员函数。
+////"string"类模板中与容量相关的成员函数示例三：使用"max_size"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -501,7 +501,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例四：使用"reserve"成员函数和"capacity"成员函数。
+////"string"类模板中与容量相关的成员函数示例四：使用"reserve"成员函数和"capacity"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -527,7 +527,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例五：测试容量的增长策略。
+////"string"类模板中与容量相关的成员函数示例五：测试容量的增长策略。
 //int main()
 //{
 //	std::string s;
@@ -545,7 +545,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例六：利用"reserve"成员函数提高插入数据的效率，避免增容带来的开销。
+////"string"类模板中与容量相关的成员函数示例六：利用"reserve"成员函数提高插入数据的效率，避免增容带来的开销。
 //int main()
 //{
 //	std::string s;
@@ -564,7 +564,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与容量相关的成员函数示例七：使用"shrink_to_fit"成员函数。
+////"string"类模板中与容量相关的成员函数示例七：使用"shrink_to_fit"成员函数。
 //int main()
 //{
 //	std::string s;
@@ -577,7 +577,7 @@
 //}
 
 /**
-	"string"模板类中与操作相关的成员函数(仅介绍常见的与操作相关的成员函数)
+	"string"类模板中与操作相关的成员函数(仅介绍常见的与操作相关的成员函数)
 		01."clear"成员函数：清除内容。
 			a.函数原型：void clear();。
 			b.从字符串中移除所有字符。
@@ -596,7 +596,7 @@
 					a''.在"index"位置插入范围"[s, s + count)"中的字符，范围能含有空字符。
 					b''.返回值：*this。
 				d'.string& insert( size_type index, const string& str );。(C++20前)
-					a''.在"index"位置插入字符串"str"，注意"str"是一个"string"模板类的对象的引用，而不是一个指针，不同于"const char* s"指代的C风格的字符串。
+					a''.在"index"位置插入字符串"str"，注意"str"是一个"string"类模板的对象的引用，而不是一个指针，不同于"const char* s"指代的C风格的字符串。
 					b''.返回值：*this。
 				e'.string& insert( size_type index, const string& str, size_type index_str, size_type count );。(C++14前)
 					a''.在"index"位置插入由"str.substr(index_str, count)"获得的字符串。
@@ -670,7 +670,7 @@
 				b'.string& operator+=( char ch );。
 					a''.后附字符"ch"。
 					b''.能接收任何可隐式类型转换为"char"的类型。
-					c''.对于通过"char"类型特化的"string"模板类，其可接受类型的集合包含任何算术类型，这会导致一些非意图的效果。
+					c''.对于通过"char"类型特化的"string"类模板，其可接受类型的集合包含任何算术类型，这会导致一些非意图的效果。
 				c'.string& operator+=( const char* s );。
 					a''.后附"s"所指向的空终止字符串。
 			b.返回值：*this。
@@ -754,7 +754,7 @@
 			d.复杂度为常数。
 */
 
-////"string"模板类中与操作相关的成员函数示例一：使用"clear"成员函数。
+////"string"类模板中与操作相关的成员函数示例一：使用"clear"成员函数。
 //int main()
 //{
 //	std::string s{ "Exemplar" };
@@ -766,7 +766,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例二：使用"insert"成员函数。
+////"string"类模板中与操作相关的成员函数示例二：使用"insert"成员函数。
 //int main()
 //{
 //	std::string s1 = "KilluaAoki";
@@ -807,7 +807,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例三：使用"erase"成员函数。
+////"string"类模板中与操作相关的成员函数示例三：使用"erase"成员函数。
 //int main()
 //{
 //	std::string s1 = "KilluaAoki";
@@ -828,7 +828,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例四：使用"push_back"成员函数。
+////"string"类模板中与操作相关的成员函数示例四：使用"push_back"成员函数。
 //int main()
 //{
 //	std::string s = "KilluaAoki";
@@ -838,7 +838,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例五：使用"pop_back"成员函数(C++11)。
+////"string"类模板中与操作相关的成员函数示例五：使用"pop_back"成员函数(C++11)。
 //int main()
 //{
 //	std::string s1 = "KilluaAoki!";
@@ -854,7 +854,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例六：使用"append"成员函数。
+////"string"类模板中与操作相关的成员函数示例六：使用"append"成员函数。
 //int main()
 //{
 //	std::string str = "string";
@@ -885,7 +885,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例七：对"string"类对象使用"+="加法赋值运算符。
+////"string"类模板中与操作相关的成员函数示例七：对"string"类对象使用"+="加法赋值运算符。
 //int main()
 //{
 //	std::string str;
@@ -909,7 +909,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例八：使用"compare"成员函数。
+////"string"类模板中与操作相关的成员函数示例八：使用"compare"成员函数。
 //int main()
 //{
 //	int compare_result = 0;
@@ -952,7 +952,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例九：使用"replace"成员函数。
+////"string"类模板中与操作相关的成员函数示例九：使用"replace"成员函数。
 //int main()
 //{
 //	std::string batman("Batman");
@@ -986,7 +986,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例十：使用"substr"成员函数。
+////"string"类模板中与操作相关的成员函数示例十：使用"substr"成员函数。
 //int main()
 //{
 //	std::string a = "0123456789abcdefghij";
@@ -1017,7 +1017,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例十一：使用"copy"成员函数。
+////"string"类模板中与操作相关的成员函数示例十一：使用"copy"成员函数。
 //int main()
 //{
 //	std::string a = "KilluaAoki!!";
@@ -1032,7 +1032,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例十二：使用"resize"成员函数。
+////"string"类模板中与操作相关的成员函数示例十二：使用"resize"成员函数。
 //int main()
 //{
 //	std::cout << "Basic functionality:\n";
@@ -1068,7 +1068,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与操作相关的成员函数示例十三：使用"swap"成员函数。
+////"string"类模板中与操作相关的成员函数示例十三：使用"swap"成员函数。
 //int main()
 //{
 //	std::string a = "AAA";
@@ -1088,7 +1088,7 @@
 //}
 
 /**
-	"string"模板类中与查找相关的成员函数
+	"string"类模板中与查找相关的成员函数
 		1."find"成员函数：于字符串中寻找字符。
 			a.常见函数原型
 				a'.size_type find( const string& str, size_type pos = 0 ) const;。(C++11前)
@@ -1178,7 +1178,7 @@
 			c.搜索只考虑区间"[0, pos]"，如果区间中不存在这种字符，那么返回"npos"。
 */
 
-////"string"模板类中与查找相关的成员函数示例一：使用"find"成员函数。
+////"string"类模板中与查找相关的成员函数示例一：使用"find"成员函数。
 //void print(std::string::size_type n, std::string const& s)
 //{
 //	if (n == std::string::npos)
@@ -1212,7 +1212,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与查找相关的成员函数示例二：使用"rfind"成员函数。
+////"string"类模板中与查找相关的成员函数示例二：使用"rfind"成员函数。
 //void print(std::string::size_type n, std::string const& s)
 //{
 //	if (n == std::string::npos)
@@ -1246,7 +1246,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与查找相关的成员函数示例三：使用"find_first_of"成员函数。
+////"string"类模板中与查找相关的成员函数示例三：使用"find_first_of"成员函数。
 //int main()
 //{
 //	//被搜索的字符串
@@ -1265,7 +1265,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与查找相关的成员函数示例四：使用"find_first_not_of"成员函数。
+////"string"类模板中与查找相关的成员函数示例四：使用"find_first_not_of"成员函数。
 //int main()
 //{
 //	std::string to_search = "Some data with %MACROS to substitute";
@@ -1284,7 +1284,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与查找相关的成员函数示例五：使用"find_last_of"成员函数。
+////"string"类模板中与查找相关的成员函数示例五：使用"find_last_of"成员函数。
 //int main()
 //{
 //	const std::string path = "/root/config";
@@ -1294,7 +1294,7 @@
 //	return 0;
 //}
 
-////"string"模板类中与查找相关的成员函数示例六：使用"find_last_not_of"成员函数。
+////"string"类模板中与查找相关的成员函数示例六：使用"find_last_not_of"成员函数。
 //void show_pos(const std::string& str, std::string::size_type found)
 //{
 //	if (found != std::string::npos)
@@ -1320,7 +1320,7 @@
 //}
 
 /**
-	"string"模板类相关的非成员函数
+	"string"类模板相关的非成员函数
 		1."operator+"非成员函数：连接两个字符串或者一个字符串和一个字符。(函数模板)(C++11前)
 			a.函数原型(忽略模板声明、分配器和命名空间等细节)
 				a'.string operator+(const string& lhs, const string& rhs);。
@@ -1333,7 +1333,7 @@
 				b'."rhs"："string"、字符或指向空终止字符序列首字符的指针，代表右操作数。
 			c.返回含有来自"lhs"的字符后随来自"rhs"的字符的字符串。
 		2.以字典序比较两个字符串的相关函数(函数模板)
-			a.将各个用于比较的运算符进行重载，以便于使用"string"模板类的对象进行比较。
+			a.将各个用于比较的运算符进行重载，以便于使用"string"类模板的对象进行比较。
 			b.常见函数原型(省略了模板声明、分配器和命名空间等细节)
 				a'."operator=="函数原型
 					a''.bool operator==(const string& lhs, const string& rhs);。(C++11前)
@@ -1363,7 +1363,7 @@
 			d."lhs"、"rhs"参数：表示要比较内容的字符串。
 			e.若对应比较关系成立则为"true"，否则为"false"。
 			f.所有比较通过"compare"成员函数进行，故复杂度与字符串的大小成线性级别("O(N)")。
-		3."swap"非成员函数：标准算法库中的"swap"函数模板对"basic_string"模板类的特化，用于交换两个"string"对象的内容。(函数模板)
+		3."swap"非成员函数：标准算法库中的"swap"函数模板对"basic_string"类模板的特化，用于交换两个"string"对象的内容。(函数模板)
 			a.常见函数原型：void swap(string& lhs, string& rhs);。(C++17前)
 			b."lhs"、"rhs"参数：要交换内容的"string"对象。
 			c.等价于"lhs.swap(rhs)"。
@@ -1397,7 +1397,7 @@
 				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/to_wstring。
 */
 
-////"string"模板类相关的非成员函数示例一：使用"operator+"。
+////"string"类模板相关的非成员函数示例一：使用"operator+"。
 //int main()
 //{
 //	std::string s1 = "Hello";
@@ -1406,7 +1406,7 @@
 //	return 0;
 //}
 
-////"string"模板类相关的非成员函数示例二：使用比较运算符对字符串进行比较。
+////"string"类模板相关的非成员函数示例二：使用比较运算符对字符串进行比较。
 //int main()
 //{
 //	std::string s1 = "Hello";
@@ -1437,7 +1437,7 @@
 //	return 0;
 //}
 
-////"string"模板类相关的非成员函数示例三：使用"swap"非成员函数。
+////"string"类模板相关的非成员函数示例三：使用"swap"非成员函数。
 //int main()
 //{
 //	std::string s1 = "Hello";
@@ -1454,7 +1454,7 @@
 //	return 0;
 //}
 
-////"string"模板类相关的非成员函数示例四：使用流提取和流插入于字符串。
+////"string"类模板相关的非成员函数示例四：使用流提取和流插入于字符串。
 //int main()
 //{
 //	std::string s1 = "Hello";
@@ -1471,7 +1471,7 @@
 //	return 0;
 //}
 
-////"string"模板类相关的非成员函数示例五：使用"getline"函数。
+////"string"类模板相关的非成员函数示例五：使用"getline"函数。
 //int main()
 //{
 //	std::string s1 = "Hello";

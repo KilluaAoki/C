@@ -132,10 +132,10 @@
 				c'.若"count"与"npos"相等或未指定"count"，或请求的子串越过了此字符串的结尾(越过结尾表示越过字符串的长度减一所对应的位置)，则产生的子串的位置区间为"[pos, other.size())"。
 				d'.复杂度与"count"成线性级别。
 		3."string"类赋值相关成员函数
-			a."operator="成员函数：拷贝赋值运算符，替换字符串的内容。
+			a."operator="成员函数：为字符串赋值，即替换字符串的内容。
 				a'.常见函数原型(C++20前)
 					a''.string& operator=( const string& str );。
-						a'''.以"str"的副本替换内容。
+						a'''.拷贝赋值运算符，以"str"的副本替换内容。
 						b'''.若"*this"与"str"为同一对象，则此函数无效果。
 						c'''.复杂度与"str"的大小(长度)成线性级别。
 					b''.string& operator=( const char* s );。
@@ -225,21 +225,21 @@
 //	return 0;
 //}
 
-////"string"类模板的介绍与使用示例三：使用拷贝赋值运算符。
+////"string"类模板的介绍与使用示例三：使用"operator="成员函数。
 //int main()
 //{
 //	std::string str1;
 //	std::string str2 = "alpha";
 //
-//	str1 = str2;//调用的赋值运算符的函数原型为："string& operator=(const string& str)"。
+//	str1 = str2;//调用的"operator="成员函数的函数原型为："string& operator=(const string& str)"。
 //	std::cout << "str1 = " << str1 << '\n';//输出"alpha"，"str1"对象与"str2"对象相同。
 //	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
 //
-//	str1 = "bata";//调用的赋值运算符的函数原型为："string& operator=(const char* s)"。
+//	str1 = "bata";//调用的"operator="成员函数的函数原型为："string& operator=(const char* s)"。
 //	std::cout << "str1 = " << str1 << '\n';//输出"bata"。
 //	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
 //
-//	str1 = 'c';//调用的赋值运算符的函数原型为："string& operator=(char c)"。
+//	str1 = 'c';//调用的"operator="成员函数的函数原型为："string& operator=(char c)"。
 //	std::cout << "str1 = " << str1 << '\n';//输出"c"。
 //	std::cout << "str2 = " << str2 << '\n';//输出"alpha"。
 //
@@ -276,7 +276,7 @@
 		1."[]"下标成员访问运算符：访问指定字符，内部是关于"operator[]"的运算符重载函数。
 			a.函数原型(C++20前)
 				a'.reference operator[]( size_type pos );。
-				b'.const_reference operator[]( size_type pos ) const;。(注意此处的构造函数被"const"限定符修饰)
+				b'.const_reference operator[]( size_type pos ) const;。(注意此处的成员函数被"const"限定符修饰)
 			b.参数"pos"表示要访问以及返回的字符位置，位置从零开始。
 			c.返回值"reference"表示对字符的引用，而"const_reference"表示对字符的常引用。(以下所指的字符串大小是不包括空终止符的)
 				a'.被引用的对象的类型根据类模板"basic_string"所特化的类型而定，对于"string"类模板而言，其引用类型为"char&"和"const char&"。
@@ -459,7 +459,7 @@
 		6."shrink_to_fit"成员函数：通过释放不使用的内存，减少内存的使用，即请求移除未使用的容量。(C++11)
 			a.函数原型(C++20前)：void shrink_to_fit();。
 			b.这是减少容量("capacity")到大小("size")的非强制请求，是否满足请求取决并依赖于实现。
-			c.当(且仅当)发生重分配是，则非法化所有指针、引用和迭代器。
+			c.当(且仅当)发生重分配时，则非法化所有指针、引用和迭代器。
 			d.复杂度在C++17前是未指定的，而在C++17起至多与当前对象的大小("size")成线性级别。
 */
 

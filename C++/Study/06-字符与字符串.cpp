@@ -1364,9 +1364,10 @@
 			e.若对应比较关系成立则为"true"，否则为"false"。
 			f.所有比较通过"compare"成员函数进行，故复杂度与字符串的大小成线性级别("O(N)")。
 		3."swap"非成员函数：标准算法库中的"swap"函数模板对"basic_string"类模板的特化，用于交换两个"string"对象的内容。(函数模板)
-			a.常见函数原型：void swap(string& lhs, string& rhs);。(C++17前)
+			a.常见函数原型：void swap(string& lhs, string& rhs);。(C++17前)(省略了模板声明、分配器和命名空间等细节)
 			b."lhs"、"rhs"参数：要交换内容的"string"对象。
 			c.等价于"lhs.swap(rhs)"。
+			d.复杂度为常数级别。
 		4.流提取和流插入：即"operator>>"和"operator<<"的重载，用于从流中提取或插入"string"对象。(函数模板)
 			a.函数原型(省略了模板声明、分配器和命名空间等细节)
 				a'."operator>>"函数原型：istream& operator>>(istream& is, string& str);。

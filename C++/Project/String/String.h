@@ -32,7 +32,7 @@ namespace Aoki
 
 		~String();
 
-		//拷贝赋值运算符
+		//重载赋值运算符
 		String& operator=(const String& str);
 
 		String& operator=(const char* s);

@@ -73,7 +73,7 @@ Aoki::String::~String()
 	size_ = capacity_ = 0;
 }
 
-//拷贝赋值运算符
+//重载赋值运算符
 Aoki::String& Aoki::String::operator=(const String& str)
 {
 	if (this != &str)

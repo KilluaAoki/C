@@ -548,10 +548,10 @@
 //{
 //	std::vector<int> nums;
 //	nums.reserve(1000);
-//	std::cout << "s.capacity() = " << nums.capacity() << "\n";
+//	std::cout << "nums.capacity() = " << nums.capacity() << "\n";
 //	nums.shrink_to_fit();
-//	std::cout << "s.shrink_to_fit()\n";
-//	std::cout << "s.capacity() = " << nums.capacity() << "\n";
+//	std::cout << "nums.shrink_to_fit()\n";
+//	std::cout << "nums.capacity() = " << nums.capacity() << "\n";
 //	return 0;
 //}
 

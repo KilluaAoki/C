@@ -461,6 +461,65 @@ void Test_Vector_06()
 	printf("*****************************EXIT*****************************\n\n");
 }
 
+void Test_Vector_07()
+{
+	printf("******************************07******************************\n");
+
+	Aoki::Vector<int> v1(10, 10);
+	Aoki::Vector<int> v2(10, 5);
+	Aoki::Vector<Aoki::Vector<int>> vv;
+
+	vv.push_back(v1);
+
+	for (const auto& el1: vv)
+	{
+		for (const auto& el2: el1)
+		{
+			std::cout << el2 << ' ';
+		}
+		std::cout << '\n';
+	}
+	std::cout << '\n';
+
+	vv.insert(vv.begin(), v2);
+
+	for (const auto& el1: vv)
+	{
+		for (const auto& el2: el1)
+		{
+			std::cout << el2 << ' ';
+		}
+		std::cout << '\n';
+	}
+	std::cout << '\n';
+
+	vv.erase(vv.begin() + 1);
+
+	for (const auto& el1: vv)
+	{
+		for (const auto& el2: el1)
+		{
+			std::cout << el2 << ' ';
+		}
+		std::cout << '\n';
+	}
+	std::cout << '\n';
+
+	vv.insert(vv.begin(), 5, Aoki::Vector<int>(10, 0));
+
+	for (const auto& el1: vv)
+	{
+		for (const auto& el2: el1)
+		{
+			std::cout << el2 << ' ';
+		}
+		std::cout << '\n';
+	}
+	std::cout << '\n';
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
 int main()
 {
 	Test_Vector_01();
@@ -469,5 +528,6 @@ int main()
 	Test_Vector_04();
 	Test_Vector_05();
 	Test_Vector_06();
+	Test_Vector_07();
 	return 0;
 }

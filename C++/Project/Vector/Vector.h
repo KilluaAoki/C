@@ -402,7 +402,7 @@ namespace Aoki
 		}
 		if (count > 0)
 		{
-			for (auto p = pEnd_ + count - 1; p >= destPosition; --p)
+			for (auto p = pEnd_ + count - 1; p != destPosition + count - 1; --p)
 			{
 				*p = *(p - count);
 			}

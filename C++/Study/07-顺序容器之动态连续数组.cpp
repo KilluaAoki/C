@@ -596,7 +596,7 @@
 				c'.复杂度与"count"成线性级别，加上"pos"与容器结尾的距离成线性级别。
 			c.template< class InputIt > iterator insert( const_iterator pos, InputIt first, InputIt last );。(C++20前)
 				a'.在"pos"前插入来自范围"[first, last)"中的元素，其中"first"和"last"指代要插入的元素范围，但不能是指向调用"insert"所用的容器中的迭代器。
-				b'.返回指向首个被插入元素的迭代器，或者在"first == last"时返回 pos。
+				b'.返回指向首个被插入元素的迭代器，或者在"first == last"时返回"pos"。
 				c'.复杂度与"std::distance(first, last)"(从"first"走到"last"所需的自增数)成线性级别，加上"pos"与容器结尾的距离成线性级别。
 		3."erase"成员函数：擦除元素，即从容器擦除指定的元素。
 			a.函数原型(C++11前)
@@ -628,7 +628,7 @@
 			d.复杂度为常数级别。
 			e.不抛出异常。
 		6."resize"成员函数：改变容器中可存储元素的个数。
-			a.常见函数原型：void resize( size_type count, T value = T() );(C++11前)
+			a.常见函数原型：void resize( size_type count, T value = T() );。(C++11前)
 				a'.在C++11起直至C++20前，此函数的原型为：void resize( size_type count, const value_type& value );。
 				b'.其中"value"是用以初始化新元素的值，而"count"是容器的大小。
 				c'.如果当前大小大于"count"，那么减小容器到它的开头"count"个元素。
@@ -910,7 +910,7 @@
 				f'.bool operator>=( const vector& lhs, const vector& rhs );。(C++20前)
 					a''.若"lhs"的内容按字典序大于或等于"rhs"的内容则为"true"，否则为"false"。
 			c.运算符"=="以及"!="意为检查"lhs"与"rhs"的内容是否相等，即它们是否拥有相同数量的元素且"lhs"中每个元素与"rhs"的同位置元素比较相等。
-				a'.这些运算符的复杂度若"lhs"与"rhs"的大小不同则为常数级别，否则与"vector"的大小成线性级别。
+				a'.这些运算符的复杂度为：若"lhs"与"rhs"的大小不同则为常数级别，否则与"vector"的大小成线性级别。
 			d.运算符"<"、"<="、">"以及">="意为按字典序比较"lhs"与"rhs"的内容。
 				a'.这些运算符的复杂度与"vector"的大小成线性级别。
 		2."swap"非成员函数：标准算法库中的"swap"函数模板对"vector"类模板的特化，用于交换两个"vector"的内容。(函数模板)
@@ -927,7 +927,7 @@
 //	std::vector<int> bob(4, 2);
 //	std::vector<int> eve(3, 1);
 //
-//	// 比较不相等的容器
+//	//比较不相等的容器
 //	std::cout << "alice == bob returns " << (alice == bob) << '\n';
 //	std::cout << "alice != bob returns " << (alice != bob) << '\n';
 //	std::cout << "alice <  bob returns " << (alice < bob) << '\n';
@@ -936,7 +936,7 @@
 //	std::cout << "alice >= bob returns " << (alice >= bob) << '\n';
 //	std::cout << '\n';
 //
-//	// 比较相等的容器
+//	//比较相等的容器
 //	std::cout << "alice == eve returns " << (alice == eve) << '\n';
 //	std::cout << "alice != eve returns " << (alice != eve) << '\n';
 //	std::cout << "alice <  eve returns " << (alice < eve) << '\n';
@@ -962,7 +962,7 @@
 //
 //	std::cout << '\n';
 //
-//	swap(v1, v2);
+//	std::swap(v1, v2);
 //
 //	std::cout << "v1: ";
 //	for (const auto& el: v1) std::cout << el << ' ';

@@ -404,6 +404,17 @@ void Test_Vector_05()
 		std::cout << '\n';
 	}
 
+	std::cout << std::endl;
+
+	{
+		Aoki::Vector<int> c;
+		c.insert(c.begin(), 10, 10);
+		for (const auto& el: c) std::cout << el << ' ';
+		std::cout << '\n';
+	}
+
+	std::cout << std::endl;
+
 	printf("*****************************EXIT*****************************\n\n");
 }
 

@@ -320,7 +320,7 @@ namespace Aoki
 	template<typename T>
 	typename Vector<T>::size_type Vector<T>::max_size() const
 	{
-		return ((size_type)(-1) / sizeof(value_type));
+		return ((size_type)(-1) / sizeof(value_type) / (size_type)(2));
 	}
 
 	template<typename T>
@@ -390,7 +390,7 @@ namespace Aoki
 		assert(pos >= pBegin_ && pos <= pEnd_);
 		auto destPosition = const_cast<value_type*>(pos);
 		const ptrdiff_t n = destPosition - pBegin_;
-		if (pEnd_ + count > pCapacity_)
+		if (size() + count > capacity())
 		{
 			size_type newCapacity = capacity() == 0 ? 4 : capacity() * 2;
 			while (newCapacity < (size_type)(pEnd_ - pBegin_) + count)
@@ -402,9 +402,9 @@ namespace Aoki
 		}
 		if (count > 0)
 		{
-			for (auto p = pEnd_ + count - 1; p != destPosition + count - 1; --p)
+			for (auto p = pEnd_; p != destPosition; --p)
 			{
-				*p = *(p - count);
+				*(p + count - 1) = *(p - 1);
 			}
 			for (auto p = destPosition; p != destPosition + count; ++p)
 			{
@@ -421,7 +421,7 @@ namespace Aoki
 		assert(pos >= pBegin_ && pos <= pEnd_);
 		auto destPosition = const_cast<value_type*>(pos);
 		const ptrdiff_t n = destPosition - pBegin_;
-		if (pEnd_ + count > pCapacity_)
+		if (size() + count > capacity())
 		{
 			size_type newCapacity = capacity() == 0 ? 4 : capacity() * 2;
 			while (newCapacity < (size_type)(pEnd_ - pBegin_) + count)
@@ -433,9 +433,9 @@ namespace Aoki
 		}
 		if (count > 0)
 		{
-			for (auto p = pEnd_ + count - 1; p >= destPosition; --p)
+			for (auto p = pEnd_; p != destPosition; --p)
 			{
-				*p = *(p - count);
+				*(p + count - 1) = *(p - 1);
 			}
 			for (auto p = destPosition; p != destPosition + count; ++p)
 			{
@@ -455,7 +455,7 @@ namespace Aoki
 		if (first != last)
 		{
 			const auto count = (size_type)(last - first);
-			if (pEnd_ + count > pCapacity_)
+			if (size() + count > capacity())
 			{
 				size_type newCapacity = capacity() == 0 ? 4 : capacity() * 2;
 				while (newCapacity < (size_type)(pEnd_ - pBegin_) + count)
@@ -465,9 +465,9 @@ namespace Aoki
 				reserve(newCapacity);
 				destPosition = pBegin_ + n;
 			}
-			for (auto p = pEnd_ + count - 1; p >= destPosition; --p)
+			for (auto p = pEnd_; p != destPosition; --p)
 			{
-				*p = *(p - count);
+				*(p + count - 1) = *(p - 1);
 			}
 			for (auto p = destPosition; p != destPosition + count; ++p)
 			{

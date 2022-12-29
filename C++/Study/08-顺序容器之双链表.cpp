@@ -143,7 +143,6 @@
 //{
 //	std::list<int> v1(5, 1);
 //	std::list<int> v2(3, 2);
-//	std::list<int> v3(2, 3);
 //
 //	v1.assign(3, 4);//将"v1"的内容替换为"3"个元素，且每个元素的值均为"4"，调用函数原型为：void assign( size_type count, const T& value );。
 //	std::cout << v1.size() << std::endl;

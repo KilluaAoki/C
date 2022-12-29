@@ -196,7 +196,7 @@ namespace Aoki
 
 		void splice(const_iterator pos, this_type& other, const_iterator first, const_iterator last);
 
-		size_type remove(const T& value);
+		size_type remove(const value_type& value);
 
 		template<typename UnaryPredicate>
 		size_type remove_if(UnaryPredicate p);
@@ -353,6 +353,26 @@ namespace Aoki
 		this_type temp = *this;
 		pNode_ = pNode_->pPrev_;
 		return temp;
+	}
+
+	template<typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
+	bool operator==(const ListIterator<T, PointerA, ReferenceA>& a, const ListIterator<T, PointerB, ReferenceB>& b)
+	{
+		return a.pNode_ == b.pNode_;
+	}
+
+
+	template<typename T, typename PointerA, typename ReferenceA, typename PointerB, typename ReferenceB>
+	bool operator!=(const ListIterator<T, PointerA, ReferenceA>& a, const ListIterator<T, PointerB, ReferenceB>& b)
+	{
+		return a.pNode_ != b.pNode_;
+	}
+
+
+	template<typename T, typename Pointer, typename Reference>
+	bool operator!=(const ListIterator<T, Pointer, Reference>& a, const ListIterator<T, Pointer, Reference>& b)
+	{
+		return a.pNode_ != b.pNode_;
 	}
 
 	///////////////////////////////////////////////////////////////////////
@@ -699,11 +719,11 @@ namespace Aoki
 	}
 
 	template<typename T>
-	typename List<T>::size_type List<T>::remove(const T& value)
+	typename List<T>::size_type List<T>::remove(const value_type& value)
 	{
 		iterator cur(pHead_->pNext_);
 		size_type count = 0;
-		while (cur != pHead_)
+		while (cur.pNode_ != pHead_)
 		{
 			if (*cur == value)
 			{

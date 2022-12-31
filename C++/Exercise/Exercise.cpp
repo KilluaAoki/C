@@ -64,3 +64,53 @@
 //	std::cout << CompareDate(x, y) + 1 << std::endl;
 //	return 0;
 //}
+
+////求"1 + 2 + 3 + ... + n"：https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1。(方法一)
+//class Solution
+//{
+//public:
+//	int Sum_Solution(int n)
+//	{
+//		return (n + (int)std::pow(n, 2)) >> 1;
+//	}
+//};
+
+////求"1 + 2 + 3 + ... + n"：https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1。(方法二)
+//class Solution
+//{
+//public:
+//	int Sum_Solution(int n)
+//	{
+//		int sum = n;
+//		sum && (sum += Sum_Solution(n - 1));
+//		return sum;
+//	}
+//};
+
+////求"1 + 2 + 3 + ... + n"：https://www.nowcoder.com/practice/7a0da8fc483247ff8800059e12d7caf1。(方法三)
+//class Solution
+//{
+//public:
+//	class Sum
+//	{
+//	public:
+//		Sum()
+//		{
+//			sum_ += i_;
+//			++i_;
+//		}
+//	};
+//
+//	int Sum_Solution(int n)
+//	{
+//		Sum arr[n];
+//		return sum_;
+//	}
+//
+//private:
+//	static int i_;
+//	static int sum_;
+//};
+//
+//int Solution::i_ = 1;
+//int Solution::sum_ = 0;

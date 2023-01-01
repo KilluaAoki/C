@@ -114,3 +114,72 @@
 //
 //int Solution::i_ = 1;
 //int Solution::sum_ = 0;
+
+////打印日期：https://www.nowcoder.com/practice/b1f7a77416194fd3abd63737cdfcf82b。
+//int main()
+//{
+//	int y, n;
+//	int mouthDaySum[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//	while (std::cin >> y >> n)
+//	{
+//		if ((y % 4 == 0 && y % 100 != 0) || (y % 400 == 0))
+//		{
+//			mouthDaySum[2] = 29;
+//		}
+//		else
+//		{
+//			mouthDaySum[2] = 28;
+//		}
+//		int mouth = 1;
+//		while (n > 0)
+//		{
+//			if (n - mouthDaySum[mouth] <= 0)
+//			{
+//				break;
+//			}
+//			n -= mouthDaySum[mouth];
+//			++mouth;
+//		}
+//		std::printf("%04d-%02d-%02d\n", y, mouth, n);
+//	}
+//	return 0;
+//}
+
+////日期累加：https://www.nowcoder.com/practice/eebb2983b7bf40408a1360efb33f9e5d。
+//int GetMouthDay(int year, int mouth)
+//{
+//	static int mouthDaySum[13] = { 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+//	if (mouth == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)))
+//	{
+//		return 29;
+//	}
+//	return mouthDaySum[mouth];
+//}
+//
+//int main()
+//{
+//	int m, year, mouth, day, n;
+//
+//	std::cin >> m;
+//
+//	while (m--)
+//	{
+//		std::cin >> year >> mouth >> day >> n;
+//		if (day <= 0)
+//			break;
+//		day += n;
+//		while (day > GetMouthDay(year, mouth))
+//		{
+//			day -= GetMouthDay(year, mouth);
+//			++mouth;
+//			if (mouth > 12)
+//			{
+//				mouth = 1;
+//				++year;
+//			}
+//		}
+//		std::printf("%04d-%02d-%02d\n", year, mouth, day);
+//	}
+//
+//	return 0;
+//}

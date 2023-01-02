@@ -183,3 +183,168 @@
 //
 //	return 0;
 //}
+
+////验证回文串：https://leetcode.cn/problems/valid-palindrome/。
+//class Solution
+//{
+//public:
+//	bool isPalindrome(string s)
+//	{
+//		if (s.empty())
+//		{
+//			return true;
+//		}
+//		string::size_type left = 0;
+//		string::size_type right = s.length() - 1;
+//		while (left < right)
+//		{
+//			if (isalnum(s[left]) && isalnum(s[right]))
+//			{
+//				if (!equal(s[left++], s[right--]))
+//				{
+//					return false;
+//				}
+//			}
+//			else
+//			{
+//				left += isalnum(s[left]) ? 0 : 1;
+//				right -= isalnum(s[right]) ? 0 : 1;
+//			}
+//		}
+//		return true;
+//	}
+//
+//	bool equal(char c1, char c2)
+//	{
+//		if (isdigit(c1) || isdigit(c2))
+//		{
+//			return c1 == c2;
+//		}
+//		return (c1 == c2) || (max(c1, c2) - min(c1, c2) == 32);
+//	}
+//};
+
+////字符串中的第一个唯一字符：https://leetcode.cn/problems/first-unique-character-in-a-string/。
+//class Solution
+//{
+//public:
+//	int firstUniqChar(string s)
+//	{
+//		if (s.length() < 2)
+//		{
+//			return static_cast<int>(s.length()) - 1;
+//		}
+//		vector<int> countArray(26, 0);
+//		for (auto item: s)
+//		{
+//			++countArray[item - 97];
+//		}
+//		for (string::size_type i = 0; i < s.length(); ++i)
+//		{
+//			if (countArray[s[i] - 97] == 1)
+//			{
+//				return static_cast<int>(i);
+//			}
+//		}
+//		return -1;
+//	}
+//};
+
+////反转字符串 II：https://leetcode.cn/problems/reverse-string-ii/。
+//class Solution
+//{
+//public:
+//	string reverseStr(string s, int k)
+//	{
+//		string::iterator it = s.begin();
+//		string::size_type n = s.length();
+//		for (int i = 0; i < n; i += 2 * k)
+//		{
+//			reverse(it + i, it + min(i + k, static_cast<int>(n)));
+//		}
+//		return s;
+//	}
+//};
+
+////把字符串转换成整数：https://www.nowcoder.com/practice/1277c681251b4372bdef344468e4f26e。
+//class Solution
+//{
+//public:
+//	int StrToInt(string str)
+//	{
+//		if (str.empty())
+//		{
+//			return 0;
+//		}
+//
+//		bool flag = str[0] != '-';
+//		int minQ = INT_MIN / 10;
+//		int minR = INT_MIN % 10;
+//		int cur = 0;
+//		int res = 0;
+//
+//		for (string::size_type i = (str[0] == '+' || str[0] == '-') ? 1 : 0; i < str.length(); ++i)
+//		{
+//			if (!isdigit(str[i]))
+//			{
+//				return 0;
+//			}
+//			cur = '0' - str[i];
+//			if (res < minQ || (res == minQ && cur < minR))
+//			{
+//				return 0;
+//			}
+//			res = res * 10 + cur;
+//		}
+//
+//		if (flag && res == INT_MIN)
+//		{
+//			return 0;
+//		}
+//
+//		return flag ? -res : res;
+//	}
+//};
+
+////字符串转换整数 (atoi)：https://leetcode.cn/problems/string-to-integer-atoi/。(附加)
+//class Solution
+//{
+//public:
+//	int myAtoi(string s)
+//	{
+//		if (s.empty())
+//		{
+//			return 0;
+//		}
+//
+//		string::size_type i = 0;
+//
+//		while (s[i] == ' ')
+//		{
+//			++i;
+//		}
+//
+//		bool flag = s[i] != '-';
+//		int minQ = INT_MIN / 10;
+//		int minR = INT_MIN % 10;
+//		int res = 0;
+//		int cur = 0;
+//
+//		for (i = (s[i] == '+' || s[i] == '-') ? i + 1 : i; isdigit(s[i]) && i < s.length(); ++i)
+//		{
+//			cur = '0' - s[i];
+//			if ((res < minQ) || (res == minQ && cur < minR))
+//			{
+//				return flag ? INT_MAX : INT_MIN;
+//			}
+//			res = res * 10 + cur;
+//		}
+//
+//		if (flag && res == INT_MIN)
+//		{
+//			return INT_MAX;
+//		}
+//
+//		return flag ? -res : res;
+//	}
+//};

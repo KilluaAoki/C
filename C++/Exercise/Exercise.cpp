@@ -348,3 +348,243 @@
 //		return flag ? -res : res;
 //	}
 //};
+
+////字符串相加：https://leetcode.cn/problems/add-strings/。
+//class Solution
+//{
+//public:
+//	string addStrings(string num1, string num2)
+//	{
+//		string::iterator it1 = num1.end() - 1;
+//		string::iterator it2 = num2.end() - 1;
+//		string res;
+//		int carry = 0;
+//		int sum = 0;
+//		while (it1 >= num1.begin() || it2 >= num2.begin())
+//		{
+//			sum = carry;
+//			if (it1 >= num1.begin())
+//			{
+//				sum += *it1 - '0';
+//				--it1;
+//			}
+//			if (it2 >= num2.begin())
+//			{
+//				sum += *it2 - '0';
+//				--it2;
+//			}
+//			carry = sum / 10;
+//			res.push_back(sum % 10 + '0');
+//		}
+//		if (carry > 0)
+//		{
+//			res.push_back(carry + '0');
+//		}
+//		reverse(res.begin(), res.end());
+//		return res;
+//	}
+//};
+
+////反转字符串：https://leetcode.cn/problems/reverse-string/。
+//void reverseString(vector<char>& s)
+//{
+//	vector<char>::size_type size = s.size();
+//	for (vector<char>::size_type left = 0, right = size - 1; left < right; ++left, --right)
+//	{
+//		swap(s[left], s[right]);
+//	}
+//}
+
+////反转字符串中的单词 III：https://leetcode.cn/problems/reverse-words-in-a-string-iii/。
+//class Solution
+//{
+//public:
+//	string reverseWords(string s)
+//	{
+//		string::iterator itL = s.begin();
+//		string::iterator itR = s.begin();
+//		while (itR != s.end())
+//		{
+//			if (*itR == ' ')
+//			{
+//				reverse(itL, itR);
+//				itL = itR + 1;
+//			}
+//			++itR;
+//		}
+//		reverse(itL, itR);
+//		return s;
+//	}
+//};
+
+////字符串相乘：https://leetcode.cn/problems/multiply-strings/。
+//class Solution
+//{
+//public:
+//	string multiply(string num1, string num2)
+//	{
+//		string::size_type n1 = num1.length();
+//		string::size_type n2 = num2.length();
+//		string res(n1 + n2, '0');
+//		for (string::size_type i = n1; i > 0; --i)
+//		{
+//			for (string::size_type j = n2; j > 0; --j)
+//			{
+//				int mul = (num1[i - 1] - '0') * (num2[j - 1] - '0');
+//				int sum = mul + (res[i + j - 1] - '0');
+//				res[i + j - 1] = sum % 10 + '0';
+//				res[i + j - 2] += sum / 10;
+//			}
+//		}
+//		for (string::size_type i = 0; i < n1 + n2; ++i)
+//		{
+//			if (res[i] != '0')
+//			{
+//				return res.substr(i);
+//			}
+//		}
+//		return "0";
+//	}
+//};
+
+////字符串最后一个单词的长度：https://www.nowcoder.com/practice/8c949ea5f36f422594b306a2300315da。(类似力扣第"58"题)
+//int lengthOfLastWord(string s)
+//{
+//	string::size_type i = s.size();
+//	while (i > 0 && s[i - 1] == ' ')
+//	{
+//		--i;
+//	}
+//	string::size_type j = i;
+//	while (j > 0 && s[j - 1] != ' ')
+//	{
+//		--j;
+//	}
+//	return static_cast<int>(i - j);
+//}
+//
+//int main()
+//{
+//	string s;
+//	getline(cin, s);
+//	cout << lengthOfLastWord(s) << '\n';
+//	return 0;
+//}
+
+////只出现一次的数字：https://leetcode.cn/problems/single-number/。
+//class Solution
+//{
+//public:
+//	int singleNumber(vector<int>& nums)
+//	{
+//		int res = 0;
+//		for (int num : nums)
+//		{
+//			res ^= num;
+//		}
+//		return res;
+//	}
+//};
+
+////杨辉三角：https://leetcode.cn/problems/pascals-triangle/。
+//class Solution
+//{
+//public:
+//	vector<vector<int>> generate(int numRows)
+//	{
+//		vector<vector<int>> ans;
+//		for (vector<vector<int>>::size_type i = 0; i < numRows; ++i)
+//		{
+//			vector<int> row(i + 1, 1);
+//			for (vector<int>::size_type j = 1; j < i; ++j)
+//			{
+//				row[j] = ans[i - 1][j - 1] + ans[i - 1][j];
+//			}
+//			ans.push_back(row);
+//		}
+//		return ans;
+//	}
+//};
+
+////只出现一次的数字 II：https://leetcode.cn/problems/single-number-ii/。
+//class Solution
+//{
+//public:
+//	int singleNumber(vector<int>& nums)
+//	{
+//		vector<int> help(32, 0);
+//		for (int num: nums)
+//		{
+//			for (vector<int>::size_type i = 0; i < 32; ++i)
+//			{
+//				help[i] += (num >> i) & 1;
+//			}
+//		}
+//		int ans = 0;
+//		for (vector<int>::size_type i = 0; i < 32; ++i)
+//		{
+//			help[i] %= 3;
+//			if (help[i] != 0)
+//			{
+//				ans |= 1 << i;
+//			}
+//		}
+//		return ans;
+//	}
+//};
+
+////只出现一次的数字 III：https://leetcode.cn/problems/single-number-iii/。(附加)
+//class Solution
+//{
+//public:
+//	vector<int> singleNumber(vector<int>& nums)
+//	{
+//		int xorSum = 0;
+//		for (int num: nums)
+//		{
+//			xorSum ^= num;
+//		}
+//		int differenceNum = xorSum == INT_MIN ? xorSum : (xorSum & (-xorSum));
+//		int x = 0, y = 0;
+//		for (int num: nums)
+//		{
+//			if ((num & differenceNum) == 0)
+//			{
+//				x ^= num;
+//			}
+//			else
+//			{
+//				y ^= num;
+//			}
+//		}
+//		return vector<int>{ x, y };
+//	}
+//};
+
+////数组中出现次数超过一半的数字：https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163。(类似力扣第"169"题)
+//class Solution
+//{
+//public:
+//	int MoreThanHalfNum_Solution(vector<int> numbers)
+//	{
+//		int candidate = 0;
+//		int hitPoint = 0;
+//		for (vector<int>::size_type i = 0; i < numbers.size(); ++i)
+//		{
+//			if (hitPoint == 0)
+//			{
+//				candidate = numbers[i];
+//				++hitPoint;
+//			}
+//			else if (candidate == numbers[i])
+//			{
+//				++hitPoint;
+//			}
+//			else
+//			{
+//				--hitPoint;
+//			}
+//		}
+//		return candidate;
+//	}
+//};

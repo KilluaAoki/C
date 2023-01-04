@@ -533,34 +533,6 @@
 //	}
 //};
 
-////只出现一次的数字 III：https://leetcode.cn/problems/single-number-iii/。(附加)
-//class Solution
-//{
-//public:
-//	vector<int> singleNumber(vector<int>& nums)
-//	{
-//		int xorSum = 0;
-//		for (int num: nums)
-//		{
-//			xorSum ^= num;
-//		}
-//		int differenceNum = xorSum == INT_MIN ? xorSum : (xorSum & (-xorSum));
-//		int x = 0, y = 0;
-//		for (int num: nums)
-//		{
-//			if ((num & differenceNum) == 0)
-//			{
-//				x ^= num;
-//			}
-//			else
-//			{
-//				y ^= num;
-//			}
-//		}
-//		return vector<int>{ x, y };
-//	}
-//};
-
 ////数组中出现次数超过一半的数字：https://www.nowcoder.com/practice/e8a1b01a2df14cb2b228b30ee6a92163。(类似力扣第"169"题)
 //class Solution
 //{
@@ -588,3 +560,94 @@
 //		return candidate;
 //	}
 //};
+
+////删除排序数组中的重复项：https://leetcode.cn/problems/remove-duplicates-from-sorted-array/。
+//class Solution
+//{
+//public:
+//	int removeDuplicates(vector<int>& nums)
+//	{
+//		if (nums.size() < 2)
+//		{
+//			return static_cast<int>(nums.size());
+//		}
+//		auto itSolw = nums.begin();
+//		auto itFast = nums.begin() + 1;
+//		while (itFast != nums.end())
+//		{
+//			if (*itSolw != *itFast && ++itSolw != itFast)
+//			{
+//				*itSolw = *itFast;
+//			}
+//			++itFast;
+//		}
+//		return static_cast<int>(itSolw - nums.begin() + 1);
+//	}
+//};
+
+////只出现一次的数字 III：https://leetcode.cn/problems/single-number-iii/。
+//class Solution
+//{
+//public:
+//	vector<int> singleNumber(vector<int>& nums)
+//	{
+//		int xorSum = 0;
+//		for (int num: nums)
+//		{
+//			xorSum ^= num;
+//		}
+//		int differenceNum = xorSum == INT_MIN ? xorSum : (xorSum & (-xorSum));
+//		int x = 0, y = 0;
+//		for (int num: nums)
+//		{
+//			if ((num & differenceNum) == 0)
+//			{
+//				x ^= num;
+//			}
+//			else
+//			{
+//				y ^= num;
+//			}
+//		}
+//		return vector<int>{ x, y };
+//	}
+//};
+
+////电话号码的字母组合：https://leetcode.cn/problems/letter-combinations-of-a-phone-number/。
+//class Solution
+//{
+//public:
+//	vector<string> letterCombinations(string digits)
+//	{
+//		vector<string> ans;
+//		if (digits.empty())
+//		{
+//			return ans;
+//		}
+//		string path(digits.length(), ' ');
+//		process(digits, 0, path, ans);
+//		return ans;
+//	}
+//
+//	void process(string& str, string::size_type index, string& path, vector<string>& ans)
+//	{
+//		if (index == str.length())
+//		{
+//			ans.push_back(path);
+//		}
+//		else
+//		{
+//			string cands = phone[str[index] - '2'];
+//			for (char cur: cands)
+//			{
+//				path[index] = cur;
+//				process(str, index + 1, path, ans);
+//			}
+//		}
+//	}
+//
+//private:
+//	static vector<string> phone;
+//};
+//
+//vector<string> Solution::phone = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };

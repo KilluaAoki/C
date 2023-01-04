@@ -916,7 +916,7 @@
 		2."swap"非成员函数：标准算法库中的"swap"函数模板对"vector"类模板的特化，用于交换两个"vector"的内容。(函数模板)
 			a.常见函数原型：void swap( vector& lhs, vector& rhs );。(C++17前)(省略了模板声明、模板参数、分配器和命名空间等细节)
 			b."lhs"、"rhs"参数：要交换内容的容器。
-			c.等价于"lhs.swap(rhs)"。
+			c.调用"lhs.swap(rhs)"。
 			d.复杂度为常数级别。
 */
 

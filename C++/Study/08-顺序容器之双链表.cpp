@@ -56,17 +56,17 @@
 			b.复杂度与"list"的大小成线性级别。
 		3."list"赋值相关成员函数
 			a."operator="成员函数：赋值给容器，即替换容器内容。
-				a'.常见函数原型：list& operator=( const list& other )。
+				a'.常见函数原型：list& operator=( const list& other );。
 					a''.拷贝赋值运算符，以"other"的副本替换内容。
 					b''.返回值：*this。
 					c''.复杂度与"*this"和"other"的大小成线性级别。
 					d''.可能抛出实现定义的异常。
 			b."assign"成员函数：将值赋给容器，即替换容器的内容。
 				a'.常见函数原型
-					a''.void assign( size_type count, const T& value )。
+					a''.void assign( size_type count, const T& value );。
 						a'''.以"count"份"value"的副本替换内容。
 						b'''.复杂度与"count"成线性级别。
-					b''.template< class InputIt > void assign( InputIt first, InputIt last )。
+					b''.template< class InputIt > void assign( InputIt first, InputIt last );。
 						a'''.以范围"[first, last)"中元素的副本替换内容，若任一参数是指向"*this"中的迭代器则行为未定义。
 						b'''.复杂度与"first"和"last"间的距离成线性级别。
 				b'.所有指向容器元素的迭代器、指针及引用均被非法化。
@@ -739,17 +739,17 @@
 		1.按照字典顺序比较"list"中的值(函数模板)。
 			a.将各个用于比较的运算符进行重载，以便于比较二个"list"的内容。
 			b.常见函数原型(省略了模板声明、模板参数、分配器和命名空间等细节)
-				a''.bool operator==( const list &lhs, const list &rhs );。
+				a''.bool operator==( const list& lhs, const list& rhs );。
 					a'''.若"list"内容相等则为"true"，否则为"false"。
-				b''.bool operator!=( const list &lhs, const list &rhs );。(C++20前)
+				b''.bool operator!=( const list& lhs, const list& rhs );。(C++20前)
 					a'''.若"list"内容不相等则为"true"，否则为"false"。
-				c''.bool operator<( const list &lhs, const list &rhs );。(C++20前)
+				c''.bool operator<( const list& lhs, const list& rhs );。(C++20前)
 					a'''.若"lhs"的内容按字典序小于"rhs"的内容则为"true"，否则为"false"。
-				d''.bool operator>( const list &lhs, const list &rhs );。(C++20前)
+				d''.bool operator>( const list& lhs, const list& rhs );。(C++20前)
 					a'''.若"lhs"的内容按字典序大于"rhs"的内容则为"true"，否则为"false"。
-				e''.bool operator<=( const list &lhs, const list &rhs );。(C++20前)
+				e''.bool operator<=( const list& lhs, const list& rhs );。(C++20前)
 					a'''.若"lhs"的内容按字典序小于或等于"rhs"的内容则为"true"，否则为"false"。
-				f''.bool operator>=( const list &lhs, const list &rhs );。(C++20前)
+				f''.bool operator>=( const list& lhs, const list& rhs );。(C++20前)
 					a'''.若"lhs"的内容按字典序大于或等于"rhs"的内容则为"true"，否则为"false"。
 			c.运算符"=="以及"!="意为检查"lhs"与"rhs"的内容是否相等，即它们是否拥有相同数量的元素且"lhs"中每个元素与"rhs"的同位置元素比较相等。
 				a'.这些运算符的复杂度为：若"lhs"与"rhs"的大小不同则为常数，否则与"list"大小成线性级别。
@@ -757,7 +757,7 @@
 				a'.这些运算符的复杂度与"list"的大小成线性级别。
 		2."swap"函数：标准算法库中的"swap"函数模板对"list"类模板的特化，用于交换两个"list"的内容。(函数模板)
 			a.常见函数原型：void swap( list& lhs, list& rhs );。(C++17前)(省略了模板声明、模板参数、分配器和命名空间等细节)
-			b.等价于调用"lhs.swap(rhs)"。
+			b.调用"lhs.swap(rhs)"。
 			c.复杂度为常数级别。
 */
 

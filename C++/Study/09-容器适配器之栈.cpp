@@ -102,8 +102,8 @@
 	"stack"类模板的元素访问
 		1."top"成员函数：访问栈顶元素。
 			a.函数原型
-				a'.reference top();
-				b'.const_reference top() const;
+				a'.reference top();。
+				b'.const_reference top() const;。
 			b.返回"stack"中顶元素的引用，它是最近推入的元素，此元素将在调用"pop"成员函数时被移除，等效于调用"c.back()"。
 			c.复杂度为常数级别。
 */

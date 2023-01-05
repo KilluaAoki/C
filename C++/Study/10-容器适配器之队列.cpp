@@ -105,14 +105,14 @@
 	"queue"类模板的元素访问
 		1."front"成员函数：访问第一个元素。
 			a.函数原型
-				a'.reference front();
-				b'.const_reference front() const;
+				a'.reference front();。
+				b'.const_reference front() const;。
 			b.返回"queue"中首元素的引用，此元素将是调用"pop"成员函数时第一个被移除的元素，等效于调用"c.front()"。
 			c.复杂度为常数级别。
 		2."back"成员函数：访问最后一个元素。
 			a.函数原型
-				a'.reference back();
-				b'.const_reference back() const;
+				a'.reference back();。
+				b'.const_reference back() const;。
 			b.返回"queue"中末元素的引用，它是最近推入的元素，等效于调用"c.back()"。
 			c.复杂度为常数级别。
 */

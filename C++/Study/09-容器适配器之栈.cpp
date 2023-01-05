@@ -312,7 +312,7 @@
 //	std::cout << "Before swapping, s2: ";
 //	printStack(s2);
 //
-//	swap(s1, s2);
+//	std::swap(s1, s2);
 //
 //	std::cout << "After swapping, s1: ";
 //	printStack(s1);

@@ -601,7 +601,7 @@
 		3."erase"成员函数：擦除元素，即从容器擦除指定的元素。
 			a.函数原型(C++11前)
 				a'.iterator erase( iterator pos );。
-					a''.移除位于"pos"的元素，其中"pos"指向要移除的元素的迭代器。
+					a''.移除位于"pos"的元素，其中"pos"是指向要移除的元素的迭代器。
 					b''.在C++11起直至C++20前，此函数的原型为：iterator erase( const_iterator pos );。
 					c''.迭代器"pos"必须合法且可解引用，因此不能以"end"成员函数返回的迭代器(即使合法，但其依旧不可解引用)作为"pos"的值。
 					d''.返回值为最后移除元素之后的迭代器，如果"pos"指代末元素，那么返回"end()"迭代器。
@@ -897,7 +897,7 @@
 		1.按照字典顺序比较"vector"中的值(函数模板)。
 			a.将各个用于比较的运算符进行重载，以便于比较二个"vector"的内容。
 			b.常见函数原型(省略了模板声明、模板参数、分配器和命名空间等细节)
-				a'.bool operator==( const vector& lhs, const vector& rhs );。(C++20前)
+				a'.bool operator==( const vector& lhs, const vector& rhs );。
 					a''.若"vector"内容相等则为"true"，否则为"false"。
 				b'.bool operator!=( const vector& lhs, const vector& rhs );。(C++20前)
 					a''.若"vector"内容不相等则为"true"，否则为"false"。

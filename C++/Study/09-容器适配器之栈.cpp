@@ -34,10 +34,10 @@
 
 /**
 	"stack"类模板的使用
-		1."stack"的常见构造函数的函数原型
+		1."stack"的常见构造函数的函数原型(以下部分函数原型忽略分号)
 			a."explicit stack( const Container& cont = Container() )"：C++11前的默认构造函数，以"cont"的内容复制构造底层容器"c"。
 				a'."cont"参数：用作源初始化底层容器的容器。
-				b'.在C++11起，此函数的原型为："explicit stack( const Container& cont )"。
+				b'.在C++11起，此函数的原型为：explicit stack( const Container& cont );。
 				c'.复杂度：同被包装容器上的对应操作。
 			b."stack() : stack(Container()) { }"：C++11起的默认构造函数，容器将进行值初始化，同时它也是一个委托构造函数(视实现而定)。
 				a'."stack(Container())"：以默认构造的底层容器作为参数，调用对应构造函数。
@@ -180,7 +180,7 @@
 		3."swap"成员函数：交换内容。(C++11起)
 			a.函数原型：void swap( stack& other );。(忽略"noexcept"说明符细节)
 				a'."other"参数：要交换内容的容器适配器。
-			b.交换容器适配器与"other"的内容，等效于调用"using std::swap;"及"swap(c, other.c);"。
+			b.交换容器适配器与"other"的内容，等效于调用"using std::swap"及"swap(c, other.c)"。
 			c.复杂度：与底层容器相同，通常为常数级别。
 */
 

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <type_traits>
 
+#include "../Iterator/Iterator.h"
+
 namespace Aoki
 {
 	/**
@@ -110,6 +112,8 @@ namespace Aoki
 		typedef ListIterator<T, const T*, const T&> const_iterator;
 		typedef std::size_t size_type;
 		typedef ListNode<T> node_type;
+		typedef Aoki::reverse_iterator<iterator, T*, T&> reverse_iterator;
+		typedef Aoki::reverse_iterator<iterator, const T*, const T&> const_reverse_iterator;
 
 	public:
 		//构造函数和析构函数
@@ -150,6 +154,14 @@ namespace Aoki
 		iterator end();
 
 		const_iterator end() const;
+
+		reverse_iterator rbegin();
+
+		const_reverse_iterator rbegin() const;
+
+		reverse_iterator rend();
+
+		const_reverse_iterator rend() const;
 
 		//容量
 		bool empty() const;
@@ -196,7 +208,7 @@ namespace Aoki
 
 		void splice(const_iterator pos, this_type& other, const_iterator first, const_iterator last);
 
-		size_type remove(const value_type& value);
+		size_type remove(const T& value);
 
 		template<typename UnaryPredicate>
 		size_type remove_if(UnaryPredicate p);
@@ -489,6 +501,30 @@ namespace Aoki
 	typename List<T>::const_iterator List<T>::end() const
 	{
 		return const_iterator(pHead_);
+	}
+
+	template<typename T>
+	typename List<T>::reverse_iterator List<T>::rbegin()
+	{
+		return reverse_iterator(pHead_);
+	}
+
+	template<typename T>
+	typename List<T>::const_reverse_iterator List<T>::rbegin() const
+	{
+		return reverse_iterator(pHead_);
+	}
+
+	template<typename T>
+	typename List<T>::reverse_iterator List<T>::rend()
+	{
+		return reverse_iterator(pHead_->pNext_);
+	}
+
+	template<typename T>
+	typename List<T>::const_reverse_iterator List<T>::rend() const
+	{
+		return reverse_iterator(pHead_->pNext_);
 	}
 
 	//容量

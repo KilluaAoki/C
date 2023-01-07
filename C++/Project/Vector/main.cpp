@@ -531,6 +531,36 @@ void Test_Vector_07()
 	printf("*****************************EXIT*****************************\n\n");
 }
 
+void Test_Vector_08()
+{
+	printf("******************************08******************************\n");
+
+	Aoki::Vector<int> vector;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		vector.push_back(i);
+	}
+
+	Aoki::Vector<int>::iterator it = vector.begin();
+
+	while (it != vector.end())
+	{
+		std::cout << *it++ << ' ';
+	}
+	std::cout << '\n';
+
+	Aoki::Vector<int>::reverse_iterator rit = vector.rbegin();
+
+	while (rit != vector.rend())
+	{
+		std::cout << *rit++ << ' ';
+	}
+	std::cout << '\n';
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
 int main()
 {
 	Test_Vector_01();
@@ -540,5 +570,6 @@ int main()
 	Test_Vector_05();
 	Test_Vector_06();
 	Test_Vector_07();
+	Test_Vector_08();
 	return 0;
 }

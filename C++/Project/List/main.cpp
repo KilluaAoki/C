@@ -433,6 +433,34 @@ void Test_List_05()
 	printf("*****************************EXIT*****************************\n\n");
 }
 
+void Test_List_06()
+{
+	printf("******************************06******************************\n");
+
+	Aoki::List<int> list;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		list.push_back(i);
+	}
+
+	Aoki::List<int>::iterator it = list.begin();
+	while (it != list.end())
+	{
+		std::cout << *it++ << ' ';
+	}
+	std::cout << '\n';
+
+	Aoki::List<int>::reverse_iterator rit = list.rbegin();
+	while (rit != list.rend())
+	{
+		std::cout << *rit++ << ' ';
+	}
+	std::cout << '\n';
+
+	printf("*****************************EXIT*****************************\n\n");
+}
+
 int main()
 {
 	Test_List_01();
@@ -440,5 +468,6 @@ int main()
 	Test_List_03();
 	Test_List_04();
 	Test_List_05();
+	Test_List_06();
 	return 0;
 }

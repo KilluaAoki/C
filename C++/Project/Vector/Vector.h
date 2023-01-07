@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cassert>
 
+#include "../Iterator/Iterator.h"
+
 namespace Aoki
 {
 	template<typename T>
@@ -20,6 +22,8 @@ namespace Aoki
 		typedef T* iterator;
 		typedef const T* const_iterator;
 		typedef std::size_t size_type;
+		typedef Aoki::reverse_iterator<iterator, T*, T&> reverse_iterator;
+		typedef Aoki::reverse_iterator<iterator, const T*, const T&> const_reverse_iterator;
 
 	public:
 		//构造函数和析构函数
@@ -74,6 +78,14 @@ namespace Aoki
 		iterator end();
 
 		const_iterator end() const;
+
+		reverse_iterator rbegin();
+
+		const_reverse_iterator rbegin() const;
+
+		reverse_iterator rend();
+
+		const_reverse_iterator rend() const;
 
 		//容量
 		bool empty() const;
@@ -302,6 +314,30 @@ namespace Aoki
 	typename Vector<T>::const_iterator Vector<T>::end() const
 	{
 		return pEnd_;
+	}
+
+	template<typename T>
+	typename Vector<T>::reverse_iterator Vector<T>::rbegin()
+	{
+		return reverse_iterator(pEnd_);
+	}
+
+	template<typename T>
+	typename Vector<T>::const_reverse_iterator Vector<T>::rbegin() const
+	{
+		return const_reverse_iterator(pEnd_);
+	}
+
+	template<typename T>
+	typename Vector<T>::reverse_iterator Vector<T>::rend()
+	{
+		return reverse_iterator(pBegin_);
+	}
+
+	template<typename T>
+	typename Vector<T>::const_reverse_iterator Vector<T>::rend() const
+	{
+		return const_reverse_iterator(pBegin_);
 	}
 
 	//容量

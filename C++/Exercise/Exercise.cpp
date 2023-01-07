@@ -651,3 +651,108 @@
 //};
 //
 //vector<string> Solution::phone = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+////最小栈：https://leetcode.cn/problems/min-stack/。
+//class MinStack
+//{
+//public:
+//	MinStack()
+//	{
+//	}
+//
+//	void push(int val)
+//	{
+//		if (minStack.empty() || val <= minStack.top())
+//		{
+//			minStack.push(val);
+//		}
+//		dataStack.push(val);
+//	}
+//
+//	void pop()
+//	{
+//		if (dataStack.top() == minStack.top())
+//		{
+//			minStack.pop();
+//		}
+//		dataStack.pop();
+//	}
+//
+//	int top()
+//	{
+//		return dataStack.top();
+//	}
+//
+//	int getMin()
+//	{
+//		return minStack.top();
+//	}
+//
+//	stack<int> dataStack;
+//	stack<int> minStack;
+//};
+
+////栈的压入、弹出序列：https://www.nowcoder.com/practice/d77d11405cc7470d82554cb392585106。
+//class Solution {
+//public:
+//    bool IsPopOrder(vector<int> pushV,vector<int> popV) {
+//        stack<int> st;
+//        for (vector<int>::size_type i = 0, j = 0; i < pushV.size(); ++i)
+//        {
+//            st.push(pushV[i]);
+//            while (!st.empty() && st.top() == popV[j])
+//            {
+//                st.pop();
+//                ++j;
+//            }
+//        }
+//        return st.empty();
+//    }
+//};
+
+////逆波兰表达式求值：https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/。
+//class Solution
+//{
+//public:
+//	int evalRPN(vector<string>& tokens)
+//	{
+//		stack<int> stack;
+//		for (string str: tokens)
+//		{
+//			if (str == "+" || str == "-" || str == "*" || str == "/")
+//			{
+//				compute(stack, str[0]);
+//			}
+//			else
+//			{
+//				stack.push(stoi(str));
+//			}
+//		}
+//		return stack.top();
+//	}
+//
+//	void compute(stack<int>& stack, char op)
+//	{
+//		int num2 = stack.top();
+//		stack.pop();
+//		int num1 = stack.top();
+//		stack.pop();
+//		int ans = 0;
+//		switch (op)
+//		{
+//		case '+':
+//			ans = num1 + num2;
+//			break;
+//		case '-':
+//			ans = num1 - num2;
+//			break;
+//		case '*':
+//			ans = num1 * num2;
+//			break;
+//		case '/':
+//			ans = num1 / num2;
+//			break;
+//		}
+//		stack.push(ans);
+//	}
+//};

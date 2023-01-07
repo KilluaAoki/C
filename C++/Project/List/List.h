@@ -512,7 +512,7 @@ namespace Aoki
 	template<typename T>
 	typename List<T>::const_reverse_iterator List<T>::rbegin() const
 	{
-		return reverse_iterator(pHead_);
+		return const_reverse_iterator(pHead_);
 	}
 
 	template<typename T>
@@ -524,7 +524,7 @@ namespace Aoki
 	template<typename T>
 	typename List<T>::const_reverse_iterator List<T>::rend() const
 	{
-		return reverse_iterator(pHead_->pNext_);
+		return const_reverse_iterator(pHead_->pNext_);
 	}
 
 	//容量

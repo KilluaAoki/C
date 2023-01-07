@@ -168,7 +168,7 @@
 //	return 0;
 //}
 
-////逆向迭代器适配器示例二：实现简单的逆向迭代器适配器。
+////逆向迭代器适配器示例二：实现简单的逆向迭代器适配器。(将嵌入"Project"文件夹中的"Vector"和"List"进行测试)
 //namespace Aoki
 //{
 //	template<class Iterator, class pointer, class reference>

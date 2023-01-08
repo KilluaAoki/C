@@ -1,10 +1,11 @@
 # Code Repository
-1.C-Project-TicTacToe:
 
-    a.未加入难度调节。
-    b.未加入算法"Minimax"&"Alpha Beta"。
+1. C - Project - TicTacToe
 
-2.C-Project-Minesweeper:
+    1. 未加入难度调节。
+    2. 未加入算法 "Minimax" & "Alpha Beta"。
 
-    a.未加入难度调节。
-    b.未加入标记炸弹功能。
+2. C - Project - Minesweeper
+
+    1. 未加入难度调节。
+    2. 未加入标记炸弹功能。

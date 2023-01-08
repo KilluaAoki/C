@@ -48,7 +48,7 @@
 					b''.template< class RandomIt, class Compare > void make_heap( RandomIt first, RandomIt last, Compare comp );。(C++20前)
 						a'''.参数"comp"是比较函数对象，是满足具名要求(比较)的对象。
 						b'''.此版本使用给定的比较函数"comp"比较元素。
-				b'.在范围"[first, last)"中构造最大堆(大根堆)，函数第一版本，第二版本用给定的比较函数"comp"。
+				b'.在范围"[first, last)"中构造最大堆(大根堆)。
 				c'.复杂度：至多"3 * std::distance(first, last)"次比较。
 			b."push_heap"：将一个元素加入到一个最大堆。(函数模板)
 				a'.常见函数原型

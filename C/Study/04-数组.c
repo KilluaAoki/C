@@ -14,11 +14,11 @@
 			b.二维数组的初始化
 			c.二维数组的使用
 			d.二维数组在内存中的存储
-		3. 数组越界访问
-		4. 数组作为函数参数传参
+		3.数组越界访问
+		4.数组作为函数参数传参
 			a.冒泡排序
 			b.数组名不同情况下的差异
-		5. 数组的应用示例项目
+		5.数组的应用示例项目
 			a.三子棋：https://github.com/KilluaAoki/Code/tree/Aoki/C/Project/TicTacToe。
 			b.扫雷：https://github.com/KilluaAoki/Code/tree/Aoki/C/Project/Minesweeper。
 */

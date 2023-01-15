@@ -232,3 +232,9 @@
 //
 //	return 0;
 //}
+
+/**
+	数组的应用示例项目
+		1.三子棋：https://github.com/KilluaAoki/Code/tree/Aoki/C/Project/TicTacToe。
+		2.扫雷：https://github.com/KilluaAoki/Code/tree/Aoki/C/Project/Minesweeper。
+*/

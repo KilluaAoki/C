@@ -4,7 +4,7 @@
 
 1. Project - TicTacToe
     1. 未加入难度调节。
-    2. 未加入算法 "Minimax" & "Alpha Beta"。
+    2. 未加入算法 Minimax & Alpha Beta。
 
 2. Project - Minesweeper
     1. 未加入难度调节。
@@ -28,5 +28,5 @@
 
 ## 其他
 
-1. 建立算法文件夹，但其包含数据结构，考虑是否融合 "Data Structure"( ? )。
+1. 建立算法文件夹，但其包含数据结构，考虑合并 "Data Structure" 文件夹( ? )。
 

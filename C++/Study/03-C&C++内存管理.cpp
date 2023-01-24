@@ -219,7 +219,7 @@
 			i.而"calloc"函数设置为两个参数，而不是让用户预先使用"n * sizeof(int)"把它乘起来，是因为"calloc"函数会自动检测两个参数，判断两个参数相乘后是否会溢出，若溢出会正确设置"errno"为"ENOMEM"并返回"NULL"，即分配失败。
 			j.所以，"calloc"函数不仅仅具有"memset"函数的以零填充内存块的功能，而且还具有乘法溢出安全检测的功能，但不要以为只要数值不大就无所谓，对于"Linux"内核而言，"n"是来着用户态的数据，可以是任意值，但如果用户态程序恶意输入值，内核可能会崩溃，甚至可能被窃取数据。
 			k."relloc"函数的功能不再赘述，关于对于C以及C++不同标准下相关动态内存函数的区别，请参考相关文档，但大致相同。
-		3.C语言中的动态内存函数相关文档
+		3.C语言中"malloc"函数、"calloc"函数、"realloc"函数和"free"函数的相关文档
 			a."malloc"函数：https://zh.cppreference.com/w/c/memory/malloc。
 			b."calloc"函数：https://zh.cppreference.com/w/c/memory/calloc。
 			c."realloc"函数：https://zh.cppreference.com/w/c/memory/realloc。

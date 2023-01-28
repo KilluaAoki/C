@@ -105,7 +105,7 @@
 ////"if"语句练习题例二：打印1~100之间的奇数。
 //int main()
 //{
-//	for (int i = 1; i <= 100; i+=2)
+//	for (int i = 1; i <= 100; i += 2)
 //	{
 //		printf("%d ", i);
 //	}
@@ -192,9 +192,9 @@
 //int main()
 //{
 //	int i = 1;
-//	while (i<=10)
+//	while (i <= 10)
 //	{
-//		if (i==5)
+//		if (i == 5)
 //		{
 //			continue;//"continue"语句会跳过本次循环continue后边的代码(直接去判断部分，看是否进行下一次循环)：这时候"i"无法调整就会一直等于"5"，造成死循环。
 //			break;//直接跳出本层的"while"循环语句，但因为"continue"语句会导致这条语句永不执行。
@@ -238,7 +238,7 @@
 //	//假设输入"123456"以及回车。
 //	char password[20] = { 0 };
 //	printf("请输入密码:>");
-//	scanf_s("%s", password,20);//数组本身就是地址，不需要取地址；此时读取了"123456"；"scanf_s"函数要求在输入字符或字符串或集合字符时，添加最大长度作为参数。
+//	scanf_s("%s", password, 20);//数组本身就是地址，不需要取地址；此时读取了"123456"；"scanf_s"函数要求在输入字符或字符串或集合字符时，添加最大长度作为参数。
 //
 //	printf("请确定密码（Y/N）:>");
 //
@@ -259,7 +259,7 @@
 //	{
 //		printf("确认失败\n");//若读取了回车就会直接打印出"确认失败"。
 //	}
-//	
+//
 //	return 0;
 //}
 
@@ -465,7 +465,7 @@
 //	return 0;
 //}
 
-////循环练习题例二：计算"1!+2!+3!+……+10!"。
+////循环练习题例二：计算"1! + 2! + 3! + …… + 10!"。
 //int main()
 //{
 //	int sum = 0, factorial = 1;
@@ -475,7 +475,7 @@
 //		sum += factorial;
 //		printf("%d!\t=\t%d\n", i, factorial);
 //	}
-//	printf("\n1!+2!+3!+……+10! = %d\n", sum);
+//	printf("\n 1! + 2! + 3! + …… + 10! = %d\n", sum);
 //	return 0;
 //}
 
@@ -517,13 +517,14 @@
 //	int Left = 0;
 //	int Right = (int)strlen(arr2) - 1;
 //	printf("\n%s\n", arr2);
-//	while (Left<=Right)
+//	while (Left <= Right)
 //	{
 //		arr2[Left] = arr1[Left];
 //		arr2[Right] = arr1[Right];
 //		Sleep(500);
 //		system("cls");
-//		Left++; Right--;
+//		Left++;
+//		Right--;
 //		printf("\n%s\n", arr2);
 //	}
 //	return 0;

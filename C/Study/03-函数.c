@@ -543,7 +543,7 @@
 			a."LeetCode"链接：https://leetcode.cn/problems/climbing-stairs/。
 			b."NowCoder"链接：https://www.nowcoder.com/practice/ebf04de0e02c486099d78b7c3aaec255。
 			c.使用递归以及迭代的方法进行求解。
-			d.若是使用"LeetCode"在线编辑，使用递归将会超出时间限制，需进行优化。
+			d.若是使用"LeetCode"提交代码，使用递归将会超出时间限制，需进行优化。
 */
 
 ////汉诺塔问题(递归)

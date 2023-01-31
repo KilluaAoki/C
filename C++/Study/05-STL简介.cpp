@@ -28,7 +28,7 @@
 			e.EASTL：由著名游戏公司Electronic Arts的Paul Pedriana开发。
 */
 
-////STL使用示例：使用"sort"对数组进行排序。
+////STL使用示例：使用"sort"算法对数组进行排序。
 //void Print(int a[], int array_size)
 //{
 //	for (int i = 0; i < array_size; ++i)

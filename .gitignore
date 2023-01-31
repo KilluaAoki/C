@@ -1,0 +1,17 @@
+# JetBrains
+**/.idea/
+**/out/
+**/cmake-build-debug/
+**/cmake-build-release/
+**/cmake-build-wsl/
+**/LeetCode
+
+# Visual Studio
+**/x64/
+**/.vs/
+**/Debug/
+**/Release/
+
+# VSCode
+**/.vs/
+**/.vscode/

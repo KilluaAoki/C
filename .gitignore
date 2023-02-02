@@ -6,12 +6,17 @@
 **/cmake-build-wsl/
 **/LeetCode
 
-# Visual Studio
-**/x64/
-**/.vs/
-**/Debug/
-**/Release/
-
-# VSCode
+# Visual Studio & Visual Studio Code
 **/.vs/
 **/.vscode/
+**/Debug/
+**/Release/
+**/x64/
+**/x86/
+
+# Executables
+**/*.exe
+**/*.out
+**/*.a
+**/*.o
+**/*.obj

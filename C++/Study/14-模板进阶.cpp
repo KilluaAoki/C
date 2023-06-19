@@ -1,9 +1,10 @@
 #include <iostream>
+#include <string>
 
 /*
 	模板进阶
 		1.非类型模板参数
-		2.类模板的特化
+		2.模板特化
 		3.模板的分离式编译
 */
 
@@ -57,8 +58,131 @@
 //}
 
 /**
-	类模板的特化
+	模板特化：允许对给定的模板实参集定制模板代码，即为特定类型或值提供的特化实现，而不是使用模板的默认实现。
+		1.显式(全)特化的细节(以下默认为全特化)
+			a.显式特化可以在任何可以定义它的主模板的作用域中声明，并且可以与定义它的主模板的作用域不同。
+			b.显式特化必须在非特化模板声明后出现。
+			c.特化必须在导致隐式实例化的首次使用之前，在每个发生这种使用的翻译单元中声明。
+			d.只有声明没有定义的模板特化可以像其他不完整类型一样使用(例如可以使用到它的指针和引用)。
+			e.函数模板的显式特化是否内联等只与显式特化自身有关，主模板的声明是否带有对应说明符对它没有影响。
+		2.函数模板的显式(全)特化(以下默认为全特化)(拓展)
+			a.当特化函数模板时，如果模板实参推导能通过函数实参提供，那么就可以忽略它的模板实参。
+			b.与某个特化带有相同名字和相同形参列表的函数不是特化，而是函数模板中的模板重载。
+			c.不能在函数模板、成员函数模板以及隐式实例化类时的类模板的成员函数的显式特化中指定默认函数实参。
+			d.显式特化不能是友元声明。
+		3.类模板特化
+			a.类模板的特化可详细区分为全特化和部分特化，而模板部分特化是主要针对类模板而言的(随着学习的深入，在学习到重载决议时，会再详细介绍函数重载与函数特化)。
+				a'.全特化：对于给定的模板实参集，提供了完整的实现。
+				b'.部分特化：对于给定的模板实参集，提供了部分实现或加入了额外的限制。
+			b.语法：template < 形参列表 > 类关键词 类头名 < 实参列表 > 声明。
+				a'.其中"类头名"标识先前声明的类模板。
+				b'.此声明必须与它所特化的主模板定义处于相同的命名空间中。
+			c.类模板特化的实参列表有特定的限制(以下只列举部分限制)：
+				a'.实参列表不能与非特化的实参列表相同，即它必须有所特化。
+				b'.实参列表中不能出现默认实参。
+		4.特化的优点
+			a.可以用于优化特定类型或值的性能。
+			b.可以为不适合默认实现的类型或值提供特殊行为。
 */
+
+////模板特化示例一：函数模板的显式(全)特化。
+//template<typename T>//主模板。
+//void print(T value)
+//{
+//	std::cout << value << std::endl;
+//}
+//
+//template<>//模板特化。
+//void print<std::string>(std::string value)
+//{
+//	std::cout << "\"" << value << "\"" << std::endl;
+//}
+//
+//int main()
+//{
+//	print(42);//输出: 42。
+//	print("hello");//输出: "hello"。
+//	return 0;
+//}
+
+////模板特化示例二：类模板的全特化。
+//template<typename T>//主模板。
+//class MyTemplateClass
+//{
+//public:
+//	void print()
+//	{
+//		std::cout << "This is a generic template class." << std::endl;
+//	}
+//};
+//
+//template<>//模板特化。
+//class MyTemplateClass<int>
+//{
+//public:
+//	void print()
+//	{
+//		std::cout << "This is a specialized template class for int type." << std::endl;
+//	}
+//};
+//
+//int main()
+//{
+//	MyTemplateClass<double> myTemplateClass1;
+//	myTemplateClass1.print();//输出: This is a generic template class。
+//
+//	MyTemplateClass<int> myTemplateClass2;
+//	myTemplateClass2.print();//输出: This is a specialized template class for int type。
+//
+//	return 0;
+//}
+
+////模板特化示例三：类模板的部分特化。
+//template<typename T>
+//class MyClass
+//{
+//public:
+//	MyClass(T val) : value(val)
+//	{
+//	}
+//
+//	void print()
+//	{
+//		std::cout << "Value = " << value << std::endl;
+//	}
+//
+//private:
+//	T value;
+//};
+//
+//template<typename T>
+//class MyClass<T*>//部分特化，注意此处的"T*"表示指向"T"类型的指针，并没有给出具体的类型，因此是部分特化。
+//{
+//public:
+//	MyClass(T* val) : ptr(val)
+//	{
+//	}
+//
+//	void print()
+//	{
+//		std::cout << "Pointer value = " << *ptr << std::endl;
+//	}
+//
+//private:
+//	T* ptr;
+//};
+//
+//int main()
+//{
+//	MyClass<int> obj1(10);
+//	obj1.print();//输出: Value = 10。
+//
+//	int num = 20;
+//	MyClass<int*> obj2(&num);
+//	obj2.print();//输出: Pointer value = 20。
+//
+//	return 0;
+//}
 
 /**
 	模板的分离式编译

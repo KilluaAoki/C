@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <cstdio>
 
 /*
 	多态
@@ -6,8 +8,7 @@
 		2.多态的定义及实现
 		3.抽象类
 		4.多态的原理
-		5.单继承和多继承关系的虚函数
-		6.相关练习题
+		5.单继承和多继承关系的虚函数表
 */
 
 /**
@@ -433,8 +434,445 @@
 
 /**
 	多态的原理
+		1.虚函数表
+			a.虚函数表是用于存放虚函数地址的一张表，又称为虚表，实际上由函数指针数组实现，当类中声明了虚函数时，虚函数的地址就会被放入虚函数表中。
+			b.一个含有虚函数的类中，都至少有一个虚函数表指针，这个指针指向虚函数表，即指向函数指针数组的指针。
+			c.当派生类继承了基类的虚函数，那么派生类中同样会有虚函数表指针。
+			d.派生类的虚表的生成是先将基类的虚表拷贝过来，如果派生类中覆盖了基类的某个虚函数，那么就将派生类中对应的虚函数地址替换掉原有基类中的虚函数地址。
+			e.虚函数表的地址存放在对象的内存空间中，即对象的内存空间中存放了虚函数表指针，虚函数表指针指向虚函数表，虚函数表中存放了虚函数的地址。
+			f.当使用基类的指针或引用调用虚函数时，存在基类和派生类对象赋值转换行为，若基类指针或引用指向派生类对象，那么将通过派生类对象的虚函数表指针找到派生类的虚函数表，从而调用属于派生类的虚函数，完成多态行为。
+		2.动态绑定与静态绑定
+			a.静态绑定：在编译阶段就能确定调用的函数地址，即在编译阶段就能确定调用的函数地址，即在编译阶段就能确定调用的是哪个函数，也就是编译时多态性。
+			b.动态绑定：在运行阶段才能确定调用的函数地址，即在运行阶段才能确定调用的是哪个函数，是在程序运行期间，根据具体拿到的类型确定程序的具体行为，调用具体的函数，也就是运行时多态性。
 */
 
+////多态的原理示例一：观察虚函数表。(结合调试观察对象的内存空间)
+//class Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Base::Func1()" << std::endl;
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "Base::Func2()" << std::endl;
+//	}
+//
+//	void Func3()
+//	{
+//		std::cout << "Base::Func3()" << std::endl;
+//	}
+//
+//private:
+//	int m_Value{};
+//};
+//
+//class Derive : public Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Derive::Func1()" << std::endl;
+//	}
+//
+//private:
+//	int m_Value{};
+//};
+//
+//int main()
+//{
+//	Base base;
+//	Derive derive;
+//
+//	//普通调用
+//	Base* ptr = &base;
+//	ptr->Func3();
+//	ptr = &derive;
+//	ptr->Func3();
+//
+//	//多态调用
+//	ptr = &base;
+//	ptr->Func1();
+//	ptr = &derive;
+//	ptr->Func1();
+//
+//	return 0;
+//}
+
+////多态的原理示例二：虚函数表与内存。(可能在不同操作系统或编译器(链接器)中有所不同)
+//class Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Base::Func1()" << std::endl;
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "Base::Func2()" << std::endl;
+//	}
+//
+//	void Func3()
+//	{
+//		std::cout << "Base::Func3()" << std::endl;
+//	}
+//
+//public:
+//	int m_Value{};
+//};
+//
+//class Derive : public Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Derive::Func1()" << std::endl;
+//	}
+//
+//public:
+//	int m_Value{};
+//};
+//
+//void Test()
+//{
+//	std::cout << "Test()" << std::endl;
+//}
+//
+//int main()
+//{
+//	Base base;
+//	Derive derive;
+//
+//	//以零初始化的局部变量：存储于栈中。
+//	int val = 0;
+//	std::cout << "栈：" << &val << std::endl;
+//
+//	//由"new"关键词申请的空间：存储于堆中。
+//	int* ptr = new int;
+//	std::cout << "堆：" << ptr << std::endl;
+//	delete ptr;
+//
+//	//以零初始化的局部静态变量：存储于未初始化的数据段中。
+//	static int sp1 = 0;
+//	std::cout << "未初始化的数据段：" << &sp1 << std::endl;
+//
+//	//已初始化的局部静态变量：存储于已初始化的数据段中的初始化读写区中。
+//	static int sp2 = 100;
+//	std::cout << "已初始化的数据段(初始化读写区)：" << &sp2 << std::endl;
+//
+//	//字符串字面量：存储于已初始化的数据段中的初始化只读区中。
+//	const char* str1 = "hello";
+//	std::cout << "已初始化的数据段(初始化只读区)：" << (void*)str1 << std::endl;
+//
+//	//函数：存储于代码段中。
+//	std::cout << "代码段：" << (void*)Test << std::endl;
+//
+//	//对象中的数据成员：存储于对象的内存空间中。
+//	std::cout << "对象中的数据成员：" << &(base.m_Value) << std::endl;
+//
+//	//虚表指针：存储于对象的内存空间中。
+//	std::cout << "虚表指针：" << (void*)(&base) << std::endl;
+//
+//	//虚函数表：存储于已初始化的数据段中的初始化只读区中。
+//	std::cout << "虚函数表：" << (void*)(*(void**)(&base)) << std::endl;
+//
+//	//虚函数：存储于代码段中。
+//	std::cout << "虚函数：" << *(void**)(*(void**)(&base)) << std::endl;
+//
+//	return 0;
+//}
+
 /**
-	单继承和多继承关系的虚函数
+	单继承和多继承关系的虚函数表
+		1.单继承关系的虚函数表
+			a.通过虚表指针可以找到虚函数表，并且打印虚函数表中的虚函数地址，而虚表指针通常存储于对象内存中的最开始的位置。
+			b.基类的虚函数表指针和派生类的虚函数表指针不指向同一个虚函数表，它们指向的虚函数表是不同的。
+			c.由同一个类创建的不同对象，它们的虚表指针指向同一个虚函数表。
+			d.单继承关系下的虚函数表，对于派生类而言，若派生类中没有覆盖基类的虚函数，则派生类的虚函数表中的对应的虚函数地址与基类的虚函数表中对应的虚函数地址相同，否则不同。
+			e.派生类自身的虚函数也会被添加到派生类的虚函数表中，当只有一张虚函数表时，它们会被添加到同一张表中。
+		2.多继承关系的虚函数表
+			a.当一个类继承多个基类时，若这些基类都有虚函数，则每个基类都会有自己的虚函数表，则派生类就会有同样数量的虚表指针，每个虚表指针指向不同的虚函数表。
+			b.当派生类对继承自基类的虚函数进行覆盖时，若有不同基类有同一个虚函数，则派生类对此虚函数的覆盖会涉及到所有相关的虚函数表，并且最终都会被覆盖成派生类对应的虚函数。(拓展：涉及虚拟"thunk"和非虚拟"thunk")
+			c.派生类自身的虚函数会被添加到首张虚函数表中。
+			d.多继承的最终派生类若不覆盖原有的虚函数，并且在调用分别继承自多个直接基类的同一个虚函数时，编译器将无法确定调用哪个函数，此时编译器会报错。
+		3.菱形继承及菱形虚拟继承下的虚函数表(拓展)
+			a.菱形继承行为大致与多继承相同，而菱形虚拟继承行为也同样大致相同，但对象模型视平台和编译器可能会有所不同。
+			b.菱形虚拟继承时，可能会出现多个最终覆盖函数，导致编译器会报错，故需要覆盖原有虚函数成为唯一的最终覆盖函数。
 */
+
+////单继承和多继承关系的虚函数表示例一：单继承关系的虚函数表。
+//typedef void(* VFPtr)();
+//
+//class Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Base::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "Base::Func2()";
+//	}
+//
+//private:
+//	int m_Value{};
+//};
+//
+//class Derive : public Base
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Derive::Func1()";
+//	}
+//
+//	virtual void Func3()
+//	{
+//		std::cout << "Derive::Func3()";
+//	}
+//
+//	void Func4()
+//	{
+//		std::cout << "Derive::Func4()";
+//	}
+//
+//private:
+//	int m_Value{};
+//};
+//
+//void Print_VFTable(const std::string& class_name, void* subobject_ptr, size_t size)
+//{
+//	auto vftable = (VFPtr*)(*(void**)subobject_ptr);//通过强制类型转换再解引用，可以得到虚函数表的地址，即虚表指针的值。
+//	std::printf("vtavle for '%s' @ 0x%.p (subobject @ 0x%.p):\n", class_name.c_str(), vftable, subobject_ptr);
+//	for (size_t i = 0; i < size; ++i)
+//	{
+//		std::cout << "[" << i << "]: " << (void*)vftable[i] << " <";
+//		vftable[i]();
+//		std::cout << ">\n";
+//	}
+//	std::cout << std::endl;
+//}
+//
+//int main()
+//{
+//	Base base;
+//	Derive derive1;
+//	Derive derive2;
+//
+//	//打印虚函数表
+//	Print_VFTable("Base", &base, 2);
+//	Print_VFTable("Derive1", &derive1, 3);
+//	Print_VFTable("Derive2", &derive2, 3);
+//
+//	return 0;
+//}
+
+////单继承和多继承关系的虚函数表示例二：多继承关系的虚函数表。
+//typedef void(* VFPtr)();
+//
+//class Base1
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Base1::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "Base1::Func2()";
+//	}
+//
+//private:
+//	int b1;
+//};
+//
+//class Base2
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Base2::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "Base2::Func2()";
+//	}
+//
+//private:
+//	int b2;
+//};
+//
+//class Derive : public Base1, public Base2
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "Derive::Func1()";
+//	}
+//
+//	virtual void Func3()
+//	{
+//		std::cout << "Derive::Func3()";
+//	}
+//
+//private:
+//	int d1;
+//};
+//
+//void Print_VFTable(const std::string& class_name, void* subobject_ptr, size_t size)
+//{
+//	auto vftable = (VFPtr*)(*(void**)subobject_ptr);
+//	std::printf("vtavle for '%s' @ 0x%.p (subobject @ 0x%.p):\n", class_name.c_str(), vftable, subobject_ptr);
+//	for (size_t i = 0; i < size; ++i)
+//	{
+//		std::cout << "[" << i << "]: " << (void*)vftable[i] << " <";
+//		vftable[i]();
+//		std::cout << ">\n";
+//	}
+//	std::cout << std::endl;
+//}
+//
+//int main()
+//{
+//	Base1 base1;
+//	Base2 base2;
+//
+//	Print_VFTable("Base1", &base1, 2);
+//	Print_VFTable("Base2", &base2, 2);
+//
+//	Derive derive;
+//
+//	Print_VFTable("Derive as Base1", &derive, 3);//第一张虚函数表，可以发现"Derive::Func3()"也在其中。
+//
+//	Base2* ptr = &derive;
+//
+//	Print_VFTable("Derive as Base2", ptr, 2);//第二张虚函数表。
+//
+//	return 0;
+//}
+
+////单继承和多继承关系的虚函数表示例三：菱形继承关系的虚函数表。(结合GDB的"info vtbl"命令观察)
+//class A
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "A::Func1()";
+//	}
+//};
+//
+//class B : public A
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "B::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "B::Func2()";
+//	}
+//};
+//
+//class C : public A
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "C::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "C::Func2()";
+//	}
+//};
+//
+//class D : public B, public C
+//{
+//public:
+//	virtual void Func1()
+//	{
+//		std::cout << "D::Func1()";
+//	}
+//
+//	virtual void Func3()
+//	{
+//		std::cout << "D::Func3()";
+//	}
+//};
+//
+//int main()
+//{
+//	A a;
+//	B b;
+//	C c;
+//	D d;
+//	d.Func1();//若将"D"类中的"Func1"函数注释，则会出现二义性错误。
+//	return 0;
+//}
+
+////单继承和多继承关系的虚函数表示例四：菱形虚拟继承关系的虚函数表。(结合GDB的"info vtbl"命令观察)
+//class A
+//{
+//	virtual void Func1()
+//	{
+//		std::cout << "A::Func1()";
+//	}
+//};
+//
+//class B : virtual public A
+//{
+//	virtual void Func1()
+//	{
+//		std::cout << "B::Func1()";
+//	}
+//
+//	virtual void Func2()
+//	{
+//		std::cout << "B::Func2()";
+//	}
+//};
+//
+//class C : virtual public A
+//{
+//	virtual void Func1()
+//	{
+//		std::cout << "C::Func1()";
+//	}
+//
+//	virtual void Func3()
+//	{
+//		std::cout << "C::Func3()";
+//	}
+//};
+//
+//class D : public B, public C
+//{
+//	virtual void Func1()//若将"D"类中的"Func1"函数注释，则会出现多个最终覆盖函数，导致程序非良构。
+//	{
+//		std::cout << "D::Func1()";
+//	}
+//
+//	virtual void Func4()
+//	{
+//		std::cout << "D::Func4()";
+//	}
+//};
+//
+//int main()
+//{
+//	A a;
+//	B b;
+//	C c;
+//	D d;
+//	return 0;
+//}

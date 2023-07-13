@@ -1392,9 +1392,9 @@
 				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/stoul。
 			c.转换字符串为浮点数："stof"函数、"stod"函数、"stold"函数。
 				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/stof。
-			d.转换整数或浮点值为"string"："to_stri"函数。
+			d.转换整数或浮点值为"string"："to_string"函数。
 				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/to_string。
-			e.转换整数或浮点值为"wstring"："to_wstri"函数。
+			e.转换整数或浮点值为"wstring"："to_wstring"函数。
 				a'.文档：https://zh.cppreference.com/w/cpp/string/basic_string/to_wstring。
 */
 

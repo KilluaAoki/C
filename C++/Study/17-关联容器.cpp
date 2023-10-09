@@ -8,46 +8,46 @@
 	关联容器
 		1.关联容器的介绍
 		2.关联容器的使用
-		3.关联容器与容量和修改器相关的成员函数
-		4.关联容器与查找相关的成员函数
-		5.关联容器与观察器相关的成员函数
-		6.关联容器相关的非成员函数
+		3.关联容器的元素访问
+		4.关联容器与容量和修改器相关的成员函数
+		5.关联容器与查找相关的成员函数
+		6.关联容器与观察器相关的成员函数
+		7.关联容器相关的非成员函数
 */
 
 /**
 	关联容器的介绍：实现能快速查找("O(logN)"复杂度)的数据结构。
 		1.四种关联容器
-			a'."set"类模板：键的集合，按照键排序，键是唯一的。
-				a''.定义：template< class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> > class set;。
-					a'''."Key"：键类型对象。
-					b'''."Compare"：比较器，是用于比较键的函数对象。
-					c'''."Allocator"：分配器对象。
-				b''."set"是一个关联容器，其搜索、移除和插入拥有对数级别复杂度，通常以红黑树实现，是含有键类型对象的已排序集。
-				c''.标准库使用比较器的等价关系确定唯一性，即两个对象相互比较不小于对方时等价。
-				d''.其包含于头文件"set"中。
-				e''.文档：https://zh.cppreference.com/w/cpp/container/set。
-			b'."map"类模板：键值对的集合，按照键排序，键是唯一的。
-				a''.定义：template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T>> > class map;。
-					a'''."Key"：键类型对象。
-					b'''."T"：值类型对象。
-				b''."map"是有序的键值对容器，其搜索、移除和插入操作拥有对数复杂度，通常以红黑树实现。
-				c''.标准库使用比较器的等价关系确定唯一性，即两个对象相互比较不小于对方时等价。
-				d''.其包含于头文件"map"中。
-				e''.具有"value_compare"成员类：用于比较类型为"value_type"的对象。
-				f''.文档：https://zh.cppreference.com/w/cpp/container/map。
-			c'."multiset"类模板：键的集合，按照键排序，键不是唯一的。
-				a''.定义：template< class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> > class multiset;。
-				b''."multiset"类似于"set"，其是含有键类型对象有序集的容器，它允许多个键拥有等价的值。
-				c''.比较等价的元素顺序是插入顺序，而且不会更改。(C++11起)
-				d''.其包含于头文件"set"中。
-				e''.文档：https://zh.cppreference.com/w/cpp/container/multiset。
-			d'."multimap"类模板：键值对的集合，按照键排序，键不是唯一的。
-				a''.定义：template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T>> > class multimap;。
-				b''."multimap"类似于"map"，其是含有键值对的已排序列表，同时容许多个元素拥有同一键。
-				c''.拥有等价键的键值对的顺序就是插入顺序，且不会更改。(C++11起)
-				d''.其包含于头文件"map"中。
-				e''.具有"value_compare"成员类：用于比较类型为"value_type"的对象。
-				f''.文档：https://zh.cppreference.com/w/cpp/container/multimap。
+			a."set"类模板：键的集合，按照键排序，键是唯一的。
+				a'.定义：template< class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> > class set;。
+					a''."Key"：键类型对象。
+					b''."Compare"：比较器，是用于比较键的函数对象。
+					c''."Allocator"：分配器对象。
+				b'."set"是一个关联容器，其搜索、移除和插入拥有对数级别复杂度，通常以红黑树实现，是含有键类型对象的已排序集。
+				c'.标准库使用比较器的等价关系确定唯一性，即两个对象相互比较不小于对方时等价。
+				d'.其包含于头文件"set"中。
+				e'.文档：https://zh.cppreference.com/w/cpp/container/set。
+			b."map"类模板：键值对的集合，按照键排序，键是唯一的。
+				a'.定义：template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T>> > class map;。
+					a''."T"：值类型对象。
+				b'."map"是有序的键值对容器，其搜索、移除和插入操作拥有对数复杂度，通常以红黑树实现。
+				c'.标准库使用比较器的等价关系确定唯一性，即两个对象相互比较不小于对方时等价。
+				d'.其包含于头文件"map"中。
+				e'.具有"value_compare"成员类：用于比较类型为"value_type"的对象。
+				f'.文档：https://zh.cppreference.com/w/cpp/container/map。
+			c."multiset"类模板：键的集合，按照键排序，键不是唯一的。
+				a'.定义：template< class Key, class Compare = std::less<Key>, class Allocator = std::allocator<Key> > class multiset;。
+				b'."multiset"类似于"set"，其是含有键类型对象有序集的容器，它允许多个键拥有等价的值。
+				c'.比较等价的元素顺序是插入顺序，而且不会更改。(C++11起)
+				d'.其包含于头文件"set"中。
+				e'.文档：https://zh.cppreference.com/w/cpp/container/multiset。
+			d."multimap"类模板：键值对的集合，按照键排序，键不是唯一的。
+				a'.定义：template< class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T>> > class multimap;。
+				b'."multimap"类似于"map"，其是含有键值对的已排序列表，同时容许多个元素拥有同一键。
+				c'.拥有等价键的键值对的顺序就是插入顺序，且不会更改。(C++11起)
+				d'.其包含于头文件"map"中。
+				e'.具有"value_compare"成员类：用于比较类型为"value_type"的对象。
+				f'.文档：https://zh.cppreference.com/w/cpp/container/multimap。
 		2."set"的常见成员类型(省略分配器相关的类型和C++17新增的相关类型)
 			a."key_type"成员类型：定义为"set"的模板形参"Key"。
 			b."value_type"成员类型：定义为"set"的模板形参"Key"。
@@ -148,21 +148,21 @@
 	"set"类模板的使用
 		1."set"的常见构造函数的函数原型(以下部分函数原型忽略分号以及分配器等细节)
 			a."set()"：默认构造函数，构造空容器。
-				a'.另一默认构造函数形式：explicit set( const Compare& comp,const Allocator& alloc = Allocator() )。
+				a'.另一默认构造函数形式：explicit set( const Compare& comp, const Allocator& alloc = Allocator() )。
 				b'.C++11起支持构造拥有给定分配器"alloc"的空容器：explicit set( const Allocator& alloc )。
 				c'.复杂度为常数级别。
-			b."template< class InputIt > set( InputIt first, InputIt last)"：构造拥有范围"[first, last)"内容的容器。
+			b."template< class InputIt > set( InputIt first, InputIt last )"：构造拥有范围"[first, last)"内容的容器。
 				a'.如果范围中的多个元素的键比较相等，那么未指定插入哪个元素。
 				b'.复杂度通常为"O(N * logN)"，若范围已按照"set"的成员函数"value_comp"排序则与"N"成线性级别，其中"N"为"first"到"last"的距离。
 			c."set( const set& other )"：复制构造函数，以"other"内容的副本构造容器。
-				a'.C++11起支持构造拥有给定分配器"alloc"的空容器：set( const set& other, const Allocator& alloc )。
-				a'.复杂度与"other"的大小成线性级别。
+				a'.C++11起支持构造拥有给定分配器"alloc"的容器：set( const set& other, const Allocator& alloc )。
+				b'.复杂度与"other"的大小成线性级别。
 		2."set"的析构函数的函数原型：~set();。
 			a.销毁"set"，调用元素的析构函数，然后解分配所用的存储(若元素是指针，则不销毁所指向的对象)。
 			b.复杂度与"set"的大小成线性级别。
 		3."set"的常见"operator="成员函数：set& operator=( const set& other );。
 			a.复制赋值运算符，赋值给容器，即以"other"内容的副本替换容器内容。
-			b.复杂度与"other"的大小成线性级别。
+			b.复杂度与"*this"和"other"的大小成线性级别。
 */
 
 ////"set"类模板的使用示例
@@ -175,13 +175,12 @@
 //
 //	//"set"的范围构造函数
 //	std::set<int> s2(v.begin(), v.end());
-//	std::set<int> s3{ 3, 1, 4, 6, 5, 9 };
 //
 //	//"set"的复制构造函数
-//	std::set<int> s4(s2);
+//	std::set<int> s3(s2);
 //
 //	//"set"的赋值运算符
-//	std::set<int> s5;
+//	std::set<int> s4;
 //	s4 = s3;
 //
 //	//输出"set"的元素
@@ -199,36 +198,38 @@
 	"map"类模板的使用
 		1."map"的常见构造函数的函数原型(以下部分函数原型忽略分号以及分配器等细节)
 			a."map()"：默认构造函数，构造空容器。
-				a'.另一默认构造函数形式：explicit map( const Compare& comp,const Allocator& alloc = Allocator() )。
+				a'.另一默认构造函数形式：explicit map( const Compare& comp, const Allocator& alloc = Allocator() )。
 				b'.C++11起支持构造拥有给定分配器"alloc"的空容器：explicit map( const Allocator& alloc )。
 				c'.复杂度为常数级别。
-			b."template< class InputIt > map( InputIt first, InputIt last)"：构造拥有范围"[first, last)"内容的容器。
+			b."template< class InputIt > map( InputIt first, InputIt last )"：构造拥有范围"[first, last)"内容的容器。
 				a'.如果范围中的多个元素的键比较相等，那么未指定插入哪个元素。
 				b'.复杂度通常为"O(N * logN)"，若范围已按照"map"的成员函数"value_comp"排序则与"N"成线性级别，其中"N"为"first"到"last"的距离。
 			c."map( const map& other )"：复制构造函数，以"other"内容的副本构造容器。
-				a'.C++11起支持构造拥有给定分配器"alloc"的空容器：map( const map& other, const Allocator& alloc )。
-				a'.复杂度与"other"的大小成线性级别。
+				a'.C++11起支持构造拥有给定分配器"alloc"的容器：map( const map& other, const Allocator& alloc )。
+				b'.复杂度与"other"的大小成线性级别。
 		2."map"的析构函数的函数原型：~map();。
 			a.销毁"map"，调用元素的析构函数，然后解分配所用的存储(若元素是指针，则不销毁所指向的对象)。
 			b.复杂度与"map"的大小成线性级别。
 		3."map"的常见"operator="成员函数：map& operator=( const map& other );。
 			a.复制赋值运算符，赋值给容器，即以"other"内容的副本替换容器内容。
-			b.复杂度与"other"的大小成线性级别。
+			b.复杂度与"*this"和"other"的大小成线性级别。
 */
 
 ////"map"类模板的使用示例
 //int main()
 //{
+//	std::vector<std::pair<int, std::string>> v{{ 3, "3" },
+//											   { 1, "1" },
+//											   { 4, "4" },
+//											   { 6, "6" },
+//											   { 5, "5" },
+//											   { 9, "9" }};
+//
 //	//"map"的默认构造函数
 //	std::map<int, std::string> m1;
 //
 //	//"map"的范围构造函数
-//	std::map<int, std::string> m2{{ 3, "3" },
-//								  { 1, "1" },
-//								  { 4, "4" },
-//								  { 6, "6" },
-//								  { 5, "5" },
-//								  { 9, "9" }};
+//	std::map<int, std::string> m2{ v.begin(), v.end() };
 //
 //	//"map"的复制构造函数
 //	std::map<int, std::string> m3(m2);
@@ -251,6 +252,7 @@
 /**
 	关联容器的元素访问
 		1."set"类模板的元素访问：仅支持迭代器访问，即"begin"、"end"、"rbegin"、"rend"。(包含C++11起支持的"cbegin"、"cend"、"crbegin"、"crend")
+			a.因为"iterator"和"const_iterator"都是常迭代器(而且实际上可以是同一类型)，故不可能通过任何这些成员函数返回的迭代器修改容器元素。
 		2."map"类模板的元素访问：同样支持迭代器访问，并且另外支持"at"和"operator[]"两种访问方式。
 			a."at"成员函数：访问指定的元素，同时进行越界检查。
 				a''.函数原型
@@ -262,7 +264,7 @@
 				a''.常见函数原型：T& operator[]( const Key& key );。
 					a'''.在键不存在的情况下插入"value_type(key, T())"。(C++11前)
 				b''.返回键与"key"相同的元素所映射的映射值的引用，如果没用这种元素，即这种键不存在的情况下，则进行插入。
-				c''.当没用这种元素时，返回新插入的元素的映射值的引用，否则返回已存在的元素的映射值的引用。
+				c''.当没有这种元素时，返回新插入的元素的映射值的引用，否则返回已存在的元素的映射值的引用。
 				d''.如果任何操作抛出异常，那么插入无效果。
 				e''.复杂度与容器大小成对数级别。
 */
@@ -352,7 +354,7 @@
 					c''.size_type erase( const Key& key );。
 						a'''.移除键等价于"key"的元素(如果存在一个)。
 						b'''.返回被移除的元素个数。
-						c'''.复杂度(给定实例"c")：log(c.size()) + c.count(key)
+						c'''.复杂度(给定实例"c")：log(c.size()) + c.count(key)。
 				b'.指向被擦除元素的引用和迭代器会失效，其他引用和迭代器不受影响。
 				c'.迭代器"pos"必须合法且可解引用，从而"end"成员函数返回的迭代器即使合法，但其不可解引用，故不能用作"pos"所用的值。
 */
